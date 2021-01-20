@@ -12,6 +12,7 @@ class FakeSpider {
   }
 
   display() {
+    
     push();
     imageMode(CENTER);
     translate(this.x,this.y);
