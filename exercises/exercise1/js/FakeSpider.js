@@ -1,4 +1,4 @@
-class Animal {
+class FakeSpider {
   constructor(x, y, image){
     this.x = x;
     this.y = y;

@@ -1,4 +1,4 @@
-class SausageDog extends Animal{
+class RealSpider extends FakeSpider{
 
   constructor(x, y, image) {
     super(x, y, image)

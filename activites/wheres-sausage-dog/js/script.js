@@ -2,7 +2,7 @@
 
 /*****************
 
-ACTIVITY 1: WHERE'S THE SAUSAGE DOG?
+ACTIVITY 1: WHERES THE SAUSAGEDOG
 MADELINE ZAYTSOFF
 
 ******************/

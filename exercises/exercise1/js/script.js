@@ -2,57 +2,56 @@
 
 /*****************
 
-ACTIVITY 1: WHERE'S THE SAUSAGE DOG?
+EXERCISE 1: WHERES THE SAUSAGEDOG NEW GAME PLUS
 MADELINE ZAYTSOFF
 
 ******************/
 
-const NUM_ANIMAL_IMAGES = 10;
-const NUM_ANIMALS = 100;
+const NUM_FAKESPIDER_IMAGES = 9;
+const NUM_FAKESPIDER = 100;
 
-let animalImages = [];
-let animals = [];
+let spiderImages = [];
+let spiders = [];
 
-let sausageDogImage;
-let sausageDog;
+let fakeSpiderImage;
+let realSpider;
 
 function preload() {
-  for (let i = 0; i< NUM_ANIMAL_IMAGES; i++){
-    let animalImage = loadImage(`assets/images/animal${i}.png`);
-    animalImages.push(animalImage);
+  for (let i = 0; i< NUM_FAKESPIDER_IMAGES; i++){
+    let spiderImage = loadImage(`assets/images/spider${i}.png`);
+    spiderImages.push(spiderImage);
   }
 
-  sausageDogImage = loadImage('assets/images/sausage-dog.png');
+  fakeSpiderImage = loadImage('assets/images/badSpider.png');
 }
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
 
-  //CREATE THE ANIMALS//
-  for (let i = 0; i < NUM_ANIMALS; i++) {
+  for (let i = 0; i < NUM_FAKESPIDER; i++) {
     let x = random(0,width);
     let y = random(0,height);
-    let animalImage = random(animalImages);
-    let animal = new Animal(x, y, animalImage);
-    animals.push(animal);
+    let spiderImage = random(spiderImages);
+    let animal = new FakeSpider(x, y, spiderImage);
+    spiders.push(animal);
   }
 
   let x = random(0,width);
   let y = random(0,height);
-  sausageDog = new SausageDog(x, y, sausageDogImage);
+  realSpider = new RealSpider(x, y, fakeSpiderImage);
 }
 
 function draw() {
   background(255,255,0);
 
-  for (let i = 0; i < animals.length; i++) {
-    animals[i].update();
+  for (let i = 0; i < spiders.length; i++) {
+    spiders[i].update();
   }
 
-  sausageDog.update();
+  realSpider.update();
 
 }
 
 function mousePressed() {
-  sausageDog.mousePressed();
+  realSpider.mousePressed();
 }
