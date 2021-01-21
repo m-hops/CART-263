@@ -4,20 +4,21 @@ class RealSpider extends FakeSpider{
     super(x, y, image)
 
     this.found = false;
-    this.rotationSpeed = 0.25;
   }
 
   update() {
     super.update();
 
     if (this.found) {
-      this.angle += this.rotationSpeed;
+      goToMenu('endScreen');
+      this.found = false;
     }
   }
 
   mousePressed() {
     if (this.overlap(mouseX,mouseY)) {
       this.found=true;
+      console.log('hit');
     }
   }
 
