@@ -6,6 +6,11 @@ class Player {
     this.speed = 5;
   }
 
+  update() {
+    this.run();
+    this.draw();
+  }
+
   run() {
 
     //CANVAS BORDER CONSTRAINTS//
