@@ -220,6 +220,7 @@ function mousePressed() {
   responsiveVoice.speak(reverseAnimal);
 }
 
+//REDIRECTS PAGE TO EXTERNAL SOURCE UPON GUESSING 10 CORRECT ANSWERS//
 function prize() {
   if (score == 10){
     window.location.assign('https://www.youtube.com/watch?v=ExukCRD7gN0')
