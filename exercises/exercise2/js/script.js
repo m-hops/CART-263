@@ -8,9 +8,12 @@ MADELINE ZAYTSOFF
 ADDITIONS ADDED TO ORIGINAL ACTIVITY:
 
 1. SCORE STREAK SYSTEM WITH RESET BACK TO 0 UPON FAILURE
+2. ADDED SOUND EFFECTS WHEN GETTING RIGHT OR WRONG ANSWER
+3. UPON WINNING CONDITION, SITE WILL REDIRECT TO EXTERNAL SITE
 
 ******************/
 
+//LIST OF ANIMAL NAMES//
 const animals = [
   "aardvark",
   "alligator",
@@ -148,12 +151,53 @@ const animals = [
   "zebra"
 ];
 
+//GLOBAL VARIABLES FOR STORAGE OF SELECTED ANIMAL AND GIVEN GUESS//
 let currentAnimal = '';
+let currentAnswer = 'CLICK TO START';
 
-let currentAnswer = '';
-
+//VARIABLE FOR SCORE KEEPING//
 var score = 0;
 
+//AUDIO ASSET VARIABLE NAMES//
+let rightSound;
+let wrongSound;
+
+//IMAGE ASSET VARIABLE NAMES//
+let bkg;
+
+//FONT ASSET VARIABLE NAME//
+let impactLabelFont;
+
+//VARIABLE TEXT ATTRIBUTES//
+let colorChangeSpes = {
+  rGood: 111,
+  gGood: 196,
+  bGood: 82,
+  rBad: 230,
+  gBad: 69,
+  bBad: 69
+};
+let ayOutPutSpecs = {
+  size: 32
+};
+let scoreKeepSpecs = {
+  r: 0,
+  g: 0,
+  b: 0,
+  size:72
+};
+
+//PRELOAD EXTERNAL CONTENT//
+function preload() {
+  rightSound = loadSound('assets/sounds/right.mp3');
+  wrongSound = loadSound('assets/sounds/wrong.mp3');
+
+  bkg = loadImage('assets/images/background.png');
+
+  impactLabelFont = loadFont('assets/font/ImpactLabel.ttf');
+}
+
+//COLLECTS ANIMAL FROM LIST AND REVERSES//
 function reverseString(string) {
 
   let characters = string.split('');
@@ -166,22 +210,40 @@ function reverseString(string) {
 }
 
 function mousePressed() {
+
+  //RESETS TEXT UPON GENERATING NEW GUESS//
+  currentAnswer = '';
+
+  //CALLS ANNYANG TO SPEAK OUT WHEN MOUSE CLICKED//
   currentAnimal = random(animals);
   let reverseAnimal = reverseString(currentAnimal);
   responsiveVoice.speak(reverseAnimal);
 }
 
+function prize() {
+  if (score == 10){
+    window.location.assign('https://www.youtube.com/watch?v=ExukCRD7gN0')
+  }
+}
+
+//CHECKS TO SEE IF ANSWER IS CORRECT OR FALSE//
 function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
 
+  //IN EACH STATE, AN EXTERNAL SOUND IS PLAYED, ANNYANG SPEAKS, AND SCORE IS INCREASED OR RESET//
   if (currentAnswer === currentAnimal) {
+    rightSound.play();
     score++;
+    responsiveVoice.speak('Oh, look who the smarty pants is.')
   } else {
+    wrongSound.play();
     score = 0;
+    responsiveVoice.speak('Ha! I knew I was smarter than you.')
   }
 }
 
+//ANNYANG COMMANDS AND TEXT OUTPUT//
 function annyangInputOutput() {
   if (annyang) {
     let commands = {
@@ -190,27 +252,31 @@ function annyangInputOutput() {
     annyang.addCommands(commands);
     annyang.start();
 
-    textSize(32);
+    textSize(ayOutPutSpecs.size);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
+
   }
 }
 
+//CHANGES COLOR OF TEXT DEPENDING ON GOOD OR BAD ANSWER//
 function colorChangeOnGuess() {
   if (currentAnswer === currentAnimal) {
-    fill(0, 255, 0);
+    fill(colorChangeSpes.rGood, colorChangeSpes.gGood, colorChangeSpes.bGood);
   } else {
-    fill(255, 0, 0);
+    fill(colorChangeSpes.rBad, colorChangeSpes.gBad, colorChangeSpes.bBad);
   }
   text(currentAnswer, width / 2, height / 2);
 }
 
+//SCORE KEEPING TEXT//
 function scoreKeeping () {
 
   push();
-  textSize(32);
-  textStyle(BOLD);
-  text(score, width / 4, height / 5);
+  fill(scoreKeepSpecs.r,scoreKeepSpecs.g,scoreKeepSpecs.b);
+  textSize(scoreKeepSpecs.size);
+  textFont(impactLabelFont);
+  text(score, width / 8, height / 1.1);
   pop();
 
 }
@@ -226,7 +292,11 @@ function draw() {
 
   background(0);
 
+  image(bkg,0,0,width,height);
+
   colorChangeOnGuess();
 
   scoreKeeping ();
+
+  prize();
 }
