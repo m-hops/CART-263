@@ -187,6 +187,8 @@ let scoreKeepSpecs = {
   size:72
 };
 
+let displayScore = false;
+
 //PRELOAD EXTERNAL CONTENT//
 function preload() {
   rightSound = loadSound('assets/sounds/right.mp3');
@@ -234,10 +236,12 @@ function guessAnimal(animal) {
 
   //IN EACH STATE, AN EXTERNAL SOUND IS PLAYED, ANNYANG SPEAKS, AND SCORE IS INCREASED OR RESET//
   if (currentAnswer === currentAnimal) {
+    displayScore = true;
     rightSound.play();
     score++;
     responsiveVoice.speak('Oh, look who the smarty pants is.')
   } else {
+    displayScore = true;
     wrongSound.play();
     score = 0;
     responsiveVoice.speak('Ha! I knew I was smarter than you.')
@@ -273,12 +277,16 @@ function colorChangeOnGuess() {
 //SCORE KEEPING TEXT//
 function scoreKeeping () {
 
-  push();
-  fill(scoreKeepSpecs.r,scoreKeepSpecs.g,scoreKeepSpecs.b);
-  textSize(scoreKeepSpecs.size);
-  textFont(impactLabelFont);
-  text(score, width / 8, height / 1.1);
-  pop();
+  if (displayScore){
+    push();
+    fill(scoreKeepSpecs.r,scoreKeepSpecs.g,scoreKeepSpecs.b);
+    textSize(scoreKeepSpecs.size);
+    textFont(impactLabelFont);
+    text(score, width / 8, height / 1.1);
+    pop();
+  } else {
+
+  }
 
 }
 
