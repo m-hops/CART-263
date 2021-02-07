@@ -1,10 +1,11 @@
 class Player {
   constructor() {
     this.x = 100;
-    this.y = 400;
+    this.y = 2000;
     this.radius = 50 / 2;
     this.speed = 5;
 
+    //USED FOR E KEY INSTRUCTION//
     this.overheadInstructionOffestX = 50;
     this.overheadInstructionOffestY = 100;
   }
@@ -36,14 +37,53 @@ class Player {
       newPositionY = this.y - this.speed;
     }
 
+    //ADDITIONAL PARAMETERS ADDED TO MOVEMENT CONTROLS TO PREVENT PLAYER FROM STICKING TO WALLS IF 2 DIRECTION KEYS ARE HELD//
     let collision = false;
 
-    for (let i = 0; i < floorplan.walls.length; i++){
-      let d = distanceFromWallToPoint(floorplan.walls[i],newPositionX,newPositionY);
+    for (let i = 0; i < floorplan.walls.length; i++) {
+      let d = distanceFromWallToPoint(floorplan.walls[i], newPositionX, newPositionY);
       if (d <= this.radius) {
         collision = true;
         break;
       }
+    }
+
+    if (collision) {
+
+      collision = false;
+
+
+
+      for (let i = 0; i < floorplan.walls.length; i++) {
+        let d = distanceFromWallToPoint(floorplan.walls[i], this.x, newPositionY);
+        if (d <= this.radius) {
+          collision = true;
+          break;
+        }
+      }
+
+      if (!collision) {
+        newPositionX = this.x;
+      }
+
+    }
+
+    if (collision) {
+
+      collision = false;
+
+      for (let i = 0; i < floorplan.walls.length; i++) {
+        let d = distanceFromWallToPoint(floorplan.walls[i], newPositionX, this.y);
+        if (d <= this.radius) {
+          collision = true;
+          break;
+        }
+      }
+
+      if (!collision) {
+        newPositionY = this.y;
+      }
+
     }
 
     if (!collision) {

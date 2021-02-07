@@ -10,47 +10,102 @@ KILL THEM ALL, AND DON'T GET CAUGHT
 
 let player;
 
+//ARRAY INFO FOR VICTIMS//
 let victims = [];
-
 let VICTIMCOUNT = 5;
 
+//CLASS VARIABLES//
 let floorplan;
 
+//RAIN EFFECT VARIABLES//
+let rainGenerator;
+let drop = [];
+let rainAmount = 150;
+
+//LIGHTNING GENERATOR VARIABLES//
+let lightning = {
+  alpha: 235,
+  speed: 1
+};
+
+//IMAGE VARIABLES//
 let floorplan1BKG;
+let floorplan1Blackout;
 let killIndicatorOverlay;
 let grassOverlay;
 
+//IMAGE SIZE BEYOND CANVAS AND OFFSET VARIABLES//
 let worldLimit = {
   h: 2200,
   w: 3500
 }
-
 let offsetX;
 let offsetY;
 
+
+
+//EXTERNAL ASSET PRELOADS//
 function preload() {
 
+  //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
   killIndicatorOverlay = loadImage('assets/images/eOverlay.png');
   grassOverlay = loadImage('assets/images/grass.png');
+  floorplan1Blackout = loadImage('assets/images/level1Blackout.png');
 
 }
 
+//PULLS PREDETERMINED AMOUNT OF INSTANCES OF RAIN FROM RAIN GENERATOR FOR SETUP//
+function rainSetup() {
+  for (let i = 0; i < rainAmount; i++) {
+    drop[i] = new RainGenerator();
+  }
+}
+
+//RUNS RAIN SIMULATION//
+function rainRun() {
+  for (let i = 0; i < rainAmount; i++){
+    drop[i].update();
+  }
+}
+
+function lightningGenerator() {
+
+  // if (lightning.alpha <= 235) {
+  //   lightning.alpha = lightning.alpha + lightning.speed;
+  // } else {
+  //   lightning.alpha = 100;
+  // }
+
+  push();
+  fill(0,lightning.alpha);
+  rect(0,0,width,height);
+  pop();
+}
+
+//CHECKS IF PLAYER IS WITHING THE THIS.ATTACKZONE OF VICTIM//
 function meleeRange(x, y, r) {
   if (player.x >= x - r / 2 &&
     player.x <= x + r / 2 &&
     player.y >= y - r / 2 &&
     player.y <= y + r / 2) {
+
+    //DISPLAYS KILL INSTRUCTIONS//
     push();
     image(killIndicatorOverlay, player.x + offsetX - 25, player.y + offsetY - 100, 50, 50);
     pop();
+
+    //INITIATES KILL//
     if (keyIsDown(69)) {
       return true;
     }
   }
+
+  //PREVENTS ALL ENEMIES FROM DISAPPEARING AFTER 1 KILL//
   return false
 }
 
+//KEEPS PLAYER AND ALL CONTENT LOCKED IN THE SAME PLACE DESPITE MOVEMENT//
 function movementControlAndLock() {
   offsetX = -player.x + width / 2;
   offsetY = -player.y + height / 2;
@@ -74,6 +129,7 @@ function movementControlAndLock() {
 
 }
 
+//RANDOM VICTIM SPAWNER//
 function victimSpawn() {
   for (let i = 0; i < VICTIMCOUNT; i++){
     victims[i] = new Victim();
@@ -82,6 +138,7 @@ function victimSpawn() {
   }
 }
 
+//USED IN FLOORPLAN TO PREVENT PLAYER FROM GOING THROUGH WALL//
 function distanceFromWallToPoint(wall, pointX, pointY) {
     let centerX = wall.x + wall.w / 2;
     let centerY = wall.y + wall.h / 2;
@@ -129,23 +186,26 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
   }
 
-function setup() {
-
-  createCanvas(900, 500);
-
-  player = new Player();
-
-  floorplan = new Floorplan();
-
-  victimSpawn();
-
-}
-
-function draw() {
-
-  background(0);
-
+//TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
+function gameStart() {
   movementControlAndLock();
+
+  image(grassOverlay, offsetX, offsetY);
+
+if (floorplan.outside) {
+
+  for (let i = 0; i < VICTIMCOUNT; i++) {
+    victims[i].update(offsetX, offsetY);
+  }
+
+  player.update(offsetX, offsetY);
+
+  floorplan.update(offsetX, offsetY);
+
+  rainRun();
+} else {
+
+  rainRun();
 
   floorplan.update(offsetX, offsetY);
 
@@ -154,6 +214,29 @@ function draw() {
   }
 
   player.update(offsetX, offsetY);
+}
+
+}
+
+function setup() {
+
+  createCanvas(900, 500);
+
+  //CREATION OF NEW FROM CLASS//
+  player = new Player();
+  floorplan = new Floorplan();
+
+  victimSpawn();
+
+  rainSetup();
+
+}
+
+function draw() {
+
+  background(0);
+
+  gameStart();
 
 }
 
