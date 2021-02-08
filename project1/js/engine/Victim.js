@@ -130,19 +130,3 @@ class Victim extends Player {
     }
   }
 }
-
-
-//JUNK CODE: DELETE BEFORE FINAL PROJECT SUBMISSION//
-// if (isPointInTriangle(player.x, player.y, this.x,this.y,this.triangleX, this.triangleY1, this.triangleX, this.triangleY2)) {
-//   this.detect = true;
-//   console.log('Hit');
-// }
-
-// this.detect = false;
-
-// this.triangleXOffset = 250;
-// this.triangleYOffset = 100;
-//
-// this.triangleX = this.x + this.triangleXOffset;
-// this.triangleY1 = this.y + this.triangleYOffset;
-// this.triangleY2 = this.y - this.triangleYOffset;
