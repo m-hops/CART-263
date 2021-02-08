@@ -1,4 +1,4 @@
-class Victim extends Player{
+class Victim extends Player {
 
   constructor() {
     super();
@@ -7,10 +7,13 @@ class Victim extends Player{
     this.y = height / 2;
     this.radius = 25;
     this.attackZone = 150;
-
+    this.visionRange = 300;
     this.speed = 1;
+    this.angle = 0;
+    this.fov = Math.PI / 4;
 
     this.dead = false;
+    this.detection = false;
   }
 
   update(offsetX, offsetY) {
@@ -21,6 +24,49 @@ class Victim extends Player{
 
   run() {
 
+    //ANGLE WIDTH FOR FOV//
+    this.angle += Math.PI / 60 / 8;
+
+    let linePoint0X = this.x;
+    let linePoint0Y = this.y;
+    let linePoint1X = player.x;
+    let linePoint1Y = player.y;
+    let closestWallIndex = -1;
+    let closestWallDistance = 99999999999999;
+
+    //ALLOWS FOR WALLS TO BLOCK ENEMY DETECTION AREA//
+    for (let i = 0; i < floorplan.walls.length; i++) {
+      let hitInfo = lineRectRaycast(linePoint0X, linePoint0Y, linePoint1X, linePoint1Y, floorplan.walls[i]);
+      if (hitInfo.hit) {
+        if (hitInfo.t < closestWallDistance) {
+          closestWallDistance = hitInfo.t;
+          closestWallIndex = i;
+        }
+      }
+    }
+
+    //DETERMINES IF PLAYER HAS BEEN DETECTED//
+    if (closestWallIndex >= 0) {
+      this.detection = false;
+    } else {
+      let distanceToPlayer = dist(this.x, this.y, player.x, player.y);
+
+      if (distanceToPlayer <= this.visionRange) {
+        this.detection = true;
+
+        let vLookAt = p5.Vector.fromAngle(this.angle, 1);
+        let vToPlayer = createVector(player.x - this.x, player.y - this.y);
+        let angleBetween = Math.abs(vToPlayer.angleBetween(vLookAt));
+
+        this.detection = angleBetween <= this.fov;
+
+      } else {
+        this.detection = false;
+      }
+    }
+
+
+
   }
 
   draw(offsetX, offsetY) {
@@ -29,10 +75,53 @@ class Victim extends Player{
     if (this.dead != true) {
 
       push();
+
+      //CHANGES COLOR IF PLAYER HAS BEEN DETECTED; ONLY FOR TESTING PURPOSES//
+      if (this.detection) {
+        fill(255, 0, 0);
+      } else {
+        fill(255);
+      }
       circle(this.x + offsetX, this.y + offsetY, this.radius * 2);
+      if (this.detection) {
+        stroke(255, 0, 0);
+      } else {
+        stroke(255);
+      }
+
+      //LINE OF SIGHT FROM ENEMY TO PLAYERS; ONLY FOR TESTING PURPOSES//
+      line(this.x + offsetX, this.y + offsetY, player.x + offsetX, player.y + offsetY);
+      noFill();
+      circle(this.x + offsetX, this.y + offsetY, this.visionRange * 2);
       pop();
 
-      if (meleeRange(this.x,this.y,this.attackZone)) {
+      let x = this.x + offsetX;
+      let y = this.y + offsetY;
+
+      if (x >= 0 && y >= 0 && x < width && y < height) {
+
+        //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
+        push();
+        translate(this.x + offsetX, this.y + offsetY);
+        angleMode(RADIANS);
+        stroke(0, 0, 255);
+        push();
+        rotate(this.angle);
+        line(0, 0, 30, 0);
+        pop();
+        push();
+        rotate(this.angle + this.fov);
+        line(0, 0, this.visionRange, 0);
+        pop();
+        push();
+        rotate(this.angle - this.fov);
+        line(0, 0, this.visionRange, 0);
+        pop();
+        pop();
+      }
+
+      //CHECKS IF PLAYER IS IN MELEE RANGE AND ALLOWS FOR KILL//
+      if (meleeRange(this.x, this.y, this.attackZone)) {
         this.dead = true;
       }
 
@@ -40,8 +129,8 @@ class Victim extends Player{
 
     }
   }
-
 }
+
 
 //JUNK CODE: DELETE BEFORE FINAL PROJECT SUBMISSION//
 // if (isPointInTriangle(player.x, player.y, this.x,this.y,this.triangleX, this.triangleY1, this.triangleX, this.triangleY2)) {
@@ -49,7 +138,7 @@ class Victim extends Player{
 //   console.log('Hit');
 // }
 
-    // this.detect = false;
+// this.detect = false;
 
 // this.triangleXOffset = 250;
 // this.triangleYOffset = 100;

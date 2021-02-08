@@ -52,8 +52,6 @@ class Player {
 
       collision = false;
 
-
-
       for (let i = 0; i < floorplan.walls.length; i++) {
         let d = distanceFromWallToPoint(floorplan.walls[i], this.x, newPositionY);
         if (d <= this.radius) {

@@ -83,13 +83,13 @@ class Floorplan {
   //OFFSETX & Y KEEP OBJECTS IN PLACE IN RELATION TO PLAYER//
   draw(offsetX, offsetY) {
 
-    // lightningGenerator();
+    lightningGenerator();
 
     //UPSTAIRS FLOORPLAN//
     if (this.upstairs){
 
     //INSIDE BUILDING//
-    } else if (!this.upstairs && !this.outside) {
+    } else if (!this.upstairs) {
 
     rainRun();
 
@@ -99,19 +99,6 @@ class Floorplan {
     for (let i = 0; i < this.walls.length; i++) {
       push();
       fill(255,0,0,125);
-      noStroke();
-      noFill();
-      rect(this.walls[i].x + offsetX, this.walls[i].y + offsetY, this.walls[i].w, this.walls[i].h)
-      pop();
-    }
-
-    //OUTSIDE BUILDING//
-  } else if (!this.upstairs && this.outside) {
-    image(floorplan1Blackout, this.x + offsetX, this.y + offsetY, this.w, this.h);
-
-    //INVISIBLE WALLS//
-    for (let i = 0; i < this.walls.length; i++) {
-      push();
       noStroke();
       noFill();
       rect(this.walls[i].x + offsetX, this.walls[i].y + offsetY, this.walls[i].w, this.walls[i].h)

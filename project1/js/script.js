@@ -64,7 +64,7 @@ function rainSetup() {
 
 //RUNS RAIN SIMULATION//
 function rainRun() {
-  for (let i = 0; i < rainAmount; i++){
+  for (let i = 0; i < rainAmount; i++) {
     drop[i].update();
   }
 }
@@ -78,8 +78,8 @@ function lightningGenerator() {
   // }
 
   push();
-  fill(0,lightning.alpha);
-  rect(0,0,width,height);
+  fill(0, lightning.alpha);
+  rect(0, 0, width, height);
   pop();
 }
 
@@ -131,60 +131,60 @@ function movementControlAndLock() {
 
 //RANDOM VICTIM SPAWNER//
 function victimSpawn() {
-  for (let i = 0; i < VICTIMCOUNT; i++){
+  for (let i = 0; i < VICTIMCOUNT; i++) {
     victims[i] = new Victim();
-    victims[i].x = random(0,worldLimit.w);
-    victims[i].y = random(0,worldLimit.h);
+    victims[i].x = random(0, worldLimit.w);
+    victims[i].y = random(0, worldLimit.h);
   }
 }
 
 //USED IN FLOORPLAN TO PREVENT PLAYER FROM GOING THROUGH WALL//
 function distanceFromWallToPoint(wall, pointX, pointY) {
-    let centerX = wall.x + wall.w / 2;
-    let centerY = wall.y + wall.h / 2;
-    let extendX = wall.w / 2;
-    let extendY = wall.h / 2;
+  let centerX = wall.x + wall.w / 2;
+  let centerY = wall.y + wall.h / 2;
+  let extendX = wall.w / 2;
+  let extendY = wall.h / 2;
 
-    if (pointX <= centerX - extendX) {
-      //POINT IS WEST//
+  if (pointX <= centerX - extendX) {
+    //POINT IS WEST//
 
-      if (pointY < wall.y) {
-        //POINT IS NORTHWEST//
-        return dist(wall.x, wall.y, pointX, pointY);
+    if (pointY < wall.y) {
+      //POINT IS NORTHWEST//
+      return dist(wall.x, wall.y, pointX, pointY);
 
-      } else if (pointY > centerY + extendY) {
-        //POINT IS SOUTHWEST//
-        return dist(wall.x, wall.y + wall.h, pointX, pointY);
+    } else if (pointY > centerY + extendY) {
+      //POINT IS SOUTHWEST//
+      return dist(wall.x, wall.y + wall.h, pointX, pointY);
 
-      } else {
-        //POINT IS TRUE WEST//
-        return centerX - (pointX + extendX);
-      }
-    } else if (pointX >= centerX + extendX) {
-      //POINT IS EAST//
-      if (pointY < wall.y) {
-        //POINT IT NORTHEAST//
-        return dist(wall.x + wall.w, wall.y, pointX, pointY);
-
-      } else if (pointY > centerY + extendY) {
-        //POINT IS SOUTHEAST//
-        return dist(wall.x + wall.w, wall.y + wall.h, pointX, pointY);
-      } else {
-        //POINT IS TRUE EAST//
-        return pointX - centerX - extendX;
-      }
     } else {
-      if (pointY > centerY) {
-        //POINT IT TRUE NORTH//
-        return pointY - (centerY + extendY);
-
-      } else if (pointY < centerY) {
-        //POINT IS TRUE SOUTH//
-        return centerY - extendY - pointY;
-      }
+      //POINT IS TRUE WEST//
+      return centerX - (pointX + extendX);
     }
+  } else if (pointX >= centerX + extendX) {
+    //POINT IS EAST//
+    if (pointY < wall.y) {
+      //POINT IT NORTHEAST//
+      return dist(wall.x + wall.w, wall.y, pointX, pointY);
 
+    } else if (pointY > centerY + extendY) {
+      //POINT IS SOUTHEAST//
+      return dist(wall.x + wall.w, wall.y + wall.h, pointX, pointY);
+    } else {
+      //POINT IS TRUE EAST//
+      return pointX - centerX - extendX;
+    }
+  } else {
+    if (pointY > centerY) {
+      //POINT IT TRUE NORTH//
+      return pointY - (centerY + extendY);
+
+    } else if (pointY < centerY) {
+      //POINT IS TRUE SOUTH//
+      return centerY - extendY - pointY;
+    }
   }
+
+}
 
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
 function gameStart() {
@@ -192,29 +192,32 @@ function gameStart() {
 
   image(grassOverlay, offsetX, offsetY);
 
-if (floorplan.outside) {
+  //MAIN PURPOSE OF THIS IS TO CONTROL SHADOW OVERLAY OVER HOUSE//
+  if (floorplan.outside) {
 
-  for (let i = 0; i < VICTIMCOUNT; i++) {
-    victims[i].update(offsetX, offsetY);
+    floorplan.update(offsetX, offsetY);
+
+    for (let i = 0; i < VICTIMCOUNT; i++) {
+      victims[i].update(offsetX, offsetY);
+    }
+
+    player.update(offsetX, offsetY);
+
+    image(floorplan1Blackout, floorplan.x + offsetX, floorplan.y + offsetY, floorplan.w, floorplan.h);
+
+    rainRun();
+  } else {
+
+    rainRun();
+
+    floorplan.update(offsetX, offsetY);
+
+    for (let i = 0; i < VICTIMCOUNT; i++) {
+      victims[i].update(offsetX, offsetY);
+    }
+
+    player.update(offsetX, offsetY);
   }
-
-  player.update(offsetX, offsetY);
-
-  floorplan.update(offsetX, offsetY);
-
-  rainRun();
-} else {
-
-  rainRun();
-
-  floorplan.update(offsetX, offsetY);
-
-  for (let i = 0; i < VICTIMCOUNT; i++) {
-    victims[i].update(offsetX, offsetY);
-  }
-
-  player.update(offsetX, offsetY);
-}
 
 }
 
