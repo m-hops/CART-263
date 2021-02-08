@@ -42,7 +42,13 @@ let worldLimit = {
 let offsetX;
 let offsetY;
 
-
+//ANIMATION VARIABLE NAMES//
+let playerSprite;
+let playerSpriteRest;
+let playerSpriteUp;
+let playerSpriteDown;
+let playerSpriteLeft;
+let playerSpriteRight;
 
 //EXTERNAL ASSET PRELOADS//
 function preload() {
@@ -52,6 +58,16 @@ function preload() {
   killIndicatorOverlay = loadImage('assets/images/eOverlay.png');
   grassOverlay = loadImage('assets/images/grass.png');
   floorplan1Blackout = loadImage('assets/images/level1Blackout.png');
+
+  //ANIMATION PRELOADS//
+  playerSpriteRest = loadAnimation('assets/images/sprites/player/images/playerRestDown.png');
+  playerSpriteUp = loadAnimation('assets/images/sprites/player/images/up/playerUp0.png','assets/images/sprites/player/images/up/playerUp7.png');
+  playerSpriteDown = loadAnimation('assets/images/sprites/player/images/down/playerDown0.png','assets/images/sprites/player/images/down/playerDown7.png');
+  playerSpriteLeft = loadAnimation('assets/images/sprites/player/images/left/playerLeft0.png','assets/images/sprites/player/images/left/playerLeft7.png');
+  playerSpriteRight = loadAnimation('assets/images/sprites/player/images/right/playerRight0.png','assets/images/sprites/player/images/right/playerRight7.png');
+}
+
+function spriteSetup() {
 
 }
 
@@ -240,5 +256,4 @@ function draw() {
   background(0);
 
   gameStart();
-
 }

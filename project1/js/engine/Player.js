@@ -23,18 +23,22 @@ class Player {
     //STANDARD WASD MOVEMENT CONTROLS//
     if (keyIsDown(65)) {
       newPositionX = this.x - this.speed;
+      animation(playerSpriteLeft,this.x + offsetX, this.y + offsetY);
     }
 
     if (keyIsDown(68)) {
       newPositionX = this.x + this.speed;
+      animation(playerSpriteRight,this.x + offsetX, this.y + offsetY);
     }
 
     if (keyIsDown(83)) {
       newPositionY = this.y + this.speed;
+      animation(playerSpriteDown,this.x + offsetX, this.y + offsetY);
     }
 
     if (keyIsDown(87)) {
       newPositionY = this.y - this.speed;
+      animation(playerSpriteUp,this.x + offsetX, this.y + offsetY);
     }
 
     //ADDITIONAL PARAMETERS ADDED TO MOVEMENT CONTROLS TO PREVENT PLAYER FROM STICKING TO WALLS IF 2 DIRECTION KEYS ARE HELD//
@@ -96,6 +100,8 @@ class Player {
 
   draw(offsetX, offsetY) {
     push();
+    noStroke();
+    noFill();
     circle(this.x + offsetX, this.y + offsetY, this.radius * 2);
     pop();
   }
