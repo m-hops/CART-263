@@ -29,6 +29,10 @@ let tarotData = undefined;
 let objectData = undefined;
 let instrumentData = undefined;
 
+let today = new Date();
+let time = today.toLocaleTimeString();
+let theDate = today.toLocaleDateString();
+
 //GLOBAL VARIABLE FOR IMAGES//
 let scanLineBKG = undefined;
 
@@ -118,7 +122,7 @@ PASSWORD: ${spyProfile.password}`;
 }
 
 function welcomeMessage() {
-  responsiveVoice.speak('Good morning, Agent' + spyProfile.name);
+  responsiveVoice.speak('Good morning, Agent' + spyProfile.name +'. Right now, the time is ' + time + ' and the date is ' + theDate + '. Good luck not dying');
 }
 
 function setup() {
