@@ -31,6 +31,8 @@ let tarotData = undefined;
 let objectData = undefined;
 let instrumentData = undefined;
 
+
+//GLOBAL VARIABLE FOR CURRENT DATE INFO//
 let today = new Date();
 let time = today.toLocaleTimeString();
 let theDate = today.toLocaleDateString();
@@ -123,6 +125,7 @@ PASSWORD: ${spyProfile.password}`;
   pop();
 }
 
+//GIVES PERSONALIZED GREETING UPON SUCCESSFUL LOGIN//
 function welcomeMessage() {
   responsiveVoice.speak('Good morning, Agent' + spyProfile.name +'. Right now, the time is ' + time + ' and the date is ' + theDate + '. Good luck not dying');
 }
