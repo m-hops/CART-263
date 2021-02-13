@@ -34,9 +34,11 @@ class Victim extends Player {
     let closestWallIndex = -1;
     let closestWallDistance = 99999999999999;
 
+    let curWalls = floorplan.getCurrentWalls();
+
     //ALLOWS FOR WALLS TO BLOCK ENEMY DETECTION AREA//
-    for (let i = 0; i < floorplan.walls.length; i++) {
-      let hitInfo = lineRectRaycast(linePoint0X, linePoint0Y, linePoint1X, linePoint1Y, floorplan.walls[i]);
+    for (let i = 0; i < curWalls.length; i++) {
+      let hitInfo = lineRectRaycast(linePoint0X, linePoint0Y, linePoint1X, linePoint1Y, curWalls[i]);
       if (hitInfo.hit) {
         if (hitInfo.t < closestWallDistance) {
           closestWallDistance = hitInfo.t;
@@ -64,8 +66,6 @@ class Victim extends Player {
         this.detection = false;
       }
     }
-
-
 
   }
 
@@ -126,7 +126,7 @@ class Victim extends Player {
       }
 
     } else {
-
+      return;
     }
   }
 }

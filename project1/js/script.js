@@ -12,7 +12,8 @@ let player;
 
 //ARRAY INFO FOR VICTIMS//
 let victims = [];
-let VICTIMCOUNT = 5;
+let VICTIMCOUNTDOWNSTAIRS = 3;
+let VICTIMCOUNTUPSTAIRS = 4;
 
 //CLASS VARIABLES//
 let floorplan;
@@ -30,6 +31,7 @@ let lightning = {
 
 //IMAGE VARIABLES//
 let floorplan1BKG;
+let floorplan2BKG;
 let floorplan1Blackout;
 let killIndicatorOverlay;
 let grassOverlay;
@@ -55,20 +57,17 @@ function preload() {
 
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
+  floorplan2BKG = loadImage('assets/images/level2.png');
   killIndicatorOverlay = loadImage('assets/images/eOverlay.png');
   grassOverlay = loadImage('assets/images/grass.png');
   floorplan1Blackout = loadImage('assets/images/level1Blackout.png');
 
   //ANIMATION PRELOADS//
   playerSpriteRest = loadAnimation('assets/images/sprites/player/images/playerRestDown.png');
-  playerSpriteUp = loadAnimation('assets/images/sprites/player/images/up/playerUp0.png','assets/images/sprites/player/images/up/playerUp7.png');
-  playerSpriteDown = loadAnimation('assets/images/sprites/player/images/down/playerDown0.png','assets/images/sprites/player/images/down/playerDown7.png');
-  playerSpriteLeft = loadAnimation('assets/images/sprites/player/images/left/playerLeft0.png','assets/images/sprites/player/images/left/playerLeft7.png');
-  playerSpriteRight = loadAnimation('assets/images/sprites/player/images/right/playerRight0.png','assets/images/sprites/player/images/right/playerRight7.png');
-}
-
-function spriteSetup() {
-
+  playerSpriteUp = loadAnimation('assets/images/sprites/player/images/up/playerUp0.png', 'assets/images/sprites/player/images/up/playerUp7.png');
+  playerSpriteDown = loadAnimation('assets/images/sprites/player/images/down/playerDown0.png', 'assets/images/sprites/player/images/down/playerDown7.png');
+  playerSpriteLeft = loadAnimation('assets/images/sprites/player/images/left/playerLeft0.png', 'assets/images/sprites/player/images/left/playerLeft7.png');
+  playerSpriteRight = loadAnimation('assets/images/sprites/player/images/right/playerRight0.png', 'assets/images/sprites/player/images/right/playerRight7.png');
 }
 
 //PULLS PREDETERMINED AMOUNT OF INSTANCES OF RAIN FROM RAIN GENERATOR FOR SETUP//
@@ -97,6 +96,74 @@ function lightningGenerator() {
   fill(0, lightning.alpha);
   rect(0, 0, width, height);
   pop();
+}
+
+//HANDLES MOVEMENT BETWEEN UPPER AND LOWER FLOORS//
+function stairs() {
+
+  let stairX = 1755 + offsetX;
+  let stairY = 870 + offsetY;
+  let stairD = 170;
+
+  let stairXU = 1800 + offsetX;
+  let stairYU = 600 + offsetY;
+  let stairDU = 150;
+
+  //HIT ZONES FOR MOVEMENT//
+  if (!floorplan.upstairs) {
+    push();
+    noFill();
+    noStroke();
+    circle(stairX, stairY, stairD);
+    pop();
+  } else {
+    push();
+    noFill();
+    noStroke();
+    circle(stairXU, stairYU, stairDU);
+    pop();
+  }
+
+  //DETERMINES IF PLAYER IS WITHIN ZONE AND MOVES THEM TO APPROPRIATE SPOT ON MAP UPSTAIRS//
+  if (player.x + offsetX >= stairX - stairD / 2 &&
+    player.x + offsetX <= stairX + stairD / 2 &&
+    player.y + offsetY >= stairY - stairD / 2 &&
+    player.y + offsetY <= stairY + stairD / 2 &&
+    floorplan.upstairs === false) {
+
+    //DISPLAYS MOVEMENT INSTRUCTIONS//
+    push();
+    image(killIndicatorOverlay, player.x + offsetX - 25, player.y + offsetY - 100, 50, 50);
+    pop();
+
+    //INITIATES MOVEMENT THROUGH FLOORS//
+    if (keyIsDown(69)) {
+      floorplan.upstairs = true;
+      player.x = 1795;
+      player.y = 700;
+    }
+  }
+
+  //DETERMINES IF PLAYER IS WITHIN ZONE AND MOVES THEM TO APPROPRIATE SPOT ON MAP dOWNSTAIRS//
+  if (player.x + offsetX >= stairXU - stairDU / 2 &&
+    player.x + offsetX <= stairXU + stairDU / 2 &&
+    player.y + offsetY >= stairYU - stairDU / 2 &&
+    player.y + offsetY <= stairYU + stairDU / 2 &&
+    floorplan.upstairs === true) {
+
+    //DISPLAYS MOVEMENT INSTRUCTIONS//
+    push();
+    image(killIndicatorOverlay, player.x + offsetX - 25, player.y + offsetY - 100, 50, 50);
+    pop();
+
+    //INITIATES MOVEMENT THROUGH FLOORS//
+    if (keyIsDown(69)) {
+      floorplan.upstairs = false;
+      player.x = 1750;
+      player.y = 975;
+    }
+  }
+
 }
 
 //CHECKS IF PLAYER IS WITHING THE THIS.ATTACKZONE OF VICTIM//
@@ -145,12 +212,20 @@ function movementControlAndLock() {
 
 }
 
-//RANDOM VICTIM SPAWNER//
+//SPAWNER FOR PREDETERMINED SPAWN LOCATIONS//
 function victimSpawn() {
-  for (let i = 0; i < VICTIMCOUNT; i++) {
+  //RANDOM VICTIM SPAWNER UPSTAIRS//
+  for (let i = 0; i < VICTIMCOUNTDOWNSTAIRS; i++) {
     victims[i] = new Victim();
-    victims[i].x = random(0, worldLimit.w);
-    victims[i].y = random(0, worldLimit.h);
+    victims[i].x = random(floorplan.spawnPointsDownstairs[i].x, floorplan.spawnPointsDownstairs[i].x + floorplan.spawnPointsDownstairs[i].w);
+    victims[i].y = random(floorplan.spawnPointsDownstairs[i].y, floorplan.spawnPointsDownstairs[i].y + floorplan.spawnPointsDownstairs[i].h);
+  }
+
+  //RANDOM VICTIM SPAWNER DOWNSTAIRS//
+  for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
+    victims[j] = new Victim();
+    victims[j].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
+    victims[j].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
   }
 }
 
@@ -206,31 +281,44 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 function gameStart() {
   movementControlAndLock();
 
-  image(grassOverlay, offsetX, offsetY);
-
   //MAIN PURPOSE OF THIS IS TO CONTROL SHADOW OVERLAY OVER HOUSE//
   if (floorplan.outside) {
 
-    floorplan.update(offsetX, offsetY);
+    image(grassOverlay, offsetX, offsetY);
 
-    for (let i = 0; i < VICTIMCOUNT; i++) {
-      victims[i].update(offsetX, offsetY);
-    }
+    floorplan.update(offsetX, offsetY);
 
     player.update(offsetX, offsetY);
 
     image(floorplan1Blackout, floorplan.x + offsetX, floorplan.y + offsetY, floorplan.w, floorplan.h);
 
     rainRun();
+
+  } else if (floorplan.upstairs) {
+
+    rainRun();
+
+    floorplan.update(offsetX, offsetY);
+
+    for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
+      victims[j].update(offsetX, offsetY);
+    }
+
+    stairs();
+
+    player.update(offsetX, offsetY);
+
   } else {
 
     rainRun();
 
     floorplan.update(offsetX, offsetY);
 
-    for (let i = 0; i < VICTIMCOUNT; i++) {
+    for (let i = 0; i < VICTIMCOUNTDOWNSTAIRS; i++) {
       victims[i].update(offsetX, offsetY);
     }
+
+    stairs();
 
     player.update(offsetX, offsetY);
   }

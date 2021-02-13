@@ -8,6 +8,7 @@ class Player {
     //USED FOR E KEY INSTRUCTION//
     this.overheadInstructionOffestX = 50;
     this.overheadInstructionOffestY = 100;
+    this.currentAnimationIndex = 0;
   }
 
   update(offsetX, offsetY) {
@@ -20,32 +21,35 @@ class Player {
     let newPositionX = this.x;
     let newPositionY = this.y;
 
+    this.currentAnimationIndex = 0;
+
     //STANDARD WASD MOVEMENT CONTROLS//
     if (keyIsDown(65)) {
       newPositionX = this.x - this.speed;
-      animation(playerSpriteLeft,this.x + offsetX, this.y + offsetY);
+      this.currentAnimationIndex = 3;
     }
 
     if (keyIsDown(68)) {
       newPositionX = this.x + this.speed;
-      animation(playerSpriteRight,this.x + offsetX, this.y + offsetY);
+      this.currentAnimationIndex = 1;
     }
 
     if (keyIsDown(83)) {
       newPositionY = this.y + this.speed;
-      animation(playerSpriteDown,this.x + offsetX, this.y + offsetY);
+      this.currentAnimationIndex = 2;
     }
 
     if (keyIsDown(87)) {
       newPositionY = this.y - this.speed;
-      animation(playerSpriteUp,this.x + offsetX, this.y + offsetY);
+      this.currentAnimationIndex = 4;
     }
 
     //ADDITIONAL PARAMETERS ADDED TO MOVEMENT CONTROLS TO PREVENT PLAYER FROM STICKING TO WALLS IF 2 DIRECTION KEYS ARE HELD//
     let collision = false;
+    let curWalls = floorplan.getCurrentWalls();
 
-    for (let i = 0; i < floorplan.walls.length; i++) {
-      let d = distanceFromWallToPoint(floorplan.walls[i], newPositionX, newPositionY);
+    for (let i = 0; i < curWalls.length; i++) {
+      let d = distanceFromWallToPoint(curWalls[i], newPositionX, newPositionY);
       if (d <= this.radius) {
         collision = true;
         break;
@@ -56,8 +60,8 @@ class Player {
 
       collision = false;
 
-      for (let i = 0; i < floorplan.walls.length; i++) {
-        let d = distanceFromWallToPoint(floorplan.walls[i], this.x, newPositionY);
+      for (let i = 0; i < curWalls.length; i++) {
+        let d = distanceFromWallToPoint(curWalls[i], this.x, newPositionY);
         if (d <= this.radius) {
           collision = true;
           break;
@@ -74,8 +78,8 @@ class Player {
 
       collision = false;
 
-      for (let i = 0; i < floorplan.walls.length; i++) {
-        let d = distanceFromWallToPoint(floorplan.walls[i], newPositionX, this.y);
+      for (let i = 0; i < curWalls.length; i++) {
+        let d = distanceFromWallToPoint(curWalls[i], newPositionX, this.y);
         if (d <= this.radius) {
           collision = true;
           break;
@@ -99,6 +103,19 @@ class Player {
   }
 
   draw(offsetX, offsetY) {
+
+    if (this.currentAnimationIndex == 0) {
+      animation(playerSpriteRest, this.x + offsetX, this.y + offsetY);
+    } else if (this.currentAnimationIndex == 1) {
+      animation(playerSpriteRight,this.x + offsetX, this.y + offsetY);
+    } else if (this.currentAnimationIndex == 2) {
+      animation(playerSpriteDown,this.x + offsetX, this.y + offsetY);
+    } else if (this.currentAnimationIndex == 3) {
+      animation(playerSpriteLeft,this.x + offsetX, this.y + offsetY);
+    } else if (this.currentAnimationIndex == 4) {
+      animation(playerSpriteUp,this.x + offsetX, this.y + offsetY);
+    }
+
     push();
     noStroke();
     noFill();
