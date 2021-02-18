@@ -40,19 +40,24 @@ function preload() {
 
 function poggersSpin() {
 
+  //GENERATES POGGER FACE WHEN NEEDED//
   for (let i = 0; i < poggersArray.length;){
 
+  //MOVEMENT CONTROLS ONCE ACTIVATED//
   poggersArray[i].rotation += poggersArray[i].speed;
   poggersArray[i].y += poggersArray[i].vy;
 
+  //IMAGE DETAILS FOR POGGERS//
   push();
   angleMode(DEGREES);
-    translate(poggersArray[i].x, poggersArray[i].y)
+  imageMode(CENTER);
+  translate(poggersArray[i].x, poggersArray[i].y)
   rotate(poggersArray[i].rotation);
   image(poggersImg, 0, 0, poggersArray[i].size, poggersArray[i].size);
   pop();
 
-  if (poggersArray[i].y >= height) {
+  //REMOVES POGGER ONCE IT HIT'S THE BOTTOM OF THE SCREEN//
+  if (poggersArray[i].y >= height + 200) {
     poggersArray.splice(i, 1);
   } else {
     i++;
@@ -63,6 +68,7 @@ function poggersSpin() {
 
 function pinDraw() {
 
+  //LOAD IN ML5 LIBRARY AND CONNECT IT TO APPROPRIATE HAND POSITIONS//
   if (predictions.length > 0) {
     let hand = predictions[0];
     let index = hand.annotations.indexFinger;
@@ -93,6 +99,7 @@ function pinDraw() {
       //CHECK FOR BUBBLE POP//
       let d = dist(tipX, tipY, bubbleArray[i].x, bubbleArray[i].y);
 
+      //RESETS BUBBLE ONCE POPPED, PLAYS SOUND, AND CREATES A NEW POGGERS FACE//
       if (d <= bubbleArray[i].size / 2) {
         bubblePop.play();
         poggersArray.push({
