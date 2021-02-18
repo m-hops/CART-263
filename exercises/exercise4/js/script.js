@@ -6,9 +6,9 @@ EXERCISE 4: BUBBLE POPPER PLUS
 
 ELEMENTS ADDED TO ORIGINAL EXERCISE:
 
-1. BUBBLE COUNTER
-2. BUBBLE ARRAY
-3. BUBBLE POP SOUND
+1. UPON POPPING BUBBLE, PRIZE WILL FALL OUT
+2. POPPED SOUND MADE UPON TOUCHING BUBBLES
+3. ARRAY CREATED TO RANDOMIZE BUBBLE SIZE
 
 ******************/
 
@@ -17,13 +17,54 @@ let video = undefined;
 
 //GLOBAL BUBBLE VARIABLE//
 let bubble = undefined;
+let bubblePop = undefined;
+let poppedSound = false;
 let BUBBLENUMBER = 5;
 
 //GLOBAL VAIRABLE FOR HANDPOSE//
 let handpose = undefined;
-
-//GLOBAL VARIABLE FOR SET OF PREDICTIONS//
 let predictions = [];
+
+//GLOBAL POGGERS VARIABLE//
+let poggersImg = undefined;
+let poggers = {
+  x:0,
+  y:0,
+  vx:0,
+  vy:0,
+  rotation:0,
+  speed:60,
+  size: 100
+}
+
+function preload() {
+
+  //IMAGE PRELOAD//
+  poggersImg = loadImage ('assets/images/poggers.png');
+
+  //SOUND PRELOAD//
+  bubblePop = loadSound ('assets/sounds/pop.mp3');
+}
+
+function bubblePopSound() {
+
+  if (popped) {
+    bubblePop.play();
+  }
+}
+
+function poggersSpin(x,y) {
+
+  poggers.rotation += poggers.speed;
+  poggers.y += poggers.vy;
+
+  push();
+  angleMode(DEGREES);
+  rotate(poggers.rotation);
+  image(poggersImg,x,y, poggers.size, poggers.size);
+  pop();
+
+}
 
 function pinDraw() {
 
@@ -56,8 +97,10 @@ function pinDraw() {
     let d = dist(tipX, tipY, bubble.x, bubble.y);
 
     if (d <= bubble.size / 2) {
+      poppedSound = true;
       bubble.x = random(width);
       bubble.y = height;
+      poppedSound = false;
     }
 
   }
