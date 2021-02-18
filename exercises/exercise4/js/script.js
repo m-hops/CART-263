@@ -18,8 +18,8 @@ let video = undefined;
 //GLOBAL BUBBLE VARIABLE//
 let bubble = undefined;
 let bubblePop = undefined;
-let poppedSound = false;
-let BUBBLENUMBER = 5;
+let bubbleArray = [];
+let HOWMANYBUBBLE = 3;
 
 //GLOBAL VAIRABLE FOR HANDPOSE//
 let handpose = undefined;
@@ -27,42 +27,37 @@ let predictions = [];
 
 //GLOBAL POGGERS VARIABLE//
 let poggersImg = undefined;
-let poggers = {
-  x:0,
-  y:0,
-  vx:0,
-  vy:0,
-  rotation:0,
-  speed:60,
-  size: 100
-}
+let poggersArray = [];
 
 function preload() {
 
   //IMAGE PRELOAD//
-  poggersImg = loadImage ('assets/images/poggers.png');
+  poggersImg = loadImage('assets/images/poggers.png');
 
   //SOUND PRELOAD//
-  bubblePop = loadSound ('assets/sounds/pop.mp3');
+  bubblePop = loadSound('assets/sounds/pop.mp3');
 }
 
-function bubblePopSound() {
+function poggersSpin() {
 
-  if (popped) {
-    bubblePop.play();
-  }
-}
+  for (let i = 0; i < poggersArray.length;){
 
-function poggersSpin(x,y) {
-
-  poggers.rotation += poggers.speed;
-  poggers.y += poggers.vy;
+  poggersArray[i].rotation += poggersArray[i].speed;
+  poggersArray[i].y += poggersArray[i].vy;
 
   push();
   angleMode(DEGREES);
-  rotate(poggers.rotation);
-  image(poggersImg,x,y, poggers.size, poggers.size);
+    translate(poggersArray[i].x, poggersArray[i].y)
+  rotate(poggersArray[i].rotation);
+  image(poggersImg, 0, 0, poggersArray[i].size, poggersArray[i].size);
   pop();
+
+  if (poggersArray[i].y >= height) {
+    poggersArray.splice(i, 1);
+  } else {
+    i++;
+  }
+}
 
 }
 
@@ -71,12 +66,12 @@ function pinDraw() {
   if (predictions.length > 0) {
     let hand = predictions[0];
     let index = hand.annotations.indexFinger;
-    let tip = index [3];
-    let base = index [0];
-    let tipX = tip [0];
-    let tipY = tip [1];
+    let tip = index[3];
+    let base = index[0];
+    let tipX = tip[0];
+    let tipY = tip[1];
     let baseX = base[0];
-    let baseY = base [1];
+    let baseY = base[1];
 
     //DISPLAYS PIN BODY//
     push();
@@ -89,46 +84,59 @@ function pinDraw() {
     //DISPLAYS PIN HEAD//
     push();
     noStroke();
-    fill(255,0,0);
+    fill(255, 0, 0);
     ellipse(baseX, baseY, 20);
     pop();
 
-    //CHECK FOR BUBBLE POP//
-    let d = dist(tipX, tipY, bubble.x, bubble.y);
+    for (let i = 0; i < HOWMANYBUBBLE; i++) {
 
-    if (d <= bubble.size / 2) {
-      poppedSound = true;
-      bubble.x = random(width);
-      bubble.y = height;
-      poppedSound = false;
+      //CHECK FOR BUBBLE POP//
+      let d = dist(tipX, tipY, bubbleArray[i].x, bubbleArray[i].y);
+
+      if (d <= bubbleArray[i].size / 2) {
+        bubblePop.play();
+        poggersArray.push({
+          x: bubbleArray[i].x,
+          y: bubbleArray[i].y,
+          vx: 0,
+          vy: 5,
+          rotation: 0,
+          speed: 5,
+          size: 100});
+        bubbleArray[i].x = random(width);
+        bubbleArray[i].y = height;
+      }
     }
-
   }
 }
 
 function bubbleDraw() {
 
-  //MOVES THE BUBBLE//
-  bubble.x += bubble.vx;
-  bubble.y += bubble.vy;
+  for (let i = 0; i < HOWMANYBUBBLE; i++) {
 
-  if (bubble.y <= 0) {
-    bubble.x = random(width);
-    bubble.y = height;
+    //MOVES THE BUBBLE//
+    bubbleArray[i].x += bubbleArray[i].vx;
+    bubbleArray[i].y += bubbleArray[i].vy;
+
+    if (bubbleArray[i].y <= 0) {
+      bubbleArray[i].x = random(width);
+      bubbleArray[i].y = height;
+    }
+
+    push();
+    fill(0, 100, 200);
+    noStroke();
+    ellipse(bubbleArray[i].x, bubbleArray[i].y, bubbleArray[i].size);
+    pop();
+
   }
-
-  push();
-  fill(0,100,200);
-  noStroke();
-  ellipse(bubble.x, bubble.y, bubble.size);
-  pop();
 
 }
 
 function camSetup() {
 
   //CAPTURES USERS WEBCAM//
-  video = createCapture (VIDEO);
+  video = createCapture(VIDEO);
   video.hide();
 
 }
@@ -136,10 +144,14 @@ function camSetup() {
 function handposeSetup() {
 
   //LOAD HANDPOSE MODEL//
-  handpose = ml5.handpose(video, { flipHorizontal: true }, function(){ console. log('Model Loaded')});
+  handpose = ml5.handpose(video, {
+    flipHorizontal: true
+  }, function() {
+    console.log('Model Loaded')
+  });
 
   //LISTENS FOR PREDICTIONS//
-  handpose.on('predict', function(results){
+  handpose.on('predict', function(results) {
     console.log(results);
     predictions = results;
   })
@@ -147,20 +159,21 @@ function handposeSetup() {
 
 function bubbleSetup() {
 
-  //SPAWNS BUBBLES//
-  bubble = {
-    x: random(width),
-    y: height,
-    size: 100,
-    vx: 0,
-    vy: -2
+  for (let i = 0; i < HOWMANYBUBBLE; i++) {
+    bubbleArray.push({
+      x: random(width),
+      y: height,
+      size: random(50, 100),
+      vx: 0,
+      vy: -2
+    });
   }
 
 }
 
 function setup() {
 
-  createCanvas(640,480);
+  createCanvas(640, 480);
 
   camSetup();
 
@@ -177,5 +190,7 @@ function draw() {
   pinDraw();
 
   bubbleDraw();
+
+  poggersSpin();
 
 }
