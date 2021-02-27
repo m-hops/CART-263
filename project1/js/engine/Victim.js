@@ -126,7 +126,6 @@ class Victim extends Player {
       }
 
     } else {
-      return;
     }
   }
 }
