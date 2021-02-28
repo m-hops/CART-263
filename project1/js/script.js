@@ -8,15 +8,18 @@ KILL THEM ALL, AND DON'T GET CAUGHT
 
 ******************/
 
-let player;
+//GLOBAL VARIABLE FOR MENU NAVGIATION//
+let menu = 'intro';
+let menuOnEnter;
 
 //ARRAY INFO FOR VICTIMS//
 let victims = [];
-let VICTIMCOUNTDOWNSTAIRS = 2;
-let VICTIMCOUNTUPSTAIRS = 1;
+let VICTIMCOUNTDOWNSTAIRS = 5;
+let VICTIMCOUNTUPSTAIRS = 5;
 
 //CLASS VARIABLES//
 let floorplan;
+let player;
 
 //RAIN EFFECT VARIABLES//
 let rainGenerator;
@@ -25,10 +28,15 @@ let rainAmount = 150;
 let rainSFX;
 let isOutside = true;
 
+//ASSORTED SFX//
+let killSFX;
+let walkInsideSFX;
+
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
-  alpha: 235,
-  speed: 1
+  alpha: 255,
+  speed: 5,
+  color: 255
 };
 
 //IMAGE VARIABLES//
@@ -38,6 +46,22 @@ let floorplan1Blackout;
 let killIndicatorOverlay;
 let grassOverlay;
 let blackOutOverlay;
+let introScreenOverlay;
+let introScreenBackground;
+
+//INTRO SCREEN DIMENSIONS//
+let introScreenOverlaySpec = {
+  x:0,
+  y:0,
+  w:900,
+  h:506
+};
+let introScreenBackgroundSpec = {
+  x:0,
+  y:0,
+  w:900,
+  h:506
+};
 
 //IMAGE SIZE BEYOND CANVAS AND OFFSET VARIABLES//
 let worldLimit = {
@@ -55,36 +79,18 @@ let playerSpriteDown;
 let playerSpriteLeft;
 let playerSpriteRight;
 
-let enemySprite0Up;
-let enemySprite0Down;
-let enemySprite0Left;
-let enemySprite0Right;
-
-let enemySprite1Up;
-let enemySprite1Down;
-let enemySprite1Left;
-let enemySprite1Right;
-
-let enemySprite2Up;
-let enemySprite2Down;
-let enemySprite2Left;
-let enemySprite2Right;
-
-let enemySprite3Up;
-let enemySprite3Down;
-let enemySprite3Left;
-let enemySprite3Right;
-
-let enemySprite4Up;
-let enemySprite4Down;
-let enemySprite4Left;
-let enemySprite4Right;
+let enemySpriteUp = [];
+let enemySpriteDown = [];
+let enemySpriteLeft = [];
+let enemySpriteRight = [];
 
 //EXTERNAL ASSET PRELOADS//
 function preload() {
 
   //AUDIO PRELOADS//
   rainSFX = loadSound('assets/sounds/rainSFX.mp3');
+  killSFX = loadSound('assets/sounds/hit.mp3');
+  walkInsideSFX = loadSound('assets/sounds/walkInside.mp3');
 
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
@@ -93,6 +99,8 @@ function preload() {
   grassOverlay = loadImage('assets/images/grass.png');
   floorplan1Blackout = loadImage('assets/images/level1Blackout.png');
   blackOutOverlay = loadImage('assets/images/lightOut.png');
+  introScreenOverlay = loadImage('assets/images/introScreenForeground.png');
+  introScreenBackground = loadImage('assets/images/introScreenBackground.png');
 
   //ANIMATION PRELOADS//
   playerSpriteRest = loadAnimation('assets/images/player/images/playerRestDown.png');
@@ -101,30 +109,30 @@ function preload() {
   playerSpriteLeft = loadAnimation('assets/images/player/images/left/playerLeft0.png', 'assets/images/player/images/left/playerLeft7.png');
   playerSpriteRight = loadAnimation('assets/images/player/images/right/playerRight0.png', 'assets/images/player/images/right/playerRight7.png');
 
-  enemySprite0Up = loadAnimation('assets/images/enemyA/walkCycle/images/Up/enemyAUp0.png', 'assets/images/enemyA/walkCycle/images/Up/enemyAUp8.png');
-  enemySprite0Down = loadAnimation('assets/images/enemyA/walkCycle/images/Down/enemyADown0.png', 'assets/images/enemyA/walkCycle/images/Down/enemyADown8.png');
-  enemySprite0Left = loadAnimation('assets/images/enemyA/walkCycle/images/Left/enemyALeft0.png', 'assets/images/enemyA/walkCycle/images/Left/enemyALeft8.png');
-  enemySprite0Right = loadAnimation('assets/images/enemyA/walkCycle/images/Right/enemyARight0.png', 'assets/images/enemyA/walkCycle/images/Right/enemyARight8.png');
+  enemySpriteUp[0] = loadAnimation('assets/images/enemyA/walkCycle/images/Up/enemyAUp0.png', 'assets/images/enemyA/walkCycle/images/Up/enemyAUp8.png');
+  enemySpriteDown[0] = loadAnimation('assets/images/enemyA/walkCycle/images/Down/enemyADown0.png', 'assets/images/enemyA/walkCycle/images/Down/enemyADown8.png');
+  enemySpriteLeft[0] = loadAnimation('assets/images/enemyA/walkCycle/images/Left/enemyALeft0.png', 'assets/images/enemyA/walkCycle/images/Left/enemyALeft8.png');
+  enemySpriteRight[0] = loadAnimation('assets/images/enemyA/walkCycle/images/Right/enemyARight0.png', 'assets/images/enemyA/walkCycle/images/Right/enemyARight8.png');
 
-  enemySprite1Up = loadAnimation('assets/images/enemyB/walkCycle/images/Up/enemyBUp0.png', 'assets/images/enemyB/walkCycle/images/Up/enemyBUp8.png');
-  enemySprite1Down = loadAnimation('assets/images/enemyB/walkCycle/images/Down/enemyBDown0.png', 'assets/images/enemyB/walkCycle/images/Down/enemyBDown8.png');
-  enemySprite1Left = loadAnimation('assets/images/enemyB/walkCycle/images/Left/enemyBLeft0.png', 'assets/images/enemyB/walkCycle/images/Left/enemyBLeft8.png');
-  enemySprite1Right = loadAnimation('assets/images/enemyB/walkCycle/images/Right/enemyBRight0.png', 'assets/images/enemyB/walkCycle/images/Right/enemyBRight8.png');
+  enemySpriteUp[1] = loadAnimation('assets/images/enemyB/walkCycle/images/Up/enemyBUp0.png', 'assets/images/enemyB/walkCycle/images/Up/enemyBUp8.png');
+  enemySpriteDown[1] = loadAnimation('assets/images/enemyB/walkCycle/images/Down/enemyBDown0.png', 'assets/images/enemyB/walkCycle/images/Down/enemyBDown8.png');
+  enemySpriteLeft[1] = loadAnimation('assets/images/enemyB/walkCycle/images/Left/enemyBLeft0.png', 'assets/images/enemyB/walkCycle/images/Left/enemyBLeft8.png');
+  enemySpriteRight[1] = loadAnimation('assets/images/enemyB/walkCycle/images/Right/enemyBRight0.png', 'assets/images/enemyB/walkCycle/images/Right/enemyBRight8.png');
 
-  enemySprite2Up = loadAnimation('assets/images/enemyC/walkCycle/images/Up/enemyCUp0.png', 'assets/images/enemyC/walkCycle/images/Up/enemyCUp8.png');
-  enemySprite2Down = loadAnimation('assets/images/enemyC/walkCycle/images/Down/enemyCDown0.png', 'assets/images/enemyC/walkCycle/images/Down/enemyCDown8.png');
-  enemySprite2Left = loadAnimation('assets/images/enemyC/walkCycle/images/Left/enemyCLeft0.png', 'assets/images/enemyC/walkCycle/images/Left/enemyCLeft8.png');
-  enemySprite2Right = loadAnimation('assets/images/enemyC/walkCycle/images/Right/enemyCRight0.png', 'assets/images/enemyC/walkCycle/images/Right/enemyCRight8.png');
+  enemySpriteUp[2] = loadAnimation('assets/images/enemyC/walkCycle/images/Up/enemyCUp0.png', 'assets/images/enemyC/walkCycle/images/Up/enemyCUp8.png');
+  enemySpriteDown[2] = loadAnimation('assets/images/enemyC/walkCycle/images/Down/enemyCDown0.png', 'assets/images/enemyC/walkCycle/images/Down/enemyCDown8.png');
+  enemySpriteLeft[2] = loadAnimation('assets/images/enemyC/walkCycle/images/Left/enemyCLeft0.png', 'assets/images/enemyC/walkCycle/images/Left/enemyCLeft8.png');
+  enemySpriteRight[2] = loadAnimation('assets/images/enemyC/walkCycle/images/Right/enemyCRight0.png', 'assets/images/enemyC/walkCycle/images/Right/enemyCRight8.png');
 
-  enemySprite3Up = loadAnimation('assets/images/enemyD/walkCycle/images/Up/enemyDUp0.png', 'assets/images/enemyD/walkCycle/images/Up/enemyDUp8.png');
-  enemySprite3Down = loadAnimation('assets/images/enemyD/walkCycle/images/Down/enemyDDown0.png', 'assets/images/enemyD/walkCycle/images/Down/enemyDDown8.png');
-  enemySprite3Left = loadAnimation('assets/images/enemyD/walkCycle/images/Left/enemyDLeft0.png', 'assets/images/enemyD/walkCycle/images/Left/enemyDLeft8.png');
-  enemySprite3Right = loadAnimation('assets/images/enemyD/walkCycle/images/Right/enemyDRight0.png', 'assets/images/enemyD/walkCycle/images/Right/enemyDRight8.png');
+  enemySpriteUp[3] = loadAnimation('assets/images/enemyD/walkCycle/images/Up/enemyDUp0.png', 'assets/images/enemyD/walkCycle/images/Up/enemyDUp8.png');
+  enemySpriteDown[3] = loadAnimation('assets/images/enemyD/walkCycle/images/Down/enemyDDown0.png', 'assets/images/enemyD/walkCycle/images/Down/enemyDDown8.png');
+  enemySpriteLeft[3] = loadAnimation('assets/images/enemyD/walkCycle/images/Left/enemyDLeft0.png', 'assets/images/enemyD/walkCycle/images/Left/enemyDLeft8.png');
+  enemySpriteRight[3] = loadAnimation('assets/images/enemyD/walkCycle/images/Right/enemyDRight0.png', 'assets/images/enemyD/walkCycle/images/Right/enemyDRight8.png');
 
-  enemySprite4Up = loadAnimation('assets/images/enemyE/walkCycle/images/Up/enemyEUp0.png', 'assets/images/enemyE/walkCycle/images/Up/enemyEUp8.png');
-  enemySprite4Down = loadAnimation('assets/images/enemyE/walkCycle/images/Down/enemyEDown0.png', 'assets/images/enemyE/walkCycle/images/Down/enemyEDown8.png');
-  enemySprite4Left = loadAnimation('assets/images/enemyE/walkCycle/images/Left/enemyELeft0.png', 'assets/images/enemyE/walkCycle/images/Left/enemyELeft8.png');
-  enemySprite4Right = loadAnimation('assets/images/enemyE/walkCycle/images/Right/enemyERight0.png', 'assets/images/enemyE/walkCycle/images/Right/enemyERight8.png');
+  enemySpriteUp[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Up/enemyEUp0.png', 'assets/images/enemyE/walkCycle/images/Up/enemyEUp8.png');
+  enemySpriteDown[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Down/enemyEDown0.png', 'assets/images/enemyE/walkCycle/images/Down/enemyEDown8.png');
+  enemySpriteLeft[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Left/enemyELeft0.png', 'assets/images/enemyE/walkCycle/images/Left/enemyELeft8.png');
+  enemySpriteRight[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Right/enemyERight0.png', 'assets/images/enemyE/walkCycle/images/Right/enemyERight8.png');
 
 }
 
@@ -134,6 +142,25 @@ function goToMenu(menuID) {
   menuOnEnter = true;
 }
 
+function menuNav() {
+
+  if (menu == 'intro') {
+    startScreen();
+  }
+
+  if (menu == 'play') {
+      playScreen();
+  }
+}
+
+function mouseClicked() {
+
+  if (menu == 'intro'){
+    goToMenu('play');
+  }
+}
+
+//AUDIO QUEUE STATE MACHINES//
 function audioQStateMachine() {
 
     if (floorplan.outside) {
@@ -150,6 +177,7 @@ function audioQStateMachine() {
 
 }
 
+//AUDIO QUEUE PARAMETERS//
 function audioQ() {
 
     if (isOutside) {
@@ -175,16 +203,21 @@ function rainRun() {
   }
 }
 
+//RANDOM LIGHTNING GENERATOR CREATES WHITE FLASH OUTSIDE//
 function lightningGenerator() {
 
-  // if (lightning.alpha <= 235) {
-  //   lightning.alpha = lightning.alpha + lightning.speed;
-  // } else {
-  //   lightning.alpha = 100;
-  // }
+  let odds = random(0,1);
+
+  lightning.alpha = lightning.alpha - lightning.speed;
+
+  if (odds > 0.999){
+
+   lightning.alpha = 255;
+
+  }
 
   push();
-  fill(0, lightning.alpha);
+  fill(lightning.color, lightning.alpha);
   rect(0, 0, width, height);
   pop();
 }
@@ -271,6 +304,9 @@ function meleeRange(x, y, r) {
 
     //INITIATES KILL//
     if (keyIsDown(69)) {
+
+            killSFX.play();
+
       return true;
     }
   }
@@ -311,14 +347,16 @@ function victimSpawn() {
     victims[i].path = floorplan.spawnPointsDownstairs[i].path;
     victims[i].x = random(floorplan.spawnPointsDownstairs[i].x, floorplan.spawnPointsDownstairs[i].x + floorplan.spawnPointsDownstairs[i].w);
     victims[i].y = random(floorplan.spawnPointsDownstairs[i].y, floorplan.spawnPointsDownstairs[i].y + floorplan.spawnPointsDownstairs[i].h);
+    victims[i].enemyTypeIndex = Math.floor(random(0, enemySpriteRight.length));
   }
 
   //RANDOM VICTIM SPAWNER DOWNSTAIRS//
   for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
-    victims[j] = new Victim();
-    victims[j].path = floorplan.spawnPointsUpstairs[j].path;
-    victims[j].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
-    victims[j].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
+    victims[j+VICTIMCOUNTDOWNSTAIRS] = new Victim();
+    victims[j+VICTIMCOUNTDOWNSTAIRS].path = floorplan.spawnPointsUpstairs[j].path;
+    victims[j+VICTIMCOUNTDOWNSTAIRS].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
+    victims[j+VICTIMCOUNTDOWNSTAIRS].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
+    victims[j+VICTIMCOUNTUPSTAIRS].enemyTypeIndex = Math.floor(random(0, enemySpriteRight.length));
   }
 }
 
@@ -370,13 +408,21 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 }
 
+function startScreen() {
+
+  image(introScreenBackground, introScreenBackgroundSpec.x, introScreenBackgroundSpec.y, introScreenBackgroundSpec.w, introScreenBackgroundSpec.h);
+
+  rainRun();
+
+  image(introScreenOverlay, introScreenOverlaySpec.x, introScreenOverlaySpec.y, introScreenOverlaySpec.w, introScreenOverlaySpec.h);
+}
+
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
-function gameStart() {
+function playScreen() {
 
   audioQStateMachine();
 
   movementControlAndLock();
-
   //MAIN PURPOSE OF THIS IS TO CONTROL SHADOW OVERLAY OVER HOUSE//
   if (floorplan.outside) {
 
@@ -386,18 +432,27 @@ function gameStart() {
 
     player.update(offsetX, offsetY);
 
+    push();
+    fill(0,210);
+    rect(0,0,width,height);
+    pop();
+
     image(floorplan1Blackout, floorplan.x + offsetX, floorplan.y + offsetY, floorplan.w, floorplan.h);
 
     rainRun();
+
+    lightningGenerator();
 
   } else if (floorplan.upstairs) {
 
     rainRun();
 
+    lightningGenerator();
+
     floorplan.update(offsetX, offsetY);
 
     for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
-      victims[j].update(offsetX, offsetY);
+      victims[j+VICTIMCOUNTDOWNSTAIRS].update(offsetX, offsetY);
     }
 
     stairs();
@@ -407,6 +462,8 @@ function gameStart() {
   } else {
 
     rainRun();
+
+    lightningGenerator();
 
     floorplan.update(offsetX, offsetY);
 
@@ -443,5 +500,5 @@ function draw() {
 
   background(0);
 
-  gameStart();
+  menuNav();
 }

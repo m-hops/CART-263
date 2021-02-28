@@ -4,13 +4,14 @@ class Victim extends Player {
     super();
 
     this.path = [];
+    this.enemyTypeIndex = 0;
 
     this.x = width / 2;
     this.y = height / 2;
     this.radius = 25;
     this.attackZone = 150;
     this.visionRange = 100;
-    this.speed = 10;
+    this.speed = 200;
     this.angle = 0;
     this.fov = Math.PI / 4;
 
@@ -28,7 +29,6 @@ class Victim extends Player {
   }
 
   update(offsetX, offsetY) {
-    super.update();
     this.pathing();
     this.run();
     this.draw(offsetX, offsetY);
@@ -74,6 +74,24 @@ class Victim extends Player {
       this.pathingState = 1;
 
       //THIS IS WHERE ANIMATION STATE IS SWITCHED TO THE NEW DIRECTION//
+      let tX = this.path[this.pathingTargetIndex].x;
+      let tY = this.path[this.pathingTargetIndex].y;
+      let segmentVector = {
+        x:tX - this.x,
+        y:tY - this.y
+      };
+      let segmentVectorLength = Math.sqrt(segmentVector.x * segmentVector.x + segmentVector.y * segmentVector.y);
+      segmentVector.x = segmentVector.x / segmentVectorLength;
+      segmentVector.y = segmentVector.y / segmentVectorLength;
+      if(segmentVector.x > Math.abs(segmentVector.y)){
+        this.currentDirection = 0;
+      } else if(segmentVector.y > Math.abs(segmentVector.x)){
+        this.currentDirection = 1;
+      } else if(-segmentVector.x > Math.abs(segmentVector.y)){
+        this.currentDirection = 2;
+      } else if(-segmentVector.y > Math.abs(segmentVector.x)){
+        this.currentDirection = 3;
+      }
 
     } else if (this.pathingState == 1){
 
@@ -161,7 +179,6 @@ class Victim extends Player {
   }
 
   draw(offsetX, offsetY) {
-
     //DEATH STATE FOR ENEMIES//
     if (this.dead != true) {
 
@@ -169,15 +186,18 @@ class Victim extends Player {
       let y = this.y + offsetY;
 
       push();
-
       if (this.currentDirection == 0) {
-        animation(enemySprite0Up, x, y);
+        enemySpriteRight[this.enemyTypeIndex].frameDelay=20;
+        animation(enemySpriteRight[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 1) {
-        animation(enemySprite0Up, x, y);
+        enemySpriteDown[this.enemyTypeIndex].frameDelay=20;
+        animation(enemySpriteDown[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 2) {
-        animation(enemySprite0Up, x, y);
+        enemySpriteLeft[this.enemyTypeIndex].frameDelay=20;
+        animation(enemySpriteLeft[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 3) {
-        animation(enemySprite0Up, x, y);
+        enemySpriteUp[this.enemyTypeIndex].frameDelay=20;
+        animation(enemySpriteUp[this.enemyTypeIndex], x, y);
       }
 
       // //CHANGES COLOR IF PLAYER HAS BEEN DETECTED; ONLY FOR TESTING PURPOSES//
@@ -199,27 +219,27 @@ class Victim extends Player {
       // circle(this.x + offsetX, this.y + offsetY, this.visionRange * 2);
       // pop();
 
-      if (x >= 0 && y >= 0 && x < width && y < height) {
-
-        //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
-        push();
-        translate(this.x + offsetX, this.y + offsetY);
-        angleMode(RADIANS);
-        stroke(0, 0, 255);
-        push();
-        rotate(this.angle);
-        line(0, 0, 30, 0);
-        pop();
-        push();
-        rotate(this.angle + this.fov);
-        line(0, 0, this.visionRange, 0);
-        pop();
-        push();
-        rotate(this.angle - this.fov);
-        line(0, 0, this.visionRange, 0);
-        pop();
-        pop();
-      }
+      // if (x >= 0 && y >= 0 && x < width && y < height) {
+      //
+      //   // //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
+      //   // push();
+      //   // translate(this.x + offsetX, this.y + offsetY);
+      //   // angleMode(RADIANS);
+      //   // stroke(0, 0, 255);
+      //   // push();
+      //   // rotate(this.angle);
+      //   // line(0, 0, 30, 0);
+      //   // pop();
+      //   // push();
+      //   // rotate(this.angle + this.fov);
+      //   // line(0, 0, this.visionRange, 0);
+      //   // pop();
+      //   // push();
+      //   // rotate(this.angle - this.fov);
+      //   // line(0, 0, this.visionRange, 0);
+      //   // pop();
+      //   // pop();
+      // }
 
       //CHECKS IF PLAYER IS IN MELEE RANGE AND ALLOWS FOR KILL//
       if (meleeRange(this.x, this.y, this.attackZone)) {

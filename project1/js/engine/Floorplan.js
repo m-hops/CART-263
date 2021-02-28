@@ -6,7 +6,6 @@ class Floorplan {
     this.w = 2112;
     this.h = 1188;
 
-    this.speed = 5;
     this.upstairs = false;
     this.outside = true;
 
@@ -40,78 +39,78 @@ class Floorplan {
   //LOCATIONS FOR ENEMY SPAWN//
   victimSpawnPoint() {
 
-    //LOCATION OF SPAWN POINTS DOWNSTAIRS//
+    // LOCATION OF SPAWN POINTS DOWNSTAIRS//
     this.spawnPointsDownstairs.push({
       x: 955,
       y: 1275,
-      w: 1,
-      h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      w: 10,
+      h: 10,
+      path: [{x:955, y:1275},{x:1185, y:1275},{x:1185, y:1350}]
     });
     this.spawnPointsDownstairs.push({
-      x: 930,
+      x: 915,
       y: 985,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:915, y:985},{x:915, y:550},{x:1315, y:550}]
     });
     this.spawnPointsDownstairs.push({
       x: 2435,
       y: 1325,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:2435, y:1325},{x:2435, y:1075},{x:2200, y:1075},{x:2200, y:1260}]
     });
     this.spawnPointsDownstairs.push({
-      x: 2200,
+      x: 2150,
       y: 630,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:2150, y:630},{x:2150, y:1000},{x:2335, y:1000},{x:2335,y:1100},{x:2535,y:1100}]
     });
     this.spawnPointsDownstairs.push({
       x: 2480,
-      y: 560,
+      y: 550,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:2480, y:550}, {x:2700, y:550}, {x:2700, y:920}, {x:2480, y:920}]
     });
 
     //LOCATION OF SPAWN POINTS UPSTAIRS//
     this.spawnPointsUpstairs.push({
-      x: 2630,
-      y: 650,
+      x: 2600,
+      y: 600,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:2600, y:600},{x:2600, y:700},{x:2300, y:700},{x:2300, y:800},{x:2620, y:800},{x:2620, y:980}]
     });
     this.spawnPointsUpstairs.push({
-      x: 2595,
-      y: 1245,
+      x: 2700,
+      y: 1150,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:2700, y:1150},{x:2250, y:1150},{x:2250, y:1200},{x:1900, y:1200},{x:1900, y:1450},{x:1900, y:1200},{x:2250, y:1200},{x:2250, y:1370},{x:2450, y:1370}]
     });
     this.spawnPointsUpstairs.push({
       x: 1095,
       y: 995,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:1095, y:995},{x:1095, y:1300},{x:1450, y:1300},{x:1450, y:950},{x:1550, y:950}]
     });
     this.spawnPointsUpstairs.push({
       x: 1035,
       y: 605,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:1035, y:605},{x:1035, y:805},{x:1150, y:805},{x:1150, y:1005},{x:1150, y:705},{x:1350, y:705},{x:1350, y:905},{x:1350, y:625},{x:1150, y:625}]
     });
     this.spawnPointsUpstairs.push({
-      x: 1390,
-      y: 1010,
+      x: 1750,
+      y: 930,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
+      path: [{x:1750, y:930},{x:1750, y:1300},{x:2000, y:1300},{x:2000, y:1000}]
     });
 
   }
@@ -673,7 +672,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        noFill();
+        // noFill();
         rect(curSpawn[i].x + offsetX, curSpawn[i].y + offsetY, curSpawn[i].w, curSpawn[i].h)
         pop();
       }
