@@ -95,36 +95,36 @@ function preload() {
   blackOutOverlay = loadImage('assets/images/lightOut.png');
 
   //ANIMATION PRELOADS//
-  playerSpriteRest = loadAnimation('assets/images/sprites/player/images/playerRestDown.png');
-  playerSpriteUp = loadAnimation('assets/images/sprites/player/images/up/playerUp0.png', 'assets/images/sprites/player/images/up/playerUp7.png');
-  playerSpriteDown = loadAnimation('assets/images/sprites/player/images/down/playerDown0.png', 'assets/images/sprites/player/images/down/playerDown7.png');
-  playerSpriteLeft = loadAnimation('assets/images/sprites/player/images/left/playerLeft0.png', 'assets/images/sprites/player/images/left/playerLeft7.png');
-  playerSpriteRight = loadAnimation('assets/images/sprites/player/images/right/playerRight0.png', 'assets/images/sprites/player/images/right/playerRight7.png');
+  playerSpriteRest = loadAnimation('assets/images/player/images/playerRestDown.png');
+  playerSpriteUp = loadAnimation('assets/images/player/images/up/playerUp0.png', 'assets/images/player/images/up/playerUp7.png');
+  playerSpriteDown = loadAnimation('assets/images/player/images/down/playerDown0.png', 'assets/images/player/images/down/playerDown7.png');
+  playerSpriteLeft = loadAnimation('assets/images/player/images/left/playerLeft0.png', 'assets/images/player/images/left/playerLeft7.png');
+  playerSpriteRight = loadAnimation('assets/images/player/images/right/playerRight0.png', 'assets/images/player/images/right/playerRight7.png');
 
-  enemySprite0Up = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Up/enemy0Up8.png');
-  enemySprite0Down = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down8.png');
-  enemySprite0Left = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Left/enemy0Left0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Left/enemy0Left8.png');
-  enemySprite0Right = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Right/enemyARight0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Right/enemyARight8.png');
+  enemySprite0Up = loadAnimation('assets/images/enemyA/walkCycle/images/Up/enemyAUp0.png', 'assets/images/enemyA/walkCycle/images/Up/enemyAUp8.png');
+  enemySprite0Down = loadAnimation('assets/images/enemyA/walkCycle/images/Down/enemyADown0.png', 'assets/images/enemyA/walkCycle/images/Down/enemyADown8.png');
+  enemySprite0Left = loadAnimation('assets/images/enemyA/walkCycle/images/Left/enemyALeft0.png', 'assets/images/enemyA/walkCycle/images/Left/enemyALeft8.png');
+  enemySprite0Right = loadAnimation('assets/images/enemyA/walkCycle/images/Right/enemyARight0.png', 'assets/images/enemyA/walkCycle/images/Right/enemyARight8.png');
 
-  enemySprite1Up = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Up/enemy1Up0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Up/enemy1Up8.png');
-  enemySprite1Down = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Down/enemy1Down0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Down/enemy1Down8.png');
-  enemySprite1Left = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Left/enemy1Left0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Left/enemy1Left8.png');
-  enemySprite1Right = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Right/enemy1Right0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Right/enemy1Right8.png');
+  enemySprite1Up = loadAnimation('assets/images/enemyB/walkCycle/images/Up/enemyBUp0.png', 'assets/images/enemyB/walkCycle/images/Up/enemyBUp8.png');
+  enemySprite1Down = loadAnimation('assets/images/enemyB/walkCycle/images/Down/enemyBDown0.png', 'assets/images/enemyB/walkCycle/images/Down/enemyBDown8.png');
+  enemySprite1Left = loadAnimation('assets/images/enemyB/walkCycle/images/Left/enemyBLeft0.png', 'assets/images/enemyB/walkCycle/images/Left/enemyBLeft8.png');
+  enemySprite1Right = loadAnimation('assets/images/enemyB/walkCycle/images/Right/enemyBRight0.png', 'assets/images/enemyB/walkCycle/images/Right/enemyBRight8.png');
 
-  enemySprite2Up = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Up/enemy2Up0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Up/enemy2Up8.png');
-  enemySprite2Down = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Down/enemy2Down0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Down/enemy2Down8.png');
-  enemySprite2Left = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Left/enemy2Left0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Left/enemy2Left8.png');
-  enemySprite2Right = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Right/enemy2Right0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Right/enemy2Right8.png');
+  enemySprite2Up = loadAnimation('assets/images/enemyC/walkCycle/images/Up/enemyCUp0.png', 'assets/images/enemyC/walkCycle/images/Up/enemyCUp8.png');
+  enemySprite2Down = loadAnimation('assets/images/enemyC/walkCycle/images/Down/enemyCDown0.png', 'assets/images/enemyC/walkCycle/images/Down/enemyCDown8.png');
+  enemySprite2Left = loadAnimation('assets/images/enemyC/walkCycle/images/Left/enemyCLeft0.png', 'assets/images/enemyC/walkCycle/images/Left/enemyCLeft8.png');
+  enemySprite2Right = loadAnimation('assets/images/enemyC/walkCycle/images/Right/enemyCRight0.png', 'assets/images/enemyC/walkCycle/images/Right/enemyCRight8.png');
 
-  enemySprite3Up = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Up/enemy3Up0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Up/enemy3Up8.png');
-  enemySprite3Down = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Down/enemy3Down0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Down/enemy3Down8.png');
-  enemySprite3Left = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Left/enemy3Left0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Left/enemy3Left8.png');
-  enemySprite3Right = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Right/enemy3Right0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Right/enemy3Right8.png');
+  enemySprite3Up = loadAnimation('assets/images/enemyD/walkCycle/images/Up/enemyDUp0.png', 'assets/images/enemyD/walkCycle/images/Up/enemyDUp8.png');
+  enemySprite3Down = loadAnimation('assets/images/enemyD/walkCycle/images/Down/enemyDDown0.png', 'assets/images/enemyD/walkCycle/images/Down/enemyDDown8.png');
+  enemySprite3Left = loadAnimation('assets/images/enemyD/walkCycle/images/Left/enemyDLeft0.png', 'assets/images/enemyD/walkCycle/images/Left/enemyDLeft8.png');
+  enemySprite3Right = loadAnimation('assets/images/enemyD/walkCycle/images/Right/enemyDRight0.png', 'assets/images/enemyD/walkCycle/images/Right/enemyDRight8.png');
 
-  enemySprite4Up = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Up/enemy4Up0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Up/enemy4Up8.png');
-  enemySprite4Down = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Down/enemy4Down0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Down/enemy4Down8.png');
-  enemySprite4Left = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Left/enemy4Left0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Left/enemy4Left8.png');
-  enemySprite4Right = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Right/enemy4Right0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Right/enemy4Right8.png');
+  enemySprite4Up = loadAnimation('assets/images/enemyE/walkCycle/images/Up/enemyEUp0.png', 'assets/images/enemyE/walkCycle/images/Up/enemyEUp8.png');
+  enemySprite4Down = loadAnimation('assets/images/enemyE/walkCycle/images/Down/enemyEDown0.png', 'assets/images/enemyE/walkCycle/images/Down/enemyEDown8.png');
+  enemySprite4Left = loadAnimation('assets/images/enemyE/walkCycle/images/Left/enemyELeft0.png', 'assets/images/enemyE/walkCycle/images/Left/enemyELeft8.png');
+  enemySprite4Right = loadAnimation('assets/images/enemyE/walkCycle/images/Right/enemyERight0.png', 'assets/images/enemyE/walkCycle/images/Right/enemyERight8.png');
 
 }
 

@@ -171,13 +171,13 @@ class Victim extends Player {
       push();
 
       if (this.currentDirection == 0) {
-        animation(enemySprite0Right, x, y);
+        animation(enemySprite0Up, x, y);
       } else if (this.currentDirection == 1) {
-        animation(enemySprite0Right, x, y);
+        animation(enemySprite0Up, x, y);
       } else if (this.currentDirection == 2) {
-        animation(enemySprite0Right, x, y);
+        animation(enemySprite0Up, x, y);
       } else if (this.currentDirection == 3) {
-        animation(enemySprite0Right, x, y);
+        animation(enemySprite0Up, x, y);
       }
 
       // //CHANGES COLOR IF PLAYER HAS BEEN DETECTED; ONLY FOR TESTING PURPOSES//
