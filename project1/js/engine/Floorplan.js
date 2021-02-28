@@ -45,31 +45,36 @@ class Floorplan {
       x: 955,
       y: 1275,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsDownstairs.push({
       x: 930,
       y: 985,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsDownstairs.push({
       x: 2435,
       y: 1325,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsDownstairs.push({
       x: 2200,
       y: 630,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsDownstairs.push({
       x: 2480,
       y: 560,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
 
     //LOCATION OF SPAWN POINTS UPSTAIRS//
@@ -77,31 +82,36 @@ class Floorplan {
       x: 2630,
       y: 650,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsUpstairs.push({
       x: 2595,
       y: 1245,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsUpstairs.push({
       x: 1095,
       y: 995,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsUpstairs.push({
       x: 1035,
       y: 605,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
     this.spawnPointsUpstairs.push({
       x: 1390,
       y: 1010,
       w: 1,
-      h: 1
+      h: 1,
+      path: [{x:955, y:1275},{x:930, y:985},{x:2435, y:1325}]
     });
 
   }
@@ -588,6 +598,7 @@ class Floorplan {
     }
   }
 
+  //SWITCH TO ALLOW PROPER PLACEMENT OF WALLS DEPENDING ON LEVEL//
   getCurrentWalls() {
     if (this.upstairs) {
       return this.wallsUpstairs;
@@ -596,6 +607,7 @@ class Floorplan {
     }
   }
 
+  //SWITCH TO ALLOW PROPER PLACEMENT OF SPAWN POINTS DEPENING ON LEVEL//
   getCurrentSpawnPoints() {
     if (this.upstairs) {
       return this.spawnPointsUpstairs;
@@ -624,7 +636,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        // noFill();
+        noFill();
         rect(curWalls[i].x + offsetX, curWalls[i].y + offsetY, curWalls[i].w, curWalls[i].h)
         pop();
       }
@@ -661,7 +673,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        // noFill();
+        noFill();
         rect(curSpawn[i].x + offsetX, curSpawn[i].y + offsetY, curSpawn[i].w, curSpawn[i].h)
         pop();
       }

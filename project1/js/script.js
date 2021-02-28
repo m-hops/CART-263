@@ -12,8 +12,8 @@ let player;
 
 //ARRAY INFO FOR VICTIMS//
 let victims = [];
-let VICTIMCOUNTDOWNSTAIRS = 3;
-let VICTIMCOUNTUPSTAIRS = 4;
+let VICTIMCOUNTDOWNSTAIRS = 2;
+let VICTIMCOUNTUPSTAIRS = 1;
 
 //CLASS VARIABLES//
 let floorplan;
@@ -22,6 +22,8 @@ let floorplan;
 let rainGenerator;
 let drop = [];
 let rainAmount = 150;
+let rainSFX;
+let isOutside = true;
 
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
@@ -35,6 +37,7 @@ let floorplan2BKG;
 let floorplan1Blackout;
 let killIndicatorOverlay;
 let grassOverlay;
+let blackOutOverlay;
 
 //IMAGE SIZE BEYOND CANVAS AND OFFSET VARIABLES//
 let worldLimit = {
@@ -52,31 +55,26 @@ let playerSpriteDown;
 let playerSpriteLeft;
 let playerSpriteRight;
 
-let enemySprite0Rest;
 let enemySprite0Up;
 let enemySprite0Down;
 let enemySprite0Left;
 let enemySprite0Right;
 
-let enemySprite1Rest;
 let enemySprite1Up;
 let enemySprite1Down;
 let enemySprite1Left;
 let enemySprite1Right;
 
-let enemySprite2Rest;
 let enemySprite2Up;
 let enemySprite2Down;
 let enemySprite2Left;
 let enemySprite2Right;
 
-let enemySprite3Rest;
 let enemySprite3Up;
 let enemySprite3Down;
 let enemySprite3Left;
 let enemySprite3Right;
 
-let enemySprite4Rest;
 let enemySprite4Up;
 let enemySprite4Down;
 let enemySprite4Left;
@@ -85,12 +83,16 @@ let enemySprite4Right;
 //EXTERNAL ASSET PRELOADS//
 function preload() {
 
+  //AUDIO PRELOADS//
+  rainSFX = loadSound('assets/sounds/rainSFX.mp3');
+
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
   floorplan2BKG = loadImage('assets/images/level2.png');
   killIndicatorOverlay = loadImage('assets/images/eOverlay.png');
   grassOverlay = loadImage('assets/images/grass.png');
   floorplan1Blackout = loadImage('assets/images/level1Blackout.png');
+  blackOutOverlay = loadImage('assets/images/lightOut.png');
 
   //ANIMATION PRELOADS//
   playerSpriteRest = loadAnimation('assets/images/sprites/player/images/playerRestDown.png');
@@ -99,37 +101,65 @@ function preload() {
   playerSpriteLeft = loadAnimation('assets/images/sprites/player/images/left/playerLeft0.png', 'assets/images/sprites/player/images/left/playerLeft7.png');
   playerSpriteRight = loadAnimation('assets/images/sprites/player/images/right/playerRight0.png', 'assets/images/sprites/player/images/right/playerRight7.png');
 
-  enemySprite0Rest = loadAnimation('assets/images/sprites/enemys/enemy0/Walk Cycle/images/Down/enemy0Down0.png');
-  enemySprite0Up = loadAnimation('assets/images/sprites/enemys/enemy0/Walk Cycle/images/Up/enemy0Up0.png', 'assets/images/sprites/enemys/enemy0/Walk Cycle/images/Up/enemy0Up8.png');
-  enemySprite0Down = loadAnimation('assets/images/sprites/enemys/enemy0/Walk Cycle/images/Down/enemy0Down0.png', 'assets/images/sprites/enemys/enemy0/Walk Cycle/images/Down/enemy0Down8.png');
-  enemySprite0Left = loadAnimation('assets/images/sprites/enemys/enemy0/Walk Cycle/images/Left/enemy0Left0.png', 'assets/images/sprites/enemys/enemy0/Walk Cycle/images/Left/enemy0Left8.png');
-  enemySprite0Right = loadAnimation('assets/images/sprites/enemys/enemy0/Walk Cycle/images/Right/enemy0Right0.png', 'assets/images/sprites/enemys/enemy0/Walk Cycle/images/Right/enemy0Right8.png');
+  enemySprite0Up = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Up/enemy0Up8.png');
+  enemySprite0Down = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Down/enemy0Down8.png');
+  enemySprite0Left = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Left/enemy0Left0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Left/enemy0Left8.png');
+  enemySprite0Right = loadAnimation('assets/images/sprites/enemys/enemy0/walkCycle/images/Right/enemyARight0.png', 'assets/images/sprites/enemys/enemy0/walkCycle/images/Right/enemyARight8.png');
 
-  enemySprite1Rest = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Down/enemy1Down0.png');
   enemySprite1Up = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Up/enemy1Up0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Up/enemy1Up8.png');
   enemySprite1Down = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Down/enemy1Down0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Down/enemy1Down8.png');
   enemySprite1Left = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Left/enemy1Left0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Left/enemy1Left8.png');
   enemySprite1Right = loadAnimation('assets/images/sprites/enemys/enemy1/walkCycle/images/Right/enemy1Right0.png', 'assets/images/sprites/enemys/enemy1/walkCycle/images/Right/enemy1Right8.png');
 
-  enemySprite2Rest = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Down/enemy2Down0.png');
   enemySprite2Up = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Up/enemy2Up0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Up/enemy2Up8.png');
   enemySprite2Down = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Down/enemy2Down0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Down/enemy2Down8.png');
   enemySprite2Left = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Left/enemy2Left0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Left/enemy2Left8.png');
   enemySprite2Right = loadAnimation('assets/images/sprites/enemys/enemy2/walkCycle/images/Right/enemy2Right0.png', 'assets/images/sprites/enemys/enemy2/walkCycle/images/Right/enemy2Right8.png');
 
-  enemySprite3Rest = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Down/enemy3Down0.png');
   enemySprite3Up = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Up/enemy3Up0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Up/enemy3Up8.png');
   enemySprite3Down = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Down/enemy3Down0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Down/enemy3Down8.png');
   enemySprite3Left = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Left/enemy3Left0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Left/enemy3Left8.png');
   enemySprite3Right = loadAnimation('assets/images/sprites/enemys/enemy3/walkCycle/images/Right/enemy3Right0.png', 'assets/images/sprites/enemys/enemy3/walkCycle/images/Right/enemy3Right8.png');
 
-  enemySprite4Rest = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Down/enemy4Down0.png');
   enemySprite4Up = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Up/enemy4Up0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Up/enemy4Up8.png');
   enemySprite4Down = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Down/enemy4Down0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Down/enemy4Down8.png');
   enemySprite4Left = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Left/enemy4Left0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Left/enemy4Left8.png');
   enemySprite4Right = loadAnimation('assets/images/sprites/enemys/enemy4/walkCycle/images/Right/enemy4Right0.png', 'assets/images/sprites/enemys/enemy4/walkCycle/images/Right/enemy4Right8.png');
 
 }
+
+//MENU NAVIGATION//
+function goToMenu(menuID) {
+  menu = menuID;
+  menuOnEnter = true;
+}
+
+function audioQStateMachine() {
+
+    if (floorplan.outside) {
+      if (!isOutside) {
+        isOutside = true;
+        audioQ();
+      }
+    } else {
+      if (isOutside) {
+        isOutside = false;
+        audioQ();
+      }
+    }
+
+}
+
+function audioQ() {
+
+    if (isOutside) {
+        rainSFX.setVolume(0.3);
+        rainSFX.loop();
+    } else {
+        rainSFX.setVolume(0.1);
+        rainSFX.loop();
+    }
+  }
 
 //PULLS PREDETERMINED AMOUNT OF INSTANCES OF RAIN FROM RAIN GENERATOR FOR SETUP//
 function rainSetup() {
@@ -278,6 +308,7 @@ function victimSpawn() {
   //RANDOM VICTIM SPAWNER UPSTAIRS//
   for (let i = 0; i < VICTIMCOUNTDOWNSTAIRS; i++) {
     victims[i] = new Victim();
+    victims[i].path = floorplan.spawnPointsDownstairs[i].path;
     victims[i].x = random(floorplan.spawnPointsDownstairs[i].x, floorplan.spawnPointsDownstairs[i].x + floorplan.spawnPointsDownstairs[i].w);
     victims[i].y = random(floorplan.spawnPointsDownstairs[i].y, floorplan.spawnPointsDownstairs[i].y + floorplan.spawnPointsDownstairs[i].h);
   }
@@ -285,6 +316,7 @@ function victimSpawn() {
   //RANDOM VICTIM SPAWNER DOWNSTAIRS//
   for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
     victims[j] = new Victim();
+    victims[j].path = floorplan.spawnPointsUpstairs[j].path;
     victims[j].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
     victims[j].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
   }
@@ -340,6 +372,9 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
 function gameStart() {
+
+  audioQStateMachine();
+
   movementControlAndLock();
 
   //MAIN PURPOSE OF THIS IS TO CONTROL SHADOW OVERLAY OVER HOUSE//
@@ -394,9 +429,13 @@ function setup() {
   player = new Player();
   floorplan = new Floorplan();
 
+  noCursor();
+
   victimSpawn();
 
   rainSetup();
+
+  audioQ();
 
 }
 

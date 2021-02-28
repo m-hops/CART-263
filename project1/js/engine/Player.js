@@ -121,6 +121,10 @@ class Player {
     noFill();
     circle(this.x + offsetX, this.y + offsetY, this.radius * 2);
     pop();
+
+    if (!floorplan.outside){
+      // image(blackOutOverlay, this.x + offsetX - 960, this.y + offsetY - 540);
+    }
   }
 
 }
