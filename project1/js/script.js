@@ -56,7 +56,7 @@ let blackOutOverlay;
 let introScreenOverlay;
 let introScreenBackground;
 
-//INTRO SCREEN DIMENSIONS//
+//INTRO SCREEN VARIABLES//
 let introScreenOverlaySpec = {
   x: 0,
   y: 0,
@@ -69,6 +69,35 @@ let introScreenBackgroundSpec = {
   w: 900,
   h: 506
 };
+let beginAnimSpec = {
+  x: 460,
+  y: 320,
+  w: 280,
+  h: 100,
+  animX:600,
+  animY:375
+}
+
+//INSTRCUTION SCREEN VARIABLES//
+let whyStartAnimHitbox = {
+  x: 680,
+  y: 90,
+  w: 200,
+  h: 310
+}
+let whyStartAnimSpec = {
+  x:780,
+  y:250
+}
+let howToAnimSpec = {
+  x: 200,
+  y: 250,
+  delay: 30
+}
+let controlAnimSpec = {
+  x: 510,
+  y: 350
+}
 
 //IMAGE SIZE BEYOND CANVAS AND OFFSET VARIABLES//
 let worldLimit = {
@@ -79,6 +108,11 @@ let offsetX;
 let offsetY;
 
 //ANIMATION VARIABLE NAMES//
+let howToAnim;
+let whyStartAnim;
+let controlAnim;
+let beginAnim;
+
 let playerSprite;
 let playerSpriteRest;
 let playerSpriteUp;
@@ -142,18 +176,28 @@ function preload() {
   enemySpriteLeft[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Left/enemyELeft0.png', 'assets/images/enemyE/walkCycle/images/Left/enemyELeft8.png');
   enemySpriteRight[4] = loadAnimation('assets/images/enemyE/walkCycle/images/Right/enemyERight0.png', 'assets/images/enemyE/walkCycle/images/Right/enemyERight8.png');
 
+  howToAnim = loadAnimation('assets/images/howTo/howTo0.png', 'assets/images/howTo/howTo2.png');
+  whyStartAnim = loadAnimation('assets/images/whyStart/whyStart0.png', 'assets/images/whyStart/whyStart2.png');
+  controlAnim = loadAnimation('assets/images/control/control0.png', 'assets/images/control/control2.png');
+  beginAnim = loadAnimation('assets/images/begin/begin0.png', 'assets/images/begin/begin2.png');
+
 }
 
-//MENU NAVIGATION//
+//MENU NAVIGATION TOOL//
 function goToMenu(menuID) {
   menu = menuID;
   menuOnEnter = true;
 }
 
+//MENU HIERARCHY//
 function menuNav() {
 
   if (menu == 'intro') {
     startScreen();
+  }
+
+  if (menu == 'instructionScreen') {
+    instructionScreen();
   }
 
   if (menu == 'play') {
@@ -161,16 +205,30 @@ function menuNav() {
   }
 }
 
+//USED TO PROGRESS SCREENS//
 function mouseClicked() {
 
   if (menu == 'intro') {
-    goToMenu('play');
+    if (mouseX >= 500 &&
+        mouseX <= 700 &&
+        mouseY >= 320 &&
+        mouseY <= 420) {
+          goToMenu('instructionScreen');
+        }
+  } else if (menu == 'instructionScreen') {
+    if (mouseX >= 680 &&
+        mouseX <= 880 &&
+        mouseY >= 90 &&
+        mouseY <= 400){
+          goToMenu('play');
+        }
   }
 }
 
 //AUDIO QUEUE STATE MACHINES//
 function audioQStateMachine() {
 
+  //AUDIO QUEUE FOR RAIN//
   if (floorplan.outside) {
     if (!isOutside) {
       isOutside = true;
@@ -183,6 +241,7 @@ function audioQStateMachine() {
     }
   }
 
+  //AUDIO QUEUE FOR FOOTSTEPS//
   if (!floorplan.outside) {
     if (keyIsDown(65) || keyIsDown(68) || keyIsDown(83) || keyIsDown(87)) {
       if (!walkInside) {
@@ -202,6 +261,7 @@ function audioQStateMachine() {
 //AUDIO QUEUE PARAMETERS//
 function audioQ() {
 
+  //RAIN SOUND EFFECT//
   if (isOutside) {
     rainSFX.setVolume(0.3);
     rainSFX.loop();
@@ -210,6 +270,7 @@ function audioQ() {
     rainSFX.loop();
   }
 
+  //FOOTSTEPSINSIDE//
   if (walkInside) {
     walkInsideSFX.setVolume(0.3);
     walkInsideSFX.loop();
@@ -240,15 +301,18 @@ function lightningGenerator() {
   lightning.alpha = lightning.alpha - lightning.speed;
   lightingInside.alpha = lightingInside.alpha - lightingInside.speed;
 
+  //PLAYS LIGHTNING AT ADJUSTABLE ODDS//
   if (odds > 0.998) {
 
     if (isOutside) {
 
+      //EFFECTS ONLY OUTSIDE LIGHNING EFFECT//
       lightningSFX.setVolume(1);
       lightningSFX.play();
       lightning.alpha = 210;
     } else {
 
+      //EFFECTS INSIDE AND OUTSIDE LIGHTNING EFFECT//
       lightningSFX.setVolume(0.3);
       lightningSFX.play();
       lightning.alpha = 210;
@@ -362,6 +426,7 @@ function movementControlAndLock() {
   offsetY = -player.y + height / 2;
 
 
+  //ALLOWS USER TO REACH HORIZONTAL EDGE OF SCREEN//
   if (player.x >= worldLimit.w - width / 2) {
     offsetX = -(worldLimit.w - width);
   }
@@ -370,6 +435,7 @@ function movementControlAndLock() {
     offsetX = 0;
   }
 
+  //ALLOWS USER TO REACH VERTICAL EDGE OF SCREEN//
   if (player.y >= worldLimit.h - height / 2) {
     offsetY = -(worldLimit.h - height);
   }
@@ -382,7 +448,8 @@ function movementControlAndLock() {
 
 //SPAWNER FOR PREDETERMINED SPAWN LOCATIONS//
 function victimSpawn() {
-  //RANDOM VICTIM SPAWNER UPSTAIRS//
+
+  //RANDOM VICTIM SPAWNER UPSTAIRS; INCLUDES ASSIGNING MOVEMENT PATH, SPRITE ANIMATION, AND SPAWN LOCATIONS//
   for (let i = 0; i < VICTIMCOUNTDOWNSTAIRS; i++) {
     victims[i] = new Victim();
     victims[i].path = floorplan.spawnPointsDownstairs[i].path;
@@ -391,7 +458,7 @@ function victimSpawn() {
     victims[i].enemyTypeIndex = Math.floor(random(0, enemySpriteRight.length));
   }
 
-  //RANDOM VICTIM SPAWNER DOWNSTAIRS//
+  //RANDOM VICTIM SPAWNER DOWNSTAIRS; INCLUDES ASSIGNING MOVEMENT PATH, SPRITE ANIMATION, AND SPAWN LOCATIONS//
   for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
     victims[j + VICTIMCOUNTDOWNSTAIRS] = new Victim();
     victims[j + VICTIMCOUNTDOWNSTAIRS].path = floorplan.spawnPointsUpstairs[j].path;
@@ -449,6 +516,7 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 }
 
+//INTRODUCTORY SCREEN//
 function startScreen() {
 
   image(introScreenBackground, introScreenBackgroundSpec.x, introScreenBackgroundSpec.y, introScreenBackgroundSpec.w, introScreenBackgroundSpec.h);
@@ -458,6 +526,36 @@ function startScreen() {
   lightningGenerator();
 
   image(introScreenOverlay, introScreenOverlaySpec.x, introScreenOverlaySpec.y, introScreenOverlaySpec.w, introScreenOverlaySpec.h);
+
+  push();
+  noFill();
+  noStroke();
+  rect(beginAnimSpec.x,beginAnimSpec.y,beginAnimSpec.w,beginAnimSpec.h);
+  pop();
+
+  animation(beginAnim,beginAnimSpec.animX,beginAnimSpec.animY);
+
+}
+
+function instructionScreen() {
+
+  image(introScreenBackground, introScreenBackgroundSpec.x, introScreenBackgroundSpec.y, introScreenBackgroundSpec.w, introScreenBackgroundSpec.h);
+
+  rainRun();
+
+  lightningGenerator();
+
+  push();
+  noFill();
+  noStroke();
+  rect(whyStartAnimHitbox.x,whyStartAnimHitbox.y,whyStartAnimHitbox.w,whyStartAnimHitbox.h);
+  pop();
+
+  animation(whyStartAnim,whyStartAnimSpec.x,whyStartAnimSpec.y);
+  howToAnim.frameDelay=howToAnimSpec.delay;
+  animation(howToAnim,howToAnimSpec.x,howToAnimSpec.y);
+  animation(controlAnim,controlAnimSpec.x,controlAnimSpec.y);
+
 }
 
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
@@ -528,8 +626,6 @@ function setup() {
   //CREATION OF NEW FROM CLASS//
   player = new Player();
   floorplan = new Floorplan();
-
-  noCursor();
 
   victimSpawn();
 
