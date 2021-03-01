@@ -31,6 +31,7 @@ let isOutside = true;
 //ASSORTED SFX//
 let killSFX;
 let walkInsideSFX;
+let walkInside = false;
 
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
@@ -38,6 +39,12 @@ let lightning = {
   speed: 5,
   color: 255
 };
+let lightingInside = {
+  alpha: 255,
+  speed: 3,
+  color: 255
+};
+let lightningSFX;
 
 //IMAGE VARIABLES//
 let floorplan1BKG;
@@ -51,16 +58,16 @@ let introScreenBackground;
 
 //INTRO SCREEN DIMENSIONS//
 let introScreenOverlaySpec = {
-  x:0,
-  y:0,
-  w:900,
-  h:506
+  x: 0,
+  y: 0,
+  w: 900,
+  h: 506
 };
 let introScreenBackgroundSpec = {
-  x:0,
-  y:0,
-  w:900,
-  h:506
+  x: 0,
+  y: 0,
+  w: 900,
+  h: 506
 };
 
 //IMAGE SIZE BEYOND CANVAS AND OFFSET VARIABLES//
@@ -91,6 +98,7 @@ function preload() {
   rainSFX = loadSound('assets/sounds/rainSFX.mp3');
   killSFX = loadSound('assets/sounds/hit.mp3');
   walkInsideSFX = loadSound('assets/sounds/walkInside.mp3');
+  lightningSFX = loadSound('assets/sounds/thunderSFX.mp3');
 
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
@@ -149,13 +157,13 @@ function menuNav() {
   }
 
   if (menu == 'play') {
-      playScreen();
+    playScreen();
   }
 }
 
 function mouseClicked() {
 
-  if (menu == 'intro'){
+  if (menu == 'intro') {
     goToMenu('play');
   }
 }
@@ -163,31 +171,52 @@ function mouseClicked() {
 //AUDIO QUEUE STATE MACHINES//
 function audioQStateMachine() {
 
-    if (floorplan.outside) {
-      if (!isOutside) {
-        isOutside = true;
+  if (floorplan.outside) {
+    if (!isOutside) {
+      isOutside = true;
+      audioQ();
+    }
+  } else {
+    if (isOutside) {
+      isOutside = false;
+      audioQ();
+    }
+  }
+
+  if (!floorplan.outside) {
+    if (keyIsDown(65) || keyIsDown(68) || keyIsDown(83) || keyIsDown(87)) {
+      if (!walkInside) {
+        walkInside = true;
         audioQ();
       }
     } else {
-      if (isOutside) {
-        isOutside = false;
+      if (walkInside) {
+        walkInside = false;
         audioQ();
       }
     }
+  }
 
 }
 
 //AUDIO QUEUE PARAMETERS//
 function audioQ() {
 
-    if (isOutside) {
-        rainSFX.setVolume(0.3);
-        rainSFX.loop();
-    } else {
-        rainSFX.setVolume(0.1);
-        rainSFX.loop();
-    }
+  if (isOutside) {
+    rainSFX.setVolume(0.3);
+    rainSFX.loop();
+  } else {
+    rainSFX.setVolume(0.05);
+    rainSFX.loop();
   }
+
+  if (walkInside) {
+    walkInsideSFX.setVolume(0.3);
+    walkInsideSFX.loop();
+  } else {
+    walkInsideSFX.stop();
+  }
+}
 
 //PULLS PREDETERMINED AMOUNT OF INSTANCES OF RAIN FROM RAIN GENERATOR FOR SETUP//
 function rainSetup() {
@@ -206,13 +235,25 @@ function rainRun() {
 //RANDOM LIGHTNING GENERATOR CREATES WHITE FLASH OUTSIDE//
 function lightningGenerator() {
 
-  let odds = random(0,1);
+  let odds = random(0, 1);
 
   lightning.alpha = lightning.alpha - lightning.speed;
+  lightingInside.alpha = lightingInside.alpha - lightingInside.speed;
 
-  if (odds > 0.999){
+  if (odds > 0.998) {
 
-   lightning.alpha = 255;
+    if (isOutside) {
+
+      lightningSFX.setVolume(1);
+      lightningSFX.play();
+      lightning.alpha = 210;
+    } else {
+
+      lightningSFX.setVolume(0.3);
+      lightningSFX.play();
+      lightning.alpha = 210;
+      lightingInside.alpha = 200;
+    }
 
   }
 
@@ -305,7 +346,7 @@ function meleeRange(x, y, r) {
     //INITIATES KILL//
     if (keyIsDown(69)) {
 
-            killSFX.play();
+      killSFX.play();
 
       return true;
     }
@@ -352,11 +393,11 @@ function victimSpawn() {
 
   //RANDOM VICTIM SPAWNER DOWNSTAIRS//
   for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
-    victims[j+VICTIMCOUNTDOWNSTAIRS] = new Victim();
-    victims[j+VICTIMCOUNTDOWNSTAIRS].path = floorplan.spawnPointsUpstairs[j].path;
-    victims[j+VICTIMCOUNTDOWNSTAIRS].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
-    victims[j+VICTIMCOUNTDOWNSTAIRS].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
-    victims[j+VICTIMCOUNTUPSTAIRS].enemyTypeIndex = Math.floor(random(0, enemySpriteRight.length));
+    victims[j + VICTIMCOUNTDOWNSTAIRS] = new Victim();
+    victims[j + VICTIMCOUNTDOWNSTAIRS].path = floorplan.spawnPointsUpstairs[j].path;
+    victims[j + VICTIMCOUNTDOWNSTAIRS].x = random(floorplan.spawnPointsUpstairs[j].x, floorplan.spawnPointsUpstairs[j].x + floorplan.spawnPointsUpstairs[j].w);
+    victims[j + VICTIMCOUNTDOWNSTAIRS].y = random(floorplan.spawnPointsUpstairs[j].y, floorplan.spawnPointsUpstairs[j].y + floorplan.spawnPointsUpstairs[j].h);
+    victims[j + VICTIMCOUNTUPSTAIRS].enemyTypeIndex = Math.floor(random(0, enemySpriteRight.length));
   }
 }
 
@@ -414,6 +455,8 @@ function startScreen() {
 
   rainRun();
 
+  lightningGenerator();
+
   image(introScreenOverlay, introScreenOverlaySpec.x, introScreenOverlaySpec.y, introScreenOverlaySpec.w, introScreenOverlaySpec.h);
 }
 
@@ -433,8 +476,8 @@ function playScreen() {
     player.update(offsetX, offsetY);
 
     push();
-    fill(0,210);
-    rect(0,0,width,height);
+    fill(0, 210);
+    rect(0, 0, width, height);
     pop();
 
     image(floorplan1Blackout, floorplan.x + offsetX, floorplan.y + offsetY, floorplan.w, floorplan.h);
@@ -452,7 +495,7 @@ function playScreen() {
     floorplan.update(offsetX, offsetY);
 
     for (let j = 0; j < VICTIMCOUNTUPSTAIRS; j++) {
-      victims[j+VICTIMCOUNTDOWNSTAIRS].update(offsetX, offsetY);
+      victims[j + VICTIMCOUNTDOWNSTAIRS].update(offsetX, offsetY);
     }
 
     stairs();

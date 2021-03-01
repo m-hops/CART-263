@@ -3,7 +3,7 @@ class Player {
     this.x = 100;
     this.y = 2000;
     this.radius = 50 / 2;
-    this.speed = 10;
+    this.speed = 4;
     this.inside = false;
 
     //USED FOR E KEY INSTRUCTION//
@@ -124,7 +124,16 @@ class Player {
     pop();
 
     if (!floorplan.outside){
-      image(blackOutOverlay, this.x + offsetX - 960, this.y + offsetY - 540);
+
+      if (lightingInside.alpha <= 50){
+        image(blackOutOverlay, this.x + offsetX - 960, this.y + offsetY - 540);
+      } else {
+        push();
+        fill(255, lightingInside.alpha);
+        rect(0,0,width,height);
+        pop();
+      }
+
     }
   }
 

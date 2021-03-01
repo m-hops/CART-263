@@ -43,8 +43,8 @@ class Floorplan {
     this.spawnPointsDownstairs.push({
       x: 955,
       y: 1275,
-      w: 10,
-      h: 10,
+      w: 1,
+      h: 1,
       path: [{x:955, y:1275},{x:1185, y:1275},{x:1185, y:1350}]
     });
     this.spawnPointsDownstairs.push({
@@ -645,7 +645,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        // noFill();
+        noFill();
         rect(curSpawn[i].x + offsetX, curSpawn[i].y + offsetY, curSpawn[i].w, curSpawn[i].h)
         pop();
       }
@@ -672,7 +672,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        // noFill();
+        noFill();
         rect(curSpawn[i].x + offsetX, curSpawn[i].y + offsetY, curSpawn[i].w, curSpawn[i].h)
         pop();
       }
