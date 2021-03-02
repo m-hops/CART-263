@@ -10,8 +10,8 @@ class Victim extends Player {
     this.y = height / 2;
     this.radius = 25;
     this.attackZone = 150;
-    this.visionRange = 100;
-    this.speed = 200;
+    this.visionRange = 70;
+    this.speed = 75;
     this.angle = 0;
     this.fov = Math.PI / 4;
 
@@ -32,6 +32,15 @@ class Victim extends Player {
     this.pathing();
     this.run();
     this.draw(offsetX, offsetY);
+    this.failCondition();
+  }
+
+failCondition() {
+    if (this.detection) {
+      goToMenu('fail');
+      walkInsideSFX.stop();
+      gameReset();
+    }
   }
 
   pathing() {
@@ -219,31 +228,32 @@ class Victim extends Player {
       // circle(this.x + offsetX, this.y + offsetY, this.visionRange * 2);
       // pop();
 
-      // if (x >= 0 && y >= 0 && x < width && y < height) {
-      //
-      //   // //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
-      //   // push();
-      //   // translate(this.x + offsetX, this.y + offsetY);
-      //   // angleMode(RADIANS);
-      //   // stroke(0, 0, 255);
-      //   // push();
-      //   // rotate(this.angle);
-      //   // line(0, 0, 30, 0);
-      //   // pop();
-      //   // push();
-      //   // rotate(this.angle + this.fov);
-      //   // line(0, 0, this.visionRange, 0);
-      //   // pop();
-      //   // push();
-      //   // rotate(this.angle - this.fov);
-      //   // line(0, 0, this.visionRange, 0);
-      //   // pop();
-      //   // pop();
-      // }
+      if (x >= 0 && y >= 0 && x < width && y < height) {
+
+        //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
+        push();
+        translate(this.x + offsetX, this.y + offsetY);
+        angleMode(RADIANS);
+        stroke(0, 0, 255);
+        push();
+        rotate(this.angle);
+        line(0, 0, 30, 0);
+        pop();
+        push();
+        rotate(this.angle + this.fov);
+        line(0, 0, this.visionRange, 0);
+        pop();
+        push();
+        rotate(this.angle - this.fov);
+        line(0, 0, this.visionRange, 0);
+        pop();
+        pop();
+      }
 
       //CHECKS IF PLAYER IS IN MELEE RANGE AND ALLOWS FOR KILL//
       if (meleeRange(this.x, this.y, this.attackZone)) {
         this.dead = true;
+        killCount++;
       }
 
     } else {

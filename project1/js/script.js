@@ -2,7 +2,7 @@
 
 /*****************
 
-PROJECT 1 - THE STRANGERS: AFTERPARTY
+PROJECT 1 - THE STRANGERS: LAST NIGHT
 
 KILL THEM ALL, AND DON'T GET CAUGHT
 
@@ -20,6 +20,7 @@ let VICTIMCOUNTUPSTAIRS = 5;
 //CLASS VARIABLES//
 let floorplan;
 let player;
+let victim;
 
 //RAIN EFFECT VARIABLES//
 let rainGenerator;
@@ -32,6 +33,7 @@ let isOutside = true;
 let killSFX;
 let walkInsideSFX;
 let walkInside = false;
+let menuAudio = true;
 
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
@@ -74,8 +76,8 @@ let beginAnimSpec = {
   y: 320,
   w: 280,
   h: 100,
-  animX:600,
-  animY:375
+  animX: 600,
+  animY: 375
 }
 
 //INSTRCUTION SCREEN VARIABLES//
@@ -86,8 +88,8 @@ let whyStartAnimHitbox = {
   h: 310
 }
 let whyStartAnimSpec = {
-  x:780,
-  y:250
+  x: 780,
+  y: 250
 }
 let howToAnimSpec = {
   x: 200,
@@ -112,6 +114,8 @@ let howToAnim;
 let whyStartAnim;
 let controlAnim;
 let beginAnim;
+let brokenMaskAnim;
+let huntAgainAnim;
 
 let playerSprite;
 let playerSpriteRest;
@@ -124,6 +128,9 @@ let enemySpriteUp = [];
 let enemySpriteDown = [];
 let enemySpriteLeft = [];
 let enemySpriteRight = [];
+
+//KILL COUNTER//
+let killCount = 0;
 
 //EXTERNAL ASSET PRELOADS//
 function preload() {
@@ -180,6 +187,33 @@ function preload() {
   whyStartAnim = loadAnimation('assets/images/whyStart/whyStart0.png', 'assets/images/whyStart/whyStart2.png');
   controlAnim = loadAnimation('assets/images/control/control0.png', 'assets/images/control/control2.png');
   beginAnim = loadAnimation('assets/images/begin/begin0.png', 'assets/images/begin/begin2.png');
+  brokenMaskAnim = loadAnimation('assets/images/brokenMask/brokenMask0.png', 'assets/images/brokenMask/brokenMask2.png');
+  huntAgainAnim = loadAnimation('assets/images/huntAgain/huntAgain0.png', 'assets/images/huntAgain/huntAgain2.png')
+
+}
+
+//RESET ALL STATES WHEN GAME IS LOOPED//
+function gameReset() {
+
+  walkInside = false;
+  isOutside = true;
+
+  victim.dead = false;
+  victim.detection = false;
+
+  player.inside = false;
+  player.x = 100;
+  player.y = 2000;
+
+  floorplan.upstairs = false;
+  floorplan.outside = true;
+
+  VICTIMCOUNTDOWNSTAIRS = 5;
+  VICTIMCOUNTUPSTAIRS = 5;
+
+  killCount = 0;
+
+  victimSpawn();
 
 }
 
@@ -203,6 +237,14 @@ function menuNav() {
   if (menu == 'play') {
     playScreen();
   }
+
+  if (menu == 'fail') {
+    failScreen();
+  }
+
+  if (menu == 'win') {
+    winScreen();
+  }
 }
 
 //USED TO PROGRESS SCREENS//
@@ -210,17 +252,31 @@ function mouseClicked() {
 
   if (menu == 'intro') {
     if (mouseX >= 500 &&
-        mouseX <= 700 &&
-        mouseY >= 320 &&
-        mouseY <= 420) {
-          goToMenu('instructionScreen');
-        }
+      mouseX <= 700 &&
+      mouseY >= 320 &&
+      mouseY <= 420) {
+      goToMenu('instructionScreen');
+    }
   } else if (menu == 'instructionScreen') {
     if (mouseX >= 680 &&
-        mouseX <= 880 &&
-        mouseY >= 90 &&
-        mouseY <= 400){
-          goToMenu('play');
+      mouseX <= 880 &&
+      mouseY >= 90 &&
+      mouseY <= 400) {
+      goToMenu('play');
+    }
+  } else if (menu == 'fail') {
+    if (mouseX >= 275 &&
+      mouseX <= 615 &&
+      mouseY >= 310 &&
+      mouseY <= 385) {
+      goToMenu('intro');
+    }
+  } else if (menu == 'win') {
+    if (mouseX >= 325 &&
+        mouseX <= 575 &&
+        mouseY >= 300 &&
+        mouseY <= 400) {
+          goToMenu('intro');
         }
   }
 }
@@ -263,7 +319,7 @@ function audioQ() {
 
   //RAIN SOUND EFFECT//
   if (isOutside) {
-    rainSFX.setVolume(0.3);
+    rainSFX.setVolume(0.2);
     rainSFX.loop();
   } else {
     rainSFX.setVolume(0.05);
@@ -516,6 +572,13 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 }
 
+//DETERMINES IF ALL ENEMYS HAVE BEEN DISPATCHED//
+function stageCleared() {
+  if (killCount >= 2) {
+    goToMenu('win');
+  }
+}
+
 //INTRODUCTORY SCREEN//
 function startScreen() {
 
@@ -530,13 +593,14 @@ function startScreen() {
   push();
   noFill();
   noStroke();
-  rect(beginAnimSpec.x,beginAnimSpec.y,beginAnimSpec.w,beginAnimSpec.h);
+  rect(beginAnimSpec.x, beginAnimSpec.y, beginAnimSpec.w, beginAnimSpec.h);
   pop();
 
-  animation(beginAnim,beginAnimSpec.animX,beginAnimSpec.animY);
+  animation(beginAnim, beginAnimSpec.animX, beginAnimSpec.animY);
 
 }
 
+//VISUAL SCREEN LAYOUT FOR THE INSTRUCTION SCREEN//
 function instructionScreen() {
 
   image(introScreenBackground, introScreenBackgroundSpec.x, introScreenBackgroundSpec.y, introScreenBackgroundSpec.w, introScreenBackgroundSpec.h);
@@ -548,18 +612,20 @@ function instructionScreen() {
   push();
   noFill();
   noStroke();
-  rect(whyStartAnimHitbox.x,whyStartAnimHitbox.y,whyStartAnimHitbox.w,whyStartAnimHitbox.h);
+  rect(whyStartAnimHitbox.x, whyStartAnimHitbox.y, whyStartAnimHitbox.w, whyStartAnimHitbox.h);
   pop();
 
-  animation(whyStartAnim,whyStartAnimSpec.x,whyStartAnimSpec.y);
-  howToAnim.frameDelay=howToAnimSpec.delay;
-  animation(howToAnim,howToAnimSpec.x,howToAnimSpec.y);
-  animation(controlAnim,controlAnimSpec.x,controlAnimSpec.y);
+  animation(whyStartAnim, whyStartAnimSpec.x, whyStartAnimSpec.y);
+  howToAnim.frameDelay = howToAnimSpec.delay;
+  animation(howToAnim, howToAnimSpec.x, howToAnimSpec.y);
+  animation(controlAnim, controlAnimSpec.x, controlAnimSpec.y);
 
 }
 
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
 function playScreen() {
+
+  stageCleared();
 
   audioQStateMachine();
 
@@ -619,6 +685,36 @@ function playScreen() {
 
 }
 
+//IF PLAYER IS DETECTED//
+function failScreen() {
+  image(introScreenBackground, 0, 0);
+
+  push();
+  noStroke();
+  noFill();
+  rect(275, 310, 340, 75);
+  pop();
+
+  rainRun();
+
+  lightningGenerator();
+
+  animation(huntAgainAnim, 450, 350);
+
+  animation(brokenMaskAnim, 450, 150);
+}
+
+//IF PLAYER KILLS EVERYONE//
+function winScreen() {
+  image(introScreenBackground, 0, 0);
+
+  rect(325, 300, 250, 100);
+
+  rainRun();
+
+  lightningGenerator();
+}
+
 function setup() {
 
   createCanvas(900, 500);
@@ -626,12 +722,14 @@ function setup() {
   //CREATION OF NEW FROM CLASS//
   player = new Player();
   floorplan = new Floorplan();
+  victim = new Victim();
 
   victimSpawn();
 
   rainSetup();
 
   audioQ();
+
 
 }
 
