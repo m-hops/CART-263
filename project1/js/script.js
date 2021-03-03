@@ -34,6 +34,7 @@ let killSFX;
 let walkInsideSFX;
 let walkInside = false;
 let menuAudio;
+let winAudio;
 
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
@@ -142,6 +143,8 @@ function preload() {
   walkInsideSFX = loadSound('assets/sounds/walkInside.mp3');
   lightningSFX = loadSound('assets/sounds/thunderSFX.mp3');
   menuAudio = loadSound('assets/sounds/project1Theme.mp3');
+  winAudio = loadSound('assets/sounds/win.mp3');
+
 
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
@@ -229,6 +232,13 @@ function goToMenu(menuID) {
   menuOnEnter = true;
 
   if (menu == 'win' || menu == 'fail') {
+    walkInsideSFX.stop();
+  }
+
+  if (menu == 'win') {
+    winAudio.setVolume(1.5);
+    winAudio.play();
+  } else if (menu == 'fail'){
     menuAudio.loop();
   }
 }
@@ -584,7 +594,7 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 //DETERMINES IF ALL ENEMYS HAVE BEEN DISPATCHED//
 function stageCleared() {
-  if (killCount >= 2) {
+  if (killCount >= 10) {
     goToMenu('win');
   }
 }
