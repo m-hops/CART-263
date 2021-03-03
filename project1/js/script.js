@@ -235,11 +235,18 @@ function goToMenu(menuID) {
     walkInsideSFX.stop();
   }
 
+
+  //MENU AUDIO QUEUES//
   if (menu == 'win') {
     winAudio.setVolume(1.5);
     winAudio.play();
-  } else if (menu == 'fail'){
+  } else if (menu == 'fail') {
     menuAudio.loop();
+  } else if (menu == 'intro') {
+    if (!menuAudio.isPlaying()) {
+      menuAudio.loop();
+      winAudio.stop();
+    }
   }
 }
 
@@ -293,11 +300,11 @@ function mouseClicked() {
     }
   } else if (menu == 'win') {
     if (mouseX >= 285 &&
-        mouseX <= 620 &&
-        mouseY >= 300 &&
-        mouseY <= 400) {
-          goToMenu('intro');
-        }
+      mouseX <= 620 &&
+      mouseY >= 300 &&
+      mouseY <= 400) {
+      goToMenu('intro');
+    }
   }
 }
 

@@ -120,34 +120,34 @@ class Floorplan {
 
     //INVISIBLE WALL HITBOX FOR FLOOR 1//
     this.wallsDownstairs.push({
-      x: 47,
-      y: 78,
-      w: 400,
-      h: 32
+      x: 55,
+      y: 83,
+      w: 382,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 47,
-      y: 78,
-      w: 32,
-      h: 998
+      x: 55,
+      y: 85,
+      w: 10,
+      h: 975
     });
     this.wallsDownstairs.push({
-      x: 47,
-      y: 1044,
-      w: 793,
-      h: 32
+      x: 55,
+      y: 1055,
+      w: 790,
+      h: 10
     });
     this.wallsDownstairs.push({
       x: 1068,
-      y: 1044,
-      w: 907,
-      h: 32
+      y: 1054,
+      w: 890,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 1946,
+      x: 1951,
       y: 78,
-      w: 32,
-      h: 996
+      w: 10,
+      h: 980
     });
     this.wallsDownstairs.push({
       x: 1546,
@@ -156,58 +156,58 @@ class Floorplan {
       h: 15
     });
     this.wallsDownstairs.push({
-      x: 558,
+      x: 563,
       y: 78,
-      w: 835,
+      w: 830,
       h: 32
     });
     this.wallsDownstairs.push({
-      x: 155,
-      y: 250,
-      w: 114,
-      h: 245
+      x: 175,
+      y: 280,
+      w: 90,
+      h: 205
     });
     this.wallsDownstairs.push({
-      x: 355,
-      y: 218,
-      w: 32,
-      h: 441
+      x: 375,
+      y: 228,
+      w: 10,
+      h: 410
     });
     this.wallsDownstairs.push({
-      x: 185,
-      y: 632,
-      w: 286,
-      h: 32
+      x: 200,
+      y: 642,
+      w: 255,
+      h: 10
     });
     this.wallsDownstairs.push({
       x: 387,
-      y: 219,
-      w: 82,
-      h: 414
+      y: 200,
+      w: 70,
+      h: 440
     });
     this.wallsDownstairs.push({
-      x: 585,
+      x: 600,
       y: 78,
-      w: 32,
-      h: 581
+      w: 10,
+      h: 570
     });
     this.wallsDownstairs.push({
-      x: 46,
-      y: 770,
-      w: 321,
-      h: 32
+      x: 56,
+      y: 780,
+      w: 310,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 471,
-      y: 768,
-      w: 142,
-      h: 32
+      x: 481,
+      y: 780,
+      w: 125,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 585,
-      y: 768,
-      w: 32,
-      h: 304
+      x: 595,
+      y: 778,
+      w: 10,
+      h: 280
     });
     this.wallsDownstairs.push({
       x: 532,
@@ -231,13 +231,13 @@ class Floorplan {
       x: 812,
       y: 1066,
       w: 32,
-      h: 87
+      h: 80
     });
     this.wallsDownstairs.push({
       x: 1068,
       y: 1064,
       w: 32,
-      h: 90
+      h: 80
     });
     this.wallsDownstairs.push({
       x: 612,
@@ -270,34 +270,34 @@ class Floorplan {
       h: 98
     });
     this.wallsDownstairs.push({
-      x: 1293,
-      y: 767,
-      w: 32,
-      h: 303
+      x: 1305,
+      y: 777,
+      w: 10,
+      h: 280
     });
     this.wallsDownstairs.push({
-      x: 1293,
-      y: 766,
-      w: 57,
-      h: 32
+      x: 1303,
+      y: 780,
+      w: 40,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 1462,
-      y: 768,
-      w: 59,
-      h: 32
+      x: 1472,
+      y: 780,
+      w: 40,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 1494,
-      y: 768,
-      w: 32,
-      h: 303
+      x: 1500,
+      y: 780,
+      w: 10,
+      h: 270
     });
     this.wallsDownstairs.push({
-      x: 1295,
+      x: 1305,
       y: 80,
-      w: 32,
-      h: 580
+      w: 10,
+      h: 560
     });
     this.wallsDownstairs.push({
       x: 1516,
@@ -312,28 +312,40 @@ class Floorplan {
       h: 43
     });
     this.wallsDownstairs.push({
-      x: 1436,
-      y: 520,
-      w: 196,
-      h: 32
+      x: 1446,
+      y: 530,
+      w: 180,
+      h: 10
     });
     this.wallsDownstairs.push({
-      x: 1605,
+      x: 1615,
       y: 80,
-      w: 32,
+      w: 10,
       h: 552
     });
     this.wallsDownstairs.push({
-      x: 1605,
-      y: 604,
-      w: 226,
-      h: 32
+      x: 1615,
+      y: 615,
+      w: 210,
+      h: 10
     });
     this.wallsDownstairs.push({
       x: 1727,
       y: 199,
       w: 140,
       h: 245
+    });
+    this.wallsDownstairs.push({
+      x: 1317,
+      y: 850,
+      w: 20,
+      h: 75
+    });
+    this.wallsDownstairs.push({
+      x: 1450,
+      y: 965,
+      w: 20,
+      h: 75
     });
 
     //INVISABLE WALL HITBOX FOR FLOOR 2//
@@ -662,7 +674,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        noFill();
+        // noFill();
         rect(curWalls[i].x + offsetX, curWalls[i].y + offsetY, curWalls[i].w, curWalls[i].h)
         pop();
       }
