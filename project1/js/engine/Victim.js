@@ -89,6 +89,7 @@ class Victim extends Player {
         x: tX - this.x,
         y: tY - this.y
       };
+
       let segmentVectorLength = Math.sqrt(segmentVector.x * segmentVector.x + segmentVector.y * segmentVector.y);
       segmentVector.x = segmentVector.x / segmentVectorLength;
       segmentVector.y = segmentVector.y / segmentVectorLength;
@@ -142,6 +143,7 @@ class Victim extends Player {
 
   run() {
 
+    //YES NO FOR DISPLAYING SPRITE//
     if (!this.dead) {
       let linePoint0X = this.x;
       let linePoint0Y = this.y;
@@ -207,47 +209,6 @@ class Victim extends Player {
       } else if (this.currentDirection == 3) {
         enemySpriteUp[this.enemyTypeIndex].frameDelay = 20;
         animation(enemySpriteUp[this.enemyTypeIndex], x, y);
-      }
-
-      // //CHANGES COLOR IF PLAYER HAS BEEN DETECTED; ONLY FOR TESTING PURPOSES//
-      // if (this.detection) {
-      //   fill(255, 0, 0);
-      // } else {
-      //   fill(255);
-      // }
-      // circle(this.x + offsetX, this.y + offsetY, this.radius * 2);
-      // if (this.detection) {
-      //   stroke(255, 0, 0);
-      // } else {
-      //   stroke(255);
-      // }
-
-      // //LINE OF SIGHT FROM ENEMY TO PLAYERS; ONLY FOR TESTING PURPOSES//
-      // line(this.x + offsetX, this.y + offsetY, player.x + offsetX, player.y + offsetY);
-      // noFill();
-      // circle(this.x + offsetX, this.y + offsetY, this.visionRange * 2);
-      // pop();
-
-      if (x >= 0 && y >= 0 && x < width && y < height) {
-
-        //FIELD OF VIEW FROM ENEMY; ONLY FOR TESTING PURPOSES//
-        push();
-        translate(this.x + offsetX, this.y + offsetY);
-        angleMode(RADIANS);
-        stroke(0, 0, 255);
-        push();
-        rotate(this.angle);
-        line(0, 0, 30, 0);
-        pop();
-        push();
-        rotate(this.angle + this.fov);
-        line(0, 0, this.visionRange, 0);
-        pop();
-        push();
-        rotate(this.angle - this.fov);
-        line(0, 0, this.visionRange, 0);
-        pop();
-        pop();
       }
 
       //CHECKS IF PLAYER IS IN MELEE RANGE AND ALLOWS FOR KILL//

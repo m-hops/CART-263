@@ -105,6 +105,7 @@ class Player {
 
   draw(offsetX, offsetY) {
 
+    //ENSURES CORRECT SPRITE WALK CYCLES USAGE BASED ON DIRECTION//
     if (this.currentAnimationIndex == 0) {
       animation(playerSpriteRest, this.x + offsetX, this.y + offsetY);
     } else if (this.currentAnimationIndex == 1) {
