@@ -237,22 +237,19 @@ function goToMenu(menuID) {
   menu = menuID;
   menuOnEnter = true;
 
-  if (menu == 'win' || menu == 'fail') {
-    walkInsideSFX.stop();
+  if (menu == 'intro') {
+    if (!menuAudio.isPlaying()) {
+      winAudio.stop();
+      menuAudio.loop();
+    }
   }
 
-
-  //MENU AUDIO QUEUES//
-  if (menu == 'win') {
-    winAudio.setVolume(1.5);
-    winAudio.play();
-  } else if (menu == 'fail') {
+  if (menu == 'fail') {
     menuAudio.loop();
-  } else if (menu == 'intro') {
-    if (!menuAudio.isPlaying()) {
-      menuAudio.loop();
-      winAudio.stop();
-    }
+  }
+
+  if (menu == 'win') {
+    winAudio.play();
   }
 }
 
@@ -352,6 +349,7 @@ function audioQ() {
 
   //RAIN SOUND EFFECT//
   if (isOutside) {
+    walkInsideSFX.stop();
     rainSFX.setVolume(0.2);
     rainSFX.loop();
   } else {
@@ -607,7 +605,7 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 //DETERMINES IF ALL ENEMYS HAVE BEEN DISPATCHED//
 function stageCleared() {
-  if (killCount >= 10) {
+  if (killCount >= 1) {
     goToMenu('win');
   }
 }
