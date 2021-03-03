@@ -14,10 +14,13 @@ class Floorplan {
 
     this.wallsDownstairs = [];
     this.wallsUpstairs = [];
+    this.wallsOutside = [];
+    this.hedges = [];
     this.spawnPointsDownstairs = [];
     this.spawnPointsUpstairs = [];
     this.setupWall();
     this.victimSpawnPoint();
+    this.hedgeGenerator();
   }
 
   update(offsetX, offsetY) {
@@ -45,35 +48,92 @@ class Floorplan {
       y: 1275,
       w: 1,
       h: 1,
-      path: [{x:955, y:1275},{x:1185, y:1275},{x:1185, y:1350}]
+      path: [{
+        x: 955,
+        y: 1275
+      }, {
+        x: 1185,
+        y: 1275
+      }, {
+        x: 1185,
+        y: 1350
+      }]
     });
     this.spawnPointsDownstairs.push({
       x: 915,
       y: 985,
       w: 1,
       h: 1,
-      path: [{x:915, y:985},{x:915, y:550},{x:1315, y:550}]
+      path: [{
+        x: 915,
+        y: 985
+      }, {
+        x: 915,
+        y: 550
+      }, {
+        x: 1315,
+        y: 550
+      }]
     });
     this.spawnPointsDownstairs.push({
       x: 2435,
       y: 1325,
       w: 1,
       h: 1,
-      path: [{x:2435, y:1325},{x:2435, y:1075},{x:2200, y:1075},{x:2200, y:1260}]
+      path: [{
+        x: 2435,
+        y: 1325
+      }, {
+        x: 2435,
+        y: 1075
+      }, {
+        x: 2200,
+        y: 1075
+      }, {
+        x: 2200,
+        y: 1260
+      }]
     });
     this.spawnPointsDownstairs.push({
       x: 2150,
       y: 630,
       w: 1,
       h: 1,
-      path: [{x:2150, y:630},{x:2150, y:1000},{x:2335, y:1000},{x:2335,y:1100},{x:2535,y:1100}]
+      path: [{
+        x: 2150,
+        y: 630
+      }, {
+        x: 2150,
+        y: 1000
+      }, {
+        x: 2335,
+        y: 1000
+      }, {
+        x: 2335,
+        y: 1100
+      }, {
+        x: 2535,
+        y: 1100
+      }]
     });
     this.spawnPointsDownstairs.push({
       x: 2480,
       y: 550,
       w: 1,
       h: 1,
-      path: [{x:2480, y:550}, {x:2700, y:550}, {x:2700, y:920}, {x:2480, y:920}]
+      path: [{
+        x: 2480,
+        y: 550
+      }, {
+        x: 2700,
+        y: 550
+      }, {
+        x: 2700,
+        y: 920
+      }, {
+        x: 2480,
+        y: 920
+      }]
     });
 
     //LOCATION OF SPAWN POINTS UPSTAIRS//
@@ -82,35 +142,134 @@ class Floorplan {
       y: 600,
       w: 1,
       h: 1,
-      path: [{x:2600, y:600},{x:2600, y:700},{x:2300, y:700},{x:2300, y:800},{x:2620, y:800},{x:2620, y:980}]
+      path: [{
+        x: 2600,
+        y: 600
+      }, {
+        x: 2600,
+        y: 700
+      }, {
+        x: 2300,
+        y: 700
+      }, {
+        x: 2300,
+        y: 800
+      }, {
+        x: 2620,
+        y: 800
+      }, {
+        x: 2620,
+        y: 980
+      }]
     });
     this.spawnPointsUpstairs.push({
       x: 2700,
       y: 1150,
       w: 1,
       h: 1,
-      path: [{x:2700, y:1150},{x:2250, y:1150},{x:2250, y:1200},{x:1900, y:1200},{x:1900, y:1450},{x:1900, y:1200},{x:2250, y:1200},{x:2250, y:1370},{x:2450, y:1370}]
+      path: [{
+        x: 2700,
+        y: 1150
+      }, {
+        x: 2250,
+        y: 1150
+      }, {
+        x: 2250,
+        y: 1200
+      }, {
+        x: 1900,
+        y: 1200
+      }, {
+        x: 1900,
+        y: 1450
+      }, {
+        x: 1900,
+        y: 1200
+      }, {
+        x: 2250,
+        y: 1200
+      }, {
+        x: 2250,
+        y: 1370
+      }, {
+        x: 2450,
+        y: 1370
+      }]
     });
     this.spawnPointsUpstairs.push({
       x: 1095,
       y: 995,
       w: 1,
       h: 1,
-      path: [{x:1095, y:995},{x:1095, y:1300},{x:1450, y:1300},{x:1450, y:950},{x:1550, y:950}]
+      path: [{
+        x: 1095,
+        y: 995
+      }, {
+        x: 1095,
+        y: 1300
+      }, {
+        x: 1450,
+        y: 1300
+      }, {
+        x: 1450,
+        y: 950
+      }, {
+        x: 1550,
+        y: 950
+      }]
     });
     this.spawnPointsUpstairs.push({
       x: 1035,
       y: 605,
       w: 1,
       h: 1,
-      path: [{x:1035, y:605},{x:1035, y:805},{x:1150, y:805},{x:1150, y:1005},{x:1150, y:705},{x:1350, y:705},{x:1350, y:905},{x:1350, y:625},{x:1150, y:625}]
+      path: [{
+        x: 1035,
+        y: 605
+      }, {
+        x: 1035,
+        y: 805
+      }, {
+        x: 1150,
+        y: 805
+      }, {
+        x: 1150,
+        y: 1005
+      }, {
+        x: 1150,
+        y: 705
+      }, {
+        x: 1350,
+        y: 705
+      }, {
+        x: 1350,
+        y: 905
+      }, {
+        x: 1350,
+        y: 625
+      }, {
+        x: 1150,
+        y: 625
+      }]
     });
     this.spawnPointsUpstairs.push({
       x: 1750,
       y: 930,
       w: 1,
       h: 1,
-      path: [{x:1750, y:930},{x:1750, y:1300},{x:2000, y:1300},{x:2000, y:1000}]
+      path: [{
+        x: 1750,
+        y: 930
+      }, {
+        x: 1750,
+        y: 1300
+      }, {
+        x: 2000,
+        y: 1300
+      }, {
+        x: 2000,
+        y: 1000
+      }]
     });
 
   }
@@ -350,251 +509,264 @@ class Floorplan {
 
     //INVISABLE WALL HITBOX FOR FLOOR 2//
     this.wallsUpstairs.push({
-      x:108,
-      y:80,
-      w:1871,
-      h:25
+      x: 108,
+      y: 80,
+      w: 1871,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1950,
-      y:79,
-      w:25,
-      h:993
+      x: 1950,
+      y: 79,
+      w: 25,
+      h: 993
     });
     this.wallsUpstairs.push({
-      x:1184,
-      y:1041,
-      w:799,
-      h:25
+      x: 1184,
+      y: 1041,
+      w: 799,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1184,
-      y:1041,
-      w:37,
-      h:141
+      x: 1184,
+      y: 1041,
+      w: 37,
+      h: 141
     });
     this.wallsUpstairs.push({
-      x:991,
-      y:1086,
-      w:219,
-      h:93
+      x: 991,
+      y: 1086,
+      w: 219,
+      h: 93
     });
     this.wallsUpstairs.push({
-      x:990,
-      y:1041,
-      w:25,
-      h:138
+      x: 990,
+      y: 1041,
+      w: 25,
+      h: 138
     });
     this.wallsUpstairs.push({
-      x:109,
-      y:1044,
-      w:906,
-      h:25
+      x: 109,
+      y: 1044,
+      w: 906,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:109,
-      y:80,
-      w:25,
-      h:992
+      x: 109,
+      y: 80,
+      w: 25,
+      h: 992
     });
     this.wallsUpstairs.push({
-      x:951,
-      y:998,
-      w:68,
-      h:42
+      x: 951,
+      y: 998,
+      w: 68,
+      h: 42
     });
     this.wallsUpstairs.push({
-      x:1190,
-      y:984,
-      w:50,
-      h:54
+      x: 1190,
+      y: 984,
+      w: 50,
+      h: 54
     });
     this.wallsUpstairs.push({
-      x:1190,
-      y:984,
-      w:50,
-      h:54
+      x: 1190,
+      y: 984,
+      w: 50,
+      h: 54
     });
     this.wallsUpstairs.push({
-      x:111,
-      y:496,
-      w:160,
-      h:25
+      x: 111,
+      y: 496,
+      w: 160,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:386,
-      y:496,
-      w:81,
-      h:25
+      x: 386,
+      y: 496,
+      w: 81,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:439,
-      y:413,
-      w:25,
-      h:409
+      x: 439,
+      y: 413,
+      w: 25,
+      h: 409
     });
     this.wallsUpstairs.push({
-      x:441,
-      y:414,
-      w:46,
-      h:25
+      x: 441,
+      y: 414,
+      w: 46,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:608,
-      y:413,
-      w:49,
-      h:25
+      x: 608,
+      y: 413,
+      w: 49,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:634,
-      y:83,
-      w:25,
-      h:352
+      x: 634,
+      y: 83,
+      w: 25,
+      h: 352
     });
     this.wallsUpstairs.push({
-      x:634,
-      y:332,
-      w:243,
-      h:25
+      x: 634,
+      y: 332,
+      w: 243,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:634,
-      y:81,
-      w:229,
-      h:269
+      x: 634,
+      y: 81,
+      w: 229,
+      h: 269
     });
     this.wallsUpstairs.push({
-      x:854,
-      y:278,
-      w:25,
-      h:547
+      x: 854,
+      y: 278,
+      w: 25,
+      h: 547
     });
     this.wallsUpstairs.push({
-      x:718,
-      y:361,
-      w:133,
-      h:75
+      x: 718,
+      y: 361,
+      w: 133,
+      h: 75
     });
     this.wallsUpstairs.push({
-      x:707,
-      y:740,
-      w:140,
-      h:60
+      x: 707,
+      y: 740,
+      w: 140,
+      h: 60
     });
     this.wallsUpstairs.push({
-      x:440,
-      y:797,
-      w:137,
-      h:25
+      x: 440,
+      y: 797,
+      w: 137,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:686,
-      y:799,
-      w:193,
-      h:25
+      x: 686,
+      y: 799,
+      w: 193,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1102,
-      y:82,
-      w:241,
-      h:271
+      x: 1102,
+      y: 82,
+      w: 241,
+      h: 271
     });
     this.wallsUpstairs.push({
-      x:1498,
-      y:109,
-      w:313,
-      h:41
+      x: 1498,
+      y: 109,
+      w: 313,
+      h: 41
     });
     this.wallsUpstairs.push({
-      x:634,
-      y:332,
-      w:243,
-      h:25
+      x: 634,
+      y: 332,
+      w: 243,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1576,
-      y:110,
-      w:156,
-      h:124
+      x: 1576,
+      y: 110,
+      w: 156,
+      h: 124
     });
     this.wallsUpstairs.push({
-      x:1888,
-      y:318,
-      w:63,
-      h:130
+      x: 1888,
+      y: 318,
+      w: 63,
+      h: 130
     });
     this.wallsUpstairs.push({
-      x:1321,
-      y:468,
-      w:438,
-      h:25
+      x: 1321,
+      y: 468,
+      w: 438,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1870,
-      y:468,
-      w:108,
-      h:187
+      x: 1870,
+      y: 468,
+      w: 108,
+      h: 187
     });
     this.wallsUpstairs.push({
-      x:1651,
-      y:499,
-      w:82,
-      h:25
+      x: 1651,
+      y: 499,
+      w: 82,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1321,
-      y:468,
-      w:25,
-      h:272
+      x: 1321,
+      y: 468,
+      w: 25,
+      h: 272
     });
     this.wallsUpstairs.push({
-      x:1319,
-      y:635,
-      w:216,
-      h:25
+      x: 1319,
+      y: 635,
+      w: 216,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1651,
-      y:634,
-      w:327,
-      h:25
+      x: 1651,
+      y: 634,
+      w: 327,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1347,
-      y:560,
-      w:90,
-      h:61
+      x: 1347,
+      y: 560,
+      w: 90,
+      h: 61
     });
     this.wallsUpstairs.push({
-      x:1364,
-      y:682,
-      w:54,
-      h:47
+      x: 1364,
+      y: 682,
+      w: 54,
+      h: 47
     });
     this.wallsUpstairs.push({
-      x:1884,
-      y:886,
-      w:66,
-      h:146
+      x: 1884,
+      y: 886,
+      w: 66,
+      h: 146
     });
     this.wallsUpstairs.push({
-      x:1798,
-      y:986,
-      w:155,
-      h:57
+      x: 1798,
+      y: 986,
+      w: 155,
+      h: 57
     });
     this.wallsUpstairs.push({
-      x:1825,
-      y:925,
-      w:52,
-      h:25
+      x: 1825,
+      y: 925,
+      w: 52,
+      h: 25
     });
     this.wallsUpstairs.push({
-      x:1321,
-      y:853,
-      w:25,
-      h:219
+      x: 1321,
+      y: 853,
+      w: 25,
+      h: 219
     });
+
+    // this.wallsOutside.push({
+    //   x: 845,
+    //   y: 1470,
+    //   w: 200,
+    //   h: 200
+    // });
+    //
+    // //PUSHES ALL FLOOR 1 WALLS INTO ARRAY//
+    // for (let h = 0; h < this.wallsOutside.length; h++) {
+    //   this.wallsOutside[h].x += this.x;
+    //   this.wallsOutside[h].y += this.y;
+    // }
 
     //PUSHES ALL FLOOR 1 WALLS INTO ARRAY//
     for (let i = 0; i < this.wallsDownstairs.length; i++) {
@@ -616,6 +788,10 @@ class Floorplan {
     } else {
       return this.wallsDownstairs;
     }
+
+    if (this.outside) {
+      return this.wallsOutside;
+    }
   }
 
   //SWITCH TO ALLOW PROPER PLACEMENT OF SPAWN POINTS DEPENING ON LEVEL//
@@ -625,6 +801,182 @@ class Floorplan {
     } else {
       return this.spawnPointsDownstairs;
     }
+  }
+
+  hedgeStateCurrentSpawnPoints() {
+    if (this.outside) {
+      return this.hedges;
+    }
+  }
+
+  hedgeGenerator() {
+
+    this.hedges.push({
+      x: 845,
+      y: 1470,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 960,
+      y: 1585,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1075,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1190,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1305,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2070,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2185,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2300,
+      y: 1700,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2415,
+      y: 1585,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2530,
+      y: 1470,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 1355,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 1240,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 1125,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 1010,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 895,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 550,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 435,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 500,
+      y: 320,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 615,
+      y: 205,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 730,
+      y: 90,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 845,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 960,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1075,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1190,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1205,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1320,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1435,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1550,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1665,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1780,
+      y: -25,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 1895,
+      y: 90,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2010,
+      y: 205,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+    this.hedges.push({
+      x: 2010,
+      y: 320,
+      hedgeIndex: Math.floor(random(0, 3))
+    });
+
   }
 
   //OFFSETX & Y KEEP OBJECTS IN PLACE IN RELATION TO PLAYER//
@@ -661,6 +1013,8 @@ class Floorplan {
         rect(curSpawn[i].x + offsetX, curSpawn[i].y + offsetY, curSpawn[i].w, curSpawn[i].h)
         pop();
       }
+
+
 
       //INSIDE BUILDING//
     } else if (!this.upstairs) {

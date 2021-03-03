@@ -3,7 +3,7 @@ class Player {
     this.x = 100;
     this.y = 2000;
     this.radius = 50 / 2;
-    this.speed = 4;
+    this.speed = 10;
     this.inside = false;
 
     //USED FOR E KEY INSTRUCTION//

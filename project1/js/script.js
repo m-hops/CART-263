@@ -58,6 +58,7 @@ let grassOverlay;
 let blackOutOverlay;
 let introScreenOverlay;
 let introScreenBackground;
+let hedge = [];
 
 //INTRO SCREEN VARIABLES//
 let introScreenOverlaySpec = {
@@ -155,6 +156,11 @@ function preload() {
   blackOutOverlay = loadImage('assets/images/lightOut.png');
   introScreenOverlay = loadImage('assets/images/introScreenForeground.png');
   introScreenBackground = loadImage('assets/images/introScreenBackground.png');
+
+  hedge[0] = loadImage('assets/images/outside/hedge/hedge0.png');
+  hedge[1] = loadImage('assets/images/outside/hedge/hedge1.png');
+  hedge[2] = loadImage('assets/images/outside/hedge/hedge2.png');
+  hedge[3] = loadImage('assets/images/outside/hedge/hedge3.png');
 
   //ANIMATION PRELOADS//
   playerSpriteRest = loadAnimation('assets/images/player/images/playerRestDown.png');
@@ -649,6 +655,15 @@ function instructionScreen() {
 
 }
 
+function hedgeAndHitbox() {
+
+  //GENERATES HEDGES OUTSIDE//
+  for (let i = 0; i < floorplan.hedges.length; i++) {
+    image(hedge[floorplan.hedges[i].hedgeIndex], floorplan.hedges[i].x + offsetX, floorplan.hedges[i].y + offsetY);
+  }
+
+}
+
 //TURNS ON MOVEMENT LOCK, SPAWNS VICTIMS, ENABLES PLAYER MOVEMENT, DISPLAYS FLOORPLAN WITH NECESSARY COMPONENETS//
 function playScreen() {
 
@@ -661,6 +676,8 @@ function playScreen() {
   if (floorplan.outside) {
 
     image(grassOverlay, offsetX, offsetY);
+
+    hedgeAndHitbox();
 
     floorplan.update(offsetX, offsetY);
 
@@ -765,7 +782,7 @@ function setup() {
 
   audioQ();
 
-  goToMenu('intro');
+  goToMenu('play');
 
   menuAudio.loop();
 
