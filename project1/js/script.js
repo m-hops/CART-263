@@ -9,7 +9,7 @@ KILL THEM ALL, AND DON'T GET CAUGHT
 ******************/
 
 //GLOBAL VARIABLE FOR MENU NAVGIATION//
-let menu = 'intro';
+let menu;
 let menuOnEnter;
 
 //ARRAY INFO FOR VICTIMS//
@@ -33,7 +33,7 @@ let isOutside = true;
 let killSFX;
 let walkInsideSFX;
 let walkInside = false;
-let menuAudio = true;
+let menuAudio;
 
 //LIGHTNING GENERATOR VARIABLES//
 let lightning = {
@@ -115,6 +115,7 @@ let whyStartAnim;
 let controlAnim;
 let beginAnim;
 let brokenMaskAnim;
+let winMaskAnim;
 let huntAgainAnim;
 
 let playerSprite;
@@ -140,6 +141,7 @@ function preload() {
   killSFX = loadSound('assets/sounds/hit.mp3');
   walkInsideSFX = loadSound('assets/sounds/walkInside.mp3');
   lightningSFX = loadSound('assets/sounds/thunderSFX.mp3');
+  menuAudio = loadSound('assets/sounds/project1Theme.mp3');
 
   //IMAGE PRELOADS//
   floorplan1BKG = loadImage('assets/images/level1.png');
@@ -189,6 +191,7 @@ function preload() {
   beginAnim = loadAnimation('assets/images/begin/begin0.png', 'assets/images/begin/begin2.png');
   brokenMaskAnim = loadAnimation('assets/images/brokenMask/brokenMask0.png', 'assets/images/brokenMask/brokenMask2.png');
   huntAgainAnim = loadAnimation('assets/images/huntAgain/huntAgain0.png', 'assets/images/huntAgain/huntAgain2.png')
+  winMaskAnim = loadAnimation('assets/images/winMask/winMask0.png', 'assets/images/winMask/winMask3.png');
 
 }
 
@@ -208,9 +211,6 @@ function gameReset() {
   floorplan.upstairs = false;
   floorplan.outside = true;
 
-  VICTIMCOUNTDOWNSTAIRS = 5;
-  VICTIMCOUNTUPSTAIRS = 5;
-
   killCount = 0;
 
   victimSpawn();
@@ -219,8 +219,17 @@ function gameReset() {
 
 //MENU NAVIGATION TOOL//
 function goToMenu(menuID) {
+
+  //STOPS AUDIO WHEN EXITING INTRODUCTION SCREEN//
+  if (menu == 'instructionScreen' && menuID !== 'intoductionScreen') {
+    menuAudio.stop();
+  }
   menu = menuID;
   menuOnEnter = true;
+
+  if (menu == 'intro') {
+    menuAudio.loop();
+  }
 }
 
 //MENU HIERARCHY//
@@ -232,6 +241,7 @@ function menuNav() {
 
   if (menu == 'instructionScreen') {
     instructionScreen();
+
   }
 
   if (menu == 'play') {
@@ -272,8 +282,8 @@ function mouseClicked() {
       goToMenu('intro');
     }
   } else if (menu == 'win') {
-    if (mouseX >= 325 &&
-        mouseX <= 575 &&
+    if (mouseX >= 285 &&
+        mouseX <= 620 &&
         mouseY >= 300 &&
         mouseY <= 400) {
           goToMenu('intro');
@@ -701,18 +711,26 @@ function failScreen() {
 
   animation(huntAgainAnim, 450, 350);
 
-  animation(brokenMaskAnim, 450, 150);
+  animation(brokenMaskAnim, 450, 170);
 }
 
 //IF PLAYER KILLS EVERYONE//
 function winScreen() {
   image(introScreenBackground, 0, 0);
 
-  rect(325, 300, 250, 100);
+  push();
+  noFill();
+  noStroke();
+  rect(285, 300, 335, 100);
+  pop();
 
   rainRun();
 
   lightningGenerator();
+
+  animation(huntAgainAnim, 450, 350);
+
+  animation(winMaskAnim, 475, 200);
 }
 
 function setup() {
@@ -729,6 +747,8 @@ function setup() {
   rainSetup();
 
   audioQ();
+
+  goToMenu('intro');
 
 
 }

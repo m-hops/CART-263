@@ -35,7 +35,7 @@ class Victim extends Player {
     this.failCondition();
   }
 
-failCondition() {
+  failCondition() {
     if (this.detection) {
       goToMenu('fail');
       walkInsideSFX.stop();
@@ -50,7 +50,7 @@ failCondition() {
       //THIS IS FOR TURNING STATE//
 
       //SELECT THE NEXT TARGETINDEX//
-      if (this.pathingDirection == 0){
+      if (this.pathingDirection == 0) {
 
         this.pathingSourceIndex = this.pathingTargetIndex;
 
@@ -72,7 +72,7 @@ failCondition() {
         this.pathingTargetIndex--;
 
         //IF WE REACH THE END OF THE BACKWARD PATH//
-        if (this.pathingTargetIndex == 0){
+        if (this.pathingTargetIndex == 0) {
 
           //CHANGES DIRECTION TO FORWARD//
           this.pathingDirection = 0;
@@ -86,37 +86,39 @@ failCondition() {
       let tX = this.path[this.pathingTargetIndex].x;
       let tY = this.path[this.pathingTargetIndex].y;
       let segmentVector = {
-        x:tX - this.x,
-        y:tY - this.y
+        x: tX - this.x,
+        y: tY - this.y
       };
       let segmentVectorLength = Math.sqrt(segmentVector.x * segmentVector.x + segmentVector.y * segmentVector.y);
       segmentVector.x = segmentVector.x / segmentVectorLength;
       segmentVector.y = segmentVector.y / segmentVectorLength;
-      if(segmentVector.x > Math.abs(segmentVector.y)){
+      if (segmentVector.x > Math.abs(segmentVector.y)) {
         this.currentDirection = 0;
-      } else if(segmentVector.y > Math.abs(segmentVector.x)){
+        this.angle = 0;
+      } else if (segmentVector.y > Math.abs(segmentVector.x)) {
         this.currentDirection = 1;
-      } else if(-segmentVector.x > Math.abs(segmentVector.y)){
+        this.angle = Math.PI * 0.5;
+      } else if (-segmentVector.x > Math.abs(segmentVector.y)) {
         this.currentDirection = 2;
-      } else if(-segmentVector.y > Math.abs(segmentVector.x)){
+        this.angle = Math.PI;
+      } else if (-segmentVector.y > Math.abs(segmentVector.x)) {
         this.currentDirection = 3;
+        this.angle = Math.PI * 1.5;
       }
 
-    } else if (this.pathingState == 1){
+    } else if (this.pathingState == 1) {
 
       //THIS IS FOR MOVING STATE//
       let tX = this.path[this.pathingTargetIndex].x;
       let tY = this.path[this.pathingTargetIndex].y;
       let segmentVector = {
-        x:tX - this.x,
-        y:tY - this.y
+        x: tX - this.x,
+        y: tY - this.y
       };
 
       //WHY MUST MATH EXIST!??!@?!?!//
       let segmentVectorLength = Math.sqrt(segmentVector.x * segmentVector.x + segmentVector.y * segmentVector.y);
       let frameSpeed = this.speed * deltaTime / 1000;
-
-        // console.log('this.pathingTargetIndex: ' + this.pathingTargetIndex + ' segmentVectorLength: ' + segmentVectorLength + ' frameSpeed: ' + frameSpeed);
 
       if (frameSpeed >= segmentVectorLength) {
 
@@ -130,64 +132,62 @@ failCondition() {
         segmentVector.x = segmentVector.x / segmentVectorLength * frameSpeed;
         segmentVector.y = segmentVector.y / segmentVectorLength * frameSpeed;
 
-        // console.log('segmentVector.x: ' + segmentVector.x + ' segmentVector.y: ' + segmentVector.y);
-
         this.x += segmentVector.x;
         this.y += segmentVector.y;
 
       }
-
-
-      //THIS IS WHERE ANIMATION STATE IS SWITCHED TO THE NEW DIRECTION//
 
     }
   }
 
   run() {
 
-    let linePoint0X = this.x;
-    let linePoint0Y = this.y;
-    let linePoint1X = player.x;
-    let linePoint1Y = player.y;
-    let closestWallIndex = -1;
-    let closestWallDistance = 99999999999999;
+    if (!this.dead) {
+      let linePoint0X = this.x;
+      let linePoint0Y = this.y;
+      let linePoint1X = player.x;
+      let linePoint1Y = player.y;
+      let closestWallIndex = -1;
+      let closestWallDistance = 99999999999999;
 
-    let curWalls = floorplan.getCurrentWalls();
+      let curWalls = floorplan.getCurrentWalls();
 
-    //ALLOWS FOR WALLS TO BLOCK ENEMY DETECTION AREA//
-    for (let i = 0; i < curWalls.length; i++) {
-      let hitInfo = lineRectRaycast(linePoint0X, linePoint0Y, linePoint1X, linePoint1Y, curWalls[i]);
-      if (hitInfo.hit) {
-        if (hitInfo.t < closestWallDistance) {
-          closestWallDistance = hitInfo.t;
-          closestWallIndex = i;
+      //ALLOWS FOR WALLS TO BLOCK ENEMY DETECTION AREA//
+      for (let i = 0; i < curWalls.length; i++) {
+        let hitInfo = lineRectRaycast(linePoint0X, linePoint0Y, linePoint1X, linePoint1Y, curWalls[i]);
+        if (hitInfo.hit) {
+          if (hitInfo.t < closestWallDistance) {
+            closestWallDistance = hitInfo.t;
+            closestWallIndex = i;
+          }
         }
       }
-    }
 
-    //DETERMINES IF PLAYER HAS BEEN DETECTED//
-    if (closestWallIndex >= 0) {
-      this.detection = false;
-    } else {
-      let distanceToPlayer = dist(this.x, this.y, player.x, player.y);
-
-      if (distanceToPlayer <= this.visionRange) {
-        this.detection = true;
-
-        let vLookAt = p5.Vector.fromAngle(this.angle, 1);
-        let vToPlayer = createVector(player.x - this.x, player.y - this.y);
-        let angleBetween = Math.abs(vToPlayer.angleBetween(vLookAt));
-
-        this.detection = angleBetween <= this.fov;
-
-      } else {
+      //DETERMINES IF PLAYER HAS BEEN DETECTED//
+      if (closestWallIndex >= 0) {
         this.detection = false;
+      } else {
+        let distanceToPlayer = dist(this.x, this.y, player.x, player.y);
+
+        if (distanceToPlayer <= this.visionRange) {
+          this.detection = true;
+
+          let vLookAt = p5.Vector.fromAngle(this.angle, 1);
+          let vToPlayer = createVector(player.x - this.x, player.y - this.y);
+          let angleBetween = Math.abs(vToPlayer.angleBetween(vLookAt));
+
+          this.detection = angleBetween <= this.fov;
+
+        } else {
+          this.detection = false;
+        }
       }
     }
 
   }
 
   draw(offsetX, offsetY) {
+
     //DEATH STATE FOR ENEMIES//
     if (this.dead != true) {
 
@@ -196,16 +196,16 @@ failCondition() {
 
       push();
       if (this.currentDirection == 0) {
-        enemySpriteRight[this.enemyTypeIndex].frameDelay=20;
+        enemySpriteRight[this.enemyTypeIndex].frameDelay = 20;
         animation(enemySpriteRight[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 1) {
-        enemySpriteDown[this.enemyTypeIndex].frameDelay=20;
+        enemySpriteDown[this.enemyTypeIndex].frameDelay = 20;
         animation(enemySpriteDown[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 2) {
-        enemySpriteLeft[this.enemyTypeIndex].frameDelay=20;
+        enemySpriteLeft[this.enemyTypeIndex].frameDelay = 20;
         animation(enemySpriteLeft[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 3) {
-        enemySpriteUp[this.enemyTypeIndex].frameDelay=20;
+        enemySpriteUp[this.enemyTypeIndex].frameDelay = 20;
         animation(enemySpriteUp[this.enemyTypeIndex], x, y);
       }
 
@@ -257,6 +257,7 @@ failCondition() {
       }
 
     } else {
+
     }
   }
 }
