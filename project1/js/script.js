@@ -782,7 +782,7 @@ function setup() {
 
   audioQ();
 
-  goToMenu('play');
+  goToMenu('intro');
 
   menuAudio.loop();
 
