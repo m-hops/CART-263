@@ -224,10 +224,11 @@ function goToMenu(menuID) {
   if (menu == 'instructionScreen' && menuID !== 'intoductionScreen') {
     menuAudio.stop();
   }
+
   menu = menuID;
   menuOnEnter = true;
 
-  if (menu == 'intro') {
+  if (menu == 'win' || menu == 'fail') {
     menuAudio.loop();
   }
 }
@@ -241,7 +242,6 @@ function menuNav() {
 
   if (menu == 'instructionScreen') {
     instructionScreen();
-
   }
 
   if (menu == 'play') {
@@ -750,6 +750,7 @@ function setup() {
 
   goToMenu('intro');
 
+  menuAudio.loop();
 
 }
 
