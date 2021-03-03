@@ -198,16 +198,16 @@ class Victim extends Player {
 
       push();
       if (this.currentDirection == 0) {
-        enemySpriteRight[this.enemyTypeIndex].frameDelay = 20;
+        enemySpriteRight[this.enemyTypeIndex].frameDelay = 5;
         animation(enemySpriteRight[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 1) {
-        enemySpriteDown[this.enemyTypeIndex].frameDelay = 20;
+        enemySpriteDown[this.enemyTypeIndex].frameDelay = 5;
         animation(enemySpriteDown[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 2) {
-        enemySpriteLeft[this.enemyTypeIndex].frameDelay = 20;
+        enemySpriteLeft[this.enemyTypeIndex].frameDelay = 5;
         animation(enemySpriteLeft[this.enemyTypeIndex], x, y);
       } else if (this.currentDirection == 3) {
-        enemySpriteUp[this.enemyTypeIndex].frameDelay = 20;
+        enemySpriteUp[this.enemyTypeIndex].frameDelay = 5;
         animation(enemySpriteUp[this.enemyTypeIndex], x, y);
       }
 

@@ -194,7 +194,7 @@ class Floorplan {
     this.wallsDownstairs.push({
       x: 56,
       y: 780,
-      w: 310,
+      w: 295,
       h: 10
     });
     this.wallsDownstairs.push({
@@ -674,7 +674,7 @@ class Floorplan {
         push();
         fill(255, 0, 0, 125);
         noStroke();
-        // noFill();
+        noFill();
         rect(curWalls[i].x + offsetX, curWalls[i].y + offsetY, curWalls[i].w, curWalls[i].h)
         pop();
       }
