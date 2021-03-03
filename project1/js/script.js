@@ -605,7 +605,7 @@ function distanceFromWallToPoint(wall, pointX, pointY) {
 
 //DETERMINES IF ALL ENEMYS HAVE BEEN DISPATCHED//
 function stageCleared() {
-  if (killCount >= 1) {
+  if (killCount >= 10) {
     goToMenu('win');
   }
 }
