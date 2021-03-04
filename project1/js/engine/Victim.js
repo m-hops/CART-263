@@ -35,6 +35,7 @@ class Victim extends Player {
     this.failCondition();
   }
 
+  //WHAT TO DO IF PLAYER IS DETECTED//
   failCondition() {
     if (this.detection) {
       goToMenu('fail');
@@ -43,6 +44,7 @@ class Victim extends Player {
     }
   }
 
+  //SPRITE DIRECTION, ANIMATION, AND FOV CONTROL//
   pathing() {
 
     if (this.pathingState == 0) {

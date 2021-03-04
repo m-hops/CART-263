@@ -237,6 +237,7 @@ function goToMenu(menuID) {
   menu = menuID;
   menuOnEnter = true;
 
+  //MENU AUDIO QUEUES//
   if (menu == 'intro') {
     if (!menuAudio.isPlaying()) {
       winAudio.stop();
@@ -349,12 +350,15 @@ function audioQ() {
 
   //RAIN SOUND EFFECT//
   if (isOutside) {
-    walkInsideSFX.stop();
     rainSFX.setVolume(0.2);
-    rainSFX.loop();
+    if(!rainSFX.isPlaying()){
+      rainSFX.loop();
+    }
   } else {
     rainSFX.setVolume(0.05);
-    rainSFX.loop();
+    if(!rainSFX.isPlaying()){
+      rainSFX.loop();
+    }
   }
 
   //FOOTSTEPSINSIDE//
@@ -385,6 +389,7 @@ function lightningGenerator() {
 
   let odds = random(0, 1);
 
+  //FLASHING EFFECT//
   lightning.alpha = lightning.alpha - lightning.speed;
   lightingInside.alpha = lightingInside.alpha - lightingInside.speed;
 
@@ -653,11 +658,14 @@ function instructionScreen() {
 
 }
 
-function hedgeAndHitbox() {
+//GENERATES HEDGES OUTSIDE//
+function outsideHedges() {
 
-  //GENERATES HEDGES OUTSIDE//
   for (let i = 0; i < floorplan.hedges.length; i++) {
-    image(hedge[floorplan.hedges[i].hedgeIndex], floorplan.hedges[i].x + offsetX, floorplan.hedges[i].y + offsetY);
+    let index = floorplan.hedges[i].hedgeIndex;
+    if(index >=0 ){
+      image(hedge[floorplan.hedges[i].hedgeIndex], floorplan.hedges[i].x + offsetX, floorplan.hedges[i].y + offsetY);
+    }
   }
 
 }
@@ -673,9 +681,11 @@ function playScreen() {
   //MAIN PURPOSE OF THIS IS TO CONTROL SHADOW OVERLAY OVER HOUSE//
   if (floorplan.outside) {
 
+    walkInsideSFX.stop();
+
     image(grassOverlay, offsetX, offsetY);
 
-    hedgeAndHitbox();
+    outsideHedges();
 
     floorplan.update(offsetX, offsetY);
 

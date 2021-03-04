@@ -57,6 +57,7 @@ class Player {
       }
     }
 
+    //CHECKS FOR COLLISION WITH WALLS//
     if (collision) {
 
       collision = false;
@@ -72,7 +73,6 @@ class Player {
       if (!collision) {
         newPositionX = this.x;
       }
-
     }
 
     if (collision) {
@@ -90,7 +90,6 @@ class Player {
       if (!collision) {
         newPositionY = this.y;
       }
-
     }
 
     if (!collision) {
@@ -124,6 +123,7 @@ class Player {
     circle(this.x + offsetX, this.y + offsetY, this.radius * 2);
     pop();
 
+    //ACTIVATES BLACKOUT OVER LAYOUT WHEN PLAYER IS OUTSIDE//
     if (!floorplan.outside){
 
       if (lightingInside.alpha <= 50){

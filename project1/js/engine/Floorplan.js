@@ -14,7 +14,6 @@ class Floorplan {
 
     this.wallsDownstairs = [];
     this.wallsUpstairs = [];
-    this.wallsOutside = [];
     this.hedges = [];
     this.spawnPointsDownstairs = [];
     this.spawnPointsUpstairs = [];
@@ -29,6 +28,8 @@ class Floorplan {
   }
 
   run() {
+
+    //DETERMINES IF PLAYER IS OUTSIDE//
     if (player.x >= this.x + 100 &&
       player.x <= this.x + 100 + (this.w - 250) &&
       player.y >= this.y + 100 &&
@@ -755,19 +756,6 @@ class Floorplan {
       h: 219
     });
 
-    // this.wallsOutside.push({
-    //   x: 845,
-    //   y: 1470,
-    //   w: 200,
-    //   h: 200
-    // });
-    //
-    // //PUSHES ALL FLOOR 1 WALLS INTO ARRAY//
-    // for (let h = 0; h < this.wallsOutside.length; h++) {
-    //   this.wallsOutside[h].x += this.x;
-    //   this.wallsOutside[h].y += this.y;
-    // }
-
     //PUSHES ALL FLOOR 1 WALLS INTO ARRAY//
     for (let i = 0; i < this.wallsDownstairs.length; i++) {
       this.wallsDownstairs[i].x += this.x;
@@ -785,12 +773,10 @@ class Floorplan {
   getCurrentWalls() {
     if (this.upstairs) {
       return this.wallsUpstairs;
+    } else if(this.outside) {
+      return this.hedges;
     } else {
       return this.wallsDownstairs;
-    }
-
-    if (this.outside) {
-      return this.wallsOutside;
     }
   }
 
@@ -803,177 +789,312 @@ class Floorplan {
     }
   }
 
+  //DISPLAYS HEDGES WHEN PLAYER IS OUTSIDE//
   hedgeStateCurrentSpawnPoints() {
     if (this.outside) {
       return this.hedges;
     }
   }
 
+  //OSITION OF HEDGE OVERLAYS//
   hedgeGenerator() {
 
+
+    //BUILDING OUTER WALL//
+    this.hedges.push({
+      x: 55 + this.x,
+      y: 83 + this.y,
+      w: 382,
+      h: 10,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 55 + this.x,
+      y: 85 + this.y,
+      w: 10,
+      h: 975,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 55 + this.x,
+      y: 1055 + this.y,
+      w: 790,
+      h: 10,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 1068 + this.x,
+      y: 1054 + this.y,
+      w: 890,
+      h: 10,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 1951 + this.x,
+      y: 78 + this.y,
+      w: 10,
+      h: 980,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 1546 + this.x,
+      y: 78 + this.y,
+      w: 428,
+      h: 15,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 563 + this.x,
+      y: 78 + this.y,
+      w: 830,
+      h: 32,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 812 + this.x,
+      y: 1066 + this.y,
+      w: 32,
+      h: 80,
+      hedgeIndex: -1
+    });
+    this.hedges.push({
+      x: 1068 + this.x,
+      y: 1064 + this.y,
+      w: 32,
+      h: 80,
+      hedgeIndex: -1
+    });
+
+    //HEDGE LOCATIONS//
     this.hedges.push({
       x: 845,
       y: 1470,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 960,
       y: 1585,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1075,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1190,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1305,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 2070,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 2185,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 2300,
       y: 1700,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 2415,
       y: 1585,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 2530,
       y: 1470,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 1355,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 1240,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 1125,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 1010,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 895,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 550,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 435,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 500,
       y: 320,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 615,
       y: 205,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 730,
       y: 90,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 845,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 960,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1075,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1190,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1205,
+      x: 1305,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
       x: 1320,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1435,
+      x: 1420,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1550,
+      x: 1535,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1665,
+      x: 1650,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1780,
+      x: 1765,
       y: -25,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1895,
+      x: 1880,
       y: 90,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 2010,
+      x: 1995,
       y: 205,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 2010,
+      x: 2110,
       y: 320,
+      w: 100,
+      h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
 
