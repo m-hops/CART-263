@@ -214,8 +214,8 @@ function gameReset() {
   victim.detection = false;
 
   player.inside = false;
-  player.x = 100;
-  player.y = 2000;
+  player.x = 1760;
+  player.y = 1700;
 
   floorplan.upstairs = false;
   floorplan.outside = true;
@@ -239,6 +239,7 @@ function goToMenu(menuID) {
 
   //MENU AUDIO QUEUES//
   if (menu == 'intro') {
+    rainSFX.setVolume(0.2);
     if (!menuAudio.isPlaying()) {
       winAudio.stop();
       menuAudio.loop();
@@ -247,10 +248,18 @@ function goToMenu(menuID) {
 
   if (menu == 'fail') {
     menuAudio.loop();
+    rainSFX.setVolume(0.2);
+    gameReset();
   }
 
   if (menu == 'win') {
     winAudio.play();
+    gameReset();
+  }
+
+  if (menu == 'play') {
+    if (menuAudio.isPlaying())
+    menuAudio.stop();
   }
 }
 
@@ -300,7 +309,7 @@ function mouseClicked() {
       mouseX <= 615 &&
       mouseY >= 310 &&
       mouseY <= 385) {
-      goToMenu('intro');
+      goToMenu('play');
     }
   } else if (menu == 'win') {
     if (mouseX >= 285 &&
@@ -615,6 +624,18 @@ function stageCleared() {
   }
 }
 
+//GENERATES HEDGES OUTSIDE//
+function outsideHedges() {
+
+  for (let i = 0; i < floorplan.hedges.length; i++) {
+    let index = floorplan.hedges[i].hedgeIndex;
+    if(index >=0 ){
+      image(hedge[floorplan.hedges[i].hedgeIndex], floorplan.hedges[i].x + offsetX, floorplan.hedges[i].y + offsetY);
+    }
+  }
+
+}
+
 //INTRODUCTORY SCREEN//
 function startScreen() {
 
@@ -655,18 +676,6 @@ function instructionScreen() {
   howToAnim.frameDelay = howToAnimSpec.delay;
   animation(howToAnim, howToAnimSpec.x, howToAnimSpec.y);
   animation(controlAnim, controlAnimSpec.x, controlAnimSpec.y);
-
-}
-
-//GENERATES HEDGES OUTSIDE//
-function outsideHedges() {
-
-  for (let i = 0; i < floorplan.hedges.length; i++) {
-    let index = floorplan.hedges[i].hedgeIndex;
-    if(index >=0 ){
-      image(hedge[floorplan.hedges[i].hedgeIndex], floorplan.hedges[i].x + offsetX, floorplan.hedges[i].y + offsetY);
-    }
-  }
 
 }
 

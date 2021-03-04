@@ -40,7 +40,7 @@ class Victim extends Player {
     if (this.detection) {
       goToMenu('fail');
       walkInsideSFX.stop();
-      gameReset();
+      
     }
   }
 

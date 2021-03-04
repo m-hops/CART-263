@@ -30,7 +30,7 @@ class Floorplan {
   run() {
 
     //DETERMINES IF PLAYER IS OUTSIDE//
-    if (player.x >= this.x + 100 &&
+    if (player.x >= this.x + 80 &&
       player.x <= this.x + 100 + (this.w - 250) &&
       player.y >= this.y + 100 &&
       player.y <= this.y + 100 + (this.h - 200)) {
@@ -1035,14 +1035,14 @@ class Floorplan {
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1305,
+      x: 1190,
       y: -25,
       w: 100,
       h: 100,
       hedgeIndex: Math.floor(random(0, 3))
     });
     this.hedges.push({
-      x: 1320,
+      x: 1305,
       y: -25,
       w: 100,
       h: 100,
