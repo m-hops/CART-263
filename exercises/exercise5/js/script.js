@@ -93,10 +93,6 @@ function fadeIn(element, opacity) {
 }
 
 function printContent() {
-  let restorePage = document.body.innerHTML;
-  let printContent = document.getElementById('haiku').innerHTML;
 
-  document.body.innerHTML = printContent;
   window.print();
-  document.body.innerHTML = restorePage;
 }

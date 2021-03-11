@@ -1,17 +1,28 @@
-@media print {
-  body {
-    background: #fff;
-    color:black;
-    font-family:'punkFont', sans-serif;
-    font-weight: bold;
-    letter-spacing: .15em;
-  }
-}
-
 @font-face {
   font-family: 'punkFont';
   src: url('/assets/font/Tamette Punkdomed.ttf');
 }
+
+@media print {
+  body {
+    background: #fff;
+    color:black;
+    text-align: center;
+    font-family:'punkFont', sans-serif;
+    font-weight: bold;
+    letter-spacing: .15em;
+  }
+
+  img {
+    display: none;
+  }
+
+  video {
+    display: none;
+  }
+}
+
+@media screen{
 
 body {
   padding: 0;
@@ -124,4 +135,5 @@ body {
   }
 
   ;
+}
 }
