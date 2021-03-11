@@ -1,12 +1,12 @@
-/* @media print {
-  #haiku {
+@media print {
+  body {
     background: #fff;
     color:black;
     font-family:'punkFont', sans-serif;
     font-weight: bold;
-    display: inline-block;
+    letter-spacing: .15em;
   }
-} */
+}
 
 @font-face {
   font-family: 'punkFont';

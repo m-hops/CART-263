@@ -9,6 +9,7 @@ IMPROVEMENTS MADE TO ORIGINAL ACTIVITY:
 
 1. ANIMATED BACKGROUND WITH CSS AND HTML
 2. ANIMATED TEXT WITH KEYFRAMES
+3. MADE LINES OF TEXT PRINTABLE
 
 ******************/
 
@@ -91,9 +92,9 @@ function fadeIn(element, opacity) {
   }
 }
 
-function printContent(words) {
+function printContent() {
   let restorePage = document.body.innerHTML;
-  let printContent = document.getElementById(words).innerHTML;
+  let printContent = document.getElementById('haiku').innerHTML;
 
   document.body.innerHTML = printContent;
   window.print();
