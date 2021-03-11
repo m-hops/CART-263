@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'punkFont';
-  src: url('/assets/font/Tamette Punkdomed.ttf');
+  src: url('/assets/font/punkFont.ttf');
 }
 
 @media print {
@@ -16,7 +16,7 @@
   img {
     display: none;
   }
- 
+
   video {
     display: none;
   }
