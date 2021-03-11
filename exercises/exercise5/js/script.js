@@ -19,7 +19,9 @@ let fiveSyllableLines = [
   `dancing in the pit`,
   `weed smoke fills the air`,
   `all my friends are here`,
-  `i kiss the night sky`
+  `i kiss the night sky`,
+  `tonight is ska night`,
+  `shit, my ex is here`
 ];
 
 let sevenSyllableLines = [
@@ -28,7 +30,8 @@ let sevenSyllableLines = [
   `my lip is busted open`,
   `i used to date the bassist`,
   `here in the shittiest bar`,
-  `the smell of cheap beer hits me`
+  `the smell of cheap beer hits me`,
+  `i'm friends with the lead singer`
 ];
 
 let line1 = random(fiveSyllableLines);
