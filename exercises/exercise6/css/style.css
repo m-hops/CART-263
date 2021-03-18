@@ -1,16 +1,38 @@
+@font-face {
+  font-family: 'dosFont';
+  src: url('../font/dosFont.ttf') format('truetype');
+}
+
+body {
+  background: url("/assets/images/bkg.png")no-repeat center center fixed;
+  background-size: cover;
+}
+
 #secret-document {
-  font-family: monospace;
-  font-size: 1.25rem;
+  font-family: 'dosFont', monospace;
+  font-size: 1.5vw;
+  color: rgb(27,227,27);
   width: 50vw;
   margin:auto;
 }
 
+#overlay {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index:2;
+  opacity: 0.2;
+}
+
 .redacted {
-  background-color: black;
+  background-color: rgb(27,227,27);
   user-select: none;
 }
 
 .revealed {
-  color: red;
+  color: white;
   text-decoration: underline;
 }

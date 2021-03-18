@@ -1,5 +1,17 @@
-
 "use strict";
+
+/*****************
+
+EXERCISE 6: RAVING REDACTIONIST++
+MADELINE ZAYTSOFF
+
+IMPROVEMENTS MADE TO ORIGINAL ACTIVITY:
+
+1. STYLIZED WITH WITH CSS AND HTML
+2.
+3.
+
+******************/
 
 $('.top-secret').on('click',redact);
 
