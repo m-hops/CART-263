@@ -46,7 +46,7 @@ function attemptReveal() {
   }
 }
 
-var video = document.getElementById('simpsons');
-video.onended = function() {
+var vid = document.getElementById('simpsons');
+vid.onended = function() {
   window.location.href = 'index.html';
 }
