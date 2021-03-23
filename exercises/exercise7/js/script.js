@@ -6,6 +6,14 @@ MADELINE ZAYTSOFF
 
 "use strict";
 
+$(`#login-window`).dialog({
+  dialogClass: "no-close",
+});
+
+$("#text-window").draggable({
+  draggableClass: "no-close",
+});
+
 $(`#solved-dialog`).dialog({
   autoOpen: false,
   buttons: {
@@ -31,7 +39,6 @@ $(`#answer`).droppable({
 
     if ($(this).text() === `Theremin`) {
       $(`#solved-dialog`).dialog(`open`);
-
     }
   }
 });
