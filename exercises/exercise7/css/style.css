@@ -8,6 +8,14 @@ body {
   overflow: hidden;
 }
 
+#poem {
+  position: absolute;
+  font-size: 1.5rem;
+  text-align: center;
+  left:12%;
+  top:8%;
+}
+
 #answer {
   position:absolute;
   left: 8%;
