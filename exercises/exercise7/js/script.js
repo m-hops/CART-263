@@ -1,17 +1,19 @@
 /**
-ACTIVITY 8: CODE-TAKER
+ACTIVITY 8: CODE-TAKER++
 MADELINE ZAYTSOFF
 
 */
 
 "use strict";
 
-$(`#login-window`).dialog({
+$(`#container`).dialog({
   dialogClass: "no-close",
 });
 
-$("#text-window").draggable({
-  draggableClass: "no-close",
+$("#text-window").dialog({
+  minHeight:400,
+  minWidth:500,
+  dialogClass: "no-close",
 });
 
 $(`#solved-dialog`).dialog({
