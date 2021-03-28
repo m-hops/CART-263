@@ -10,63 +10,41 @@ author, and this description to match your project!
 
 ******************/
 
-let myStateMachine;
+let rootStateMachine;
 
-class State1 extends IState{
-
-    onEnter(sm) {
-      console.log(`state1 onEnter`);
-    }
-
-    onLeave(sm) {
-      console.log(`state1 onLeave`);
-    }
-
-    update(sm) {
-      console.log(`state1 update`);
-
-      sm.transit(new State2());
-    }
-
-    draw(sm) {
-      console.log(`state1 draw`);
-    }
-
-}
-
-class State2 extends IState{
-
-    onEnter(sm) {
-      console.log(`state2 onEnter`);
-    }
-
-    onLeave(sm) {
-      console.log(`state2 onLeave`);
-    }
-
-    update(sm) {
-      console.log(`state2 update`);
-    }
-
-    draw(sm) {
-      console.log(`state2 draw`);
-    }
-
+let ramenBKG;
+let ramenBKGSpecs = {
+  x: -1300,
+  y: -40,
+  w: 2304,
+  h: 648
 }
 
 function preload() {
 
+  ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
+
 }
 
 function setup() {
-  myStateMachine = new StateMachine();
 
-  myStateMachine.transit(new State1());
+  createCanvas(1000,600);
+
+  noStroke();
+
+  rootStateMachine = new StateMachine();
+
 }
 
 function draw() {
-  myStateMachine.update();
+  rootStateMachine.update();
+  rootStateMachine.draw();
 
-  myStateMachine.draw();
+  background(0);
 
+  image(ramenBKG,ramenBKGSpecs.x,ramenBKGSpecs.y,ramenBKGSpecs.w,ramenBKGSpecs.h);
+
+  push();
+  rect(750,320,120,256);
+  pop();
 }
