@@ -34,17 +34,17 @@ function setup() {
 
   rootStateMachine = new StateMachine();
 
+  rootStateMachine.transit(new Menu());
+
 }
 
 function draw() {
   rootStateMachine.update();
-  rootStateMachine.draw();
 
   background(0);
 
-  image(ramenBKG,ramenBKGSpecs.x,ramenBKGSpecs.y,ramenBKGSpecs.w,ramenBKGSpecs.h);
+  rootStateMachine.draw();
 
-  push();
-  rect(750,320,120,256);
-  pop();
+
+
 }

@@ -11,12 +11,17 @@ class Menu extends IState {
   }
 
   update(sm) {
-    console.log(`Menu update`);
+    if (keyIsDown(69)) {
+      sm.transit(new Dialog());
+    }
 
   }
 
   draw(sm) {
-    console.log(`Menu draw`);
+    push();
+    fill(255);
+    text(`This is the menu state.\nPress E to continue`, width/2, height/2);
+    pop();
 
   }
 
