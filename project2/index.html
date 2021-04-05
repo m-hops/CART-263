@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
 
-    <title>CHANGE THIS TITLE IN INDEX.HTML!</title>
+    <title>CHAPTER 3: THE UPWARD SPIRAL</title>
 
     <!-- CSS stylesheet(s) -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -12,6 +12,7 @@
     <!-- Library script(s) -->
     <script src="js/libraries/p5.min.js"></script>
     <script src="js/libraries/p5.sound.min.js"></script>
+    <script src="js/libraries/p5.play-master/lib/p5.play.js"></script>
 
     <!-- My script(s) -->
     <script src="js/engine/AsyncArray.js"></script>
@@ -21,8 +22,15 @@
     <script src="js/engine/GameObject.js"></script>
     <script src="js/engine/Component.js"></script>
 
+    <script src="js/engine/components/RenderComponent.js"></script>
+    <script src="js/engine/components/ImageComponent.js"></script>
     <script src="js/engine/components/Transform.js"></script>
 
+    <script src="js/engine/math/AffineTransform.js"></script>
+
+    <script src="js/engine/rendering/Renderer.js"></script>
+
+    <script src="js/chapter3/gameState/SceneState.js"></script>
     <script src="js/chapter3/gameState/Menu.js"></script>
     <script src="js/chapter3/gameState/End.js"></script>
     <script src="js/chapter3/gameState/Dialog.js"></script>

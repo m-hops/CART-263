@@ -1,22 +1,12 @@
-class Dialog extends IState {
+class Dialog extends SceneState {
 
-  onEnter(sm) {
-    console.log(`Dialog onEnter`);
+  //
+  constructor(renderer) {
 
-  }
+    super(renderer, new Scene());
 
-  onLeave(sm) {
-    console.log(`Dialog onLeave`);
-
-  }
-
-  update(sm) {
-    console.log(`Dialog update`);
-
-  }
-
-  draw(sm) {
-    console.log(`Dialog draw`);
+    // this.sceneToRun.createImageGameObject(virgilPortraitNormal,200,200,0,0.5,0);
+    // this.sceneToRun.createImageGameObject(chloePortraitEmbarassed,200,200,1,0.5,0);
 
   }
 

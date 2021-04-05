@@ -8,6 +8,15 @@ class AsyncArray {
 
     }
 
+    getFirstElementOfType(type){
+
+      for (let h = 0; h < this.active.length; h++) {
+        if(this.active[h] instanceof type) return this.active[h];
+      }
+
+      return null;
+    }
+
     add(obj) {
 
       //CHECKS TO SEE IF GAME OBJECT IS QUEUED FOR REMOVAL//
@@ -37,7 +46,7 @@ class AsyncArray {
       if (this.toRemove.findIndex(x => x === obj) >= 0) return;
 
       //LOCATES SPECIFIC OBJECT INSIDE ARRARY//
-      let index = this.active.findIndex(x => x === obj);
+      index = this.active.findIndex(x => x === obj);
       //QUEUES UP OBJECTS TO BE REMOVED//
       if (index >= 0) {
         this.active[index].end();

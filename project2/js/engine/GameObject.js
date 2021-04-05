@@ -48,4 +48,9 @@ class GameObject {
   removeComponent(comp) {
     this.components.remove(comp);
   }
+
+
+  getTransform() {
+    return this.components.getFirstElementOfType(Transform);
+  }
 }

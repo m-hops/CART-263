@@ -1,14 +1,22 @@
-class Transform {
+class Transform extends Component{
 
   constructor() {
 
-    this.translation = new p5.Vector(0,0,0);
-    this.rotation = 0;
-    this.scale = new p5.Vector(1,1,1);
+    super();
+
+    this.local = new AffineTransform();
+    this.world = null;
   }
 
-  //MULTIPLY THIS TRANSFORM TO ANOTHER TRANSFORM AND RETURN RESULT//
-  transform(trf) {
-
+  update() {
+    if (this.gameObject != null && this.gameObject.parent != null) {
+      let parentTransform = this.gameObject.parent.components.getFirstElementOfType(Transform);
+      if (parentTransform != null) {
+        this.world = this.local.transformed(parentTransform.world);
+      }
+    } else {
+      this.world = this.local.copy();
+    }
+    //CALLED EVERY FRAME WHEN OWNER GAME OBJECT IS UPDATED//
   }
 }
