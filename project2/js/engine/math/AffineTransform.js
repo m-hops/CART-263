@@ -12,10 +12,14 @@ class AffineTransform{
     return result;
   }
   transformed(transform){
+    //console.log(this);
     let result = new AffineTransform();
     result.position = this.position.copy();
     result.position.mult(transform.scale);
-    result.position.rotate(transform.rotation)
+
+    let rotated = new p5.Vector(result.position.x, result.position.y).rotate(transform.rotation);
+    result.position.x = rotated.x;
+    result.position.y = rotated.y;
     result.position.add(transform.position);
 
     result.scale = this.scale.copy();
@@ -79,5 +83,14 @@ class AffineTransform{
     translate(this.position);
     rotate(this.rotation);
     scale(this.scale);
+  }
+  applyInverse(){
+    // console.log("apply transform\n pos=" + this.position
+    //  + "\n scale=" + this.scale
+    //  + "\n rotation=" + this.rotation);
+    scale(p5.Vector.div(new p5.Vector(1,1,1), this.scale));
+    angleMode(RADIANS);
+    rotate(-this.rotation);
+    translate(p5.Vector.sub(new p5.Vector(0,0,0), this.position));
   }
 }

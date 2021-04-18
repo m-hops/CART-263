@@ -10,17 +10,38 @@ author, and this description to match your project!
 
 ******************/
 
+let dialogFont;
+
 let rootStateMachine;
+
+let roundedCornerOverlay;
 
 let textBoxBKG;
 
 let chloePortraitEmbarassed;
+let chloePortraitNormal;
+let chloePortraitShock;
 
 let virgilPortraitNormal;
+let virgilPortraitShock;
+let virgilPortraitUnimpresssed;
 
-let testLevelSizing;
-let testAnimation;
-let testCharacterSprite;
+let chloeLeftAnimation;
+let chloeLeftStationary;
+let chloeRightAnimation;
+let chloeRightStationary;
+
+let outsideBKGMountains0;
+let outsideBKGMountains1;
+let outsideGroundLoop;
+let outsidePhoneBooth;
+let outsideSky;
+let outsideBarbedFence = [];
+let outsideForeground = [];
+let outsideStoneWalkway = [];
+let outsideStreetlight = [];
+
+let characterBlueCat;
 
 let ramenBKG;
 let ramenBKGSpecs = {
@@ -32,111 +53,76 @@ let ramenBKGSpecs = {
 
 let globalRenderer = new Renderer();
 
-// 1 2 1 2, THIS IS JUST A TEST //
-let time = 0;
-function Testing(){
-  time += deltaTime *0.001;
-  let carGO = new GameObject();
-  let carGOTransform = new Transform();
-  carGO.addComponent(carGOTransform);
-  carGOTransform.local.setPosition(100,100);
-  carGOTransform.local.setScale(0.1,0.1);
-  carGOTransform.local.setRotation(time);
-  carGO.addComponent(new ImageComponent(virgilPortraitNormal));
-
-  let wheelGO = new GameObject();
-  let wheelGOTransform = new Transform();
-  wheelGO.addComponent(wheelGOTransform);
-  wheelGOTransform.local.setPosition(1000,0);
-  wheelGO.addComponent(new ImageComponent(chloePortraitEmbarassed));
-
-  carGO.addChild(wheelGO);
-
-
-  let myScene = new Scene();
-  myScene.addGameObject(carGO);
-  myScene.update();
-  let renderer = new Renderer();
-  renderer.render(myScene);
-
-  console.log(`transform update ` + wheelGO.components.getFirstElementOfType(Transform).world.position);
-}
-
 function preload() {
 
-  ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
+  roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
+
+  dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
 
+  characterBlueCat = loadImage(`assets/images/assortedCharacters/blueCat.png`);
+
+  outsideBKGMountains0 = loadImage(`assets/images/landscape/background/mountain0.png`);
+  outsideBKGMountains1 = loadImage(`assets/images/landscape/background/mountain1.png`);
+  outsideGroundLoop = loadImage(`assets/images/landscape/groundLoop.png`);
+  outsidePhoneBooth = loadImage(`assets/images/landscape/phonebooth.png`);
+  outsideSky = loadImage(`assets/images/landscape/sky.png`);
+  outsideBarbedFence[0] = loadImage(`assets/images/landscape/barbedFence/barbedFence0.png`);
+  outsideBarbedFence[1] = loadImage(`assets/images/landscape/barbedFence/barbedFence1.png`);
+  outsideBarbedFence[2] = loadImage(`assets/images/landscape/barbedFence/barbedFence2.png`);
+  outsideBarbedFence[3] = loadImage(`assets/images/landscape/barbedFence/barbedFence3.png`);
+  outsideForeground[0] = loadImage(`assets/images/landscape/foreground/foreground0.png`);
+  outsideForeground[1] = loadImage(`assets/images/landscape/foreground/foreground1.png`);
+  outsideStoneWalkway[0] = loadImage(`assets/images/landscape/stoneWalkway/stoneWalk0.png`);
+  outsideStoneWalkway[1] = loadImage(`assets/images/landscape/stoneWalkway/stoneWalk1.png`);
+  outsideStoneWalkway[2] = loadImage(`assets/images/landscape/stoneWalkway/stoneWalk2.png`);
+  outsideStoneWalkway[3] = loadImage(`assets/images/landscape/stoneWalkway/stoneWalk3.png`);
+  outsideStoneWalkway[4] = loadImage(`assets/images/landscape/stoneWalkway/stoneWalk4.png`);
+  outsideStreetlight[0] = loadImage(`assets/images/streetLamps/streetlight0.png`);
+  outsideStreetlight[1] = loadImage(`assets/images/streetLamps/streetlight1.png`);
+  outsideStreetlight[2] = loadImage(`assets/images/streetLamps/streetlight2.png`);
+  outsideStreetlight[3] = loadImage(`assets/images/streetLamps/streetlight3.png`);
+  outsideStreetlight[4] = loadImage(`assets/images/streetLamps/streetlight4.png`);
+  outsideStreetlight[5] = loadImage(`assets/images/streetLamps/streetlight5.png`);
+  outsideStreetlight[6] = loadImage(`assets/images/streetLamps/streetlight6.png`);
+  outsideStreetlight[7] = loadImage(`assets/images/streetLamps/streetlight7.png`);
+
+  ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
+
   chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
+  chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
+  chloePortraitShock = loadImage(`assets/images/sprites/player/portrait/chloeShock.png`);
 
   virgilPortraitNormal = loadImage(`assets/images/sprites/virgil/virgilNormal.png`);
+  virgilPortraitShock = loadImage(`assets/images/sprites/virgil/virgilShock.png`);
+  virgilPortraitUnimpresssed = loadImage(`assets/images/sprites/virgil/virgilUnimpressed.png`);
 
-  testLevelSizing = loadImage(`assets/images/landscapeTesting.png`);
-  testAnimation = loadAnimation(`assets/images/sprites/player/leftWalkCycle/walkCycleLeft0.png`, `assets/images/sprites/player/leftWalkCycle/walkCycleLeft3.png`);
-
+  chloeLeftAnimation = loadAnimation(`assets/images/sprites/player/leftWalkCycle/walkCycleLeft0.png`, `assets/images/sprites/player/leftWalkCycle/walkCycleLeft3.png`);
+  chloeLeftStationary = loadImage(`assets/images/sprites/player/leftStationary.png`);
+  chloeRightAnimation = loadAnimation(`assets/images/sprites/player/rightWalkCycle/walkCycleRight0.png`, `assets/images/sprites/player/rightWalkCycle/walkCycleRight3.png`);
+  chloeRightStationary = loadImage(`assets/images/sprites/player/rightStationary.png`);
 }
 
 function setup() {
 
   createCanvas(1000,700);
 
-  noStroke();
+  //noStroke();
 
   rootStateMachine = new StateMachine();
 
-  rootStateMachine.transit(new Dialog(globalRenderer));
-
-  imageTestingSetup();
+  rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
 
 }
 
-//DELETE THESE TWO BEFORE COMPLETION//
-function imageTesting() {
-
-  push();
-  image(testLevelSizing,-410,-110,1440,810);
-  // filter(THRESHOLD);
-  // filter(BLUR, 3);
-  pop();
-
-  // push();
-  // fill(0,225);
-  // rect(0,0,width,height)
-  // pop();
-
-  // image(chloePortraitEmbarassed, 0, 20, 401, 623);
-  //
-  // image(virgilPortraitNormal, 600, 50, 354, 484);
-  //
-  // image(textBoxBKG, 0, 475);
-
-  drawSprites();
-
-}
-function imageTestingSetup() {
-
-  testCharacterSprite = createSprite(550,425,150,250);
-
-  testCharacterSprite.scale = 0.7;
-  testAnimation.frameDelay = 8;
-  testCharacterSprite.addAnimation('left', testAnimation);
-
-  testCharacterSprite.changeAnimation('left');
-
-
-}
 
 function draw() {
   rootStateMachine.update();
 
   background(0);
 
-  imageTesting();
-
   rootStateMachine.draw();
 
-
-    // //TEST LINE; DELETE AFTER USE//
-    // Testing();
+  image(roundedCornerOverlay,0,0);
 
 }

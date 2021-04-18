@@ -44,4 +44,19 @@ class Scene {
     }
     return go;
   }
+
+  getFirstGameObjectWithComponentType(compType) {
+
+    for (let i = 0; i < this.gameObjects.active.length; i++) {
+
+      let go = this.gameObjects.active[i];
+      let comp = go.components.getFirstElementOfType(compType);
+
+      if (comp != null) {
+        return go;
+      }
+    }
+
+    return null;
+  }
 }

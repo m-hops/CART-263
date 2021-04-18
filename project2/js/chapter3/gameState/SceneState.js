@@ -27,7 +27,7 @@ class SceneState extends IState {
   }
 
   update(sm) {
-    console.log(`Dialog update`);
+    //console.log(`Dialog update`);
 
     if (this.sceneToRun != null) {
       this.sceneToRun.update();
@@ -35,7 +35,7 @@ class SceneState extends IState {
   }
 
   draw(sm) {
-    console.log(`Dialog draw`);
+    //console.log(`Dialog draw`);
 
     if (this.sceneToRun != null) {
       this.renderer.render(this.sceneToRun);

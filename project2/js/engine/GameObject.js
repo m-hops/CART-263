@@ -5,8 +5,15 @@ class GameObject {
     this.parent = null;
     this.components = new AsyncArray();
     this.children = new AsyncArray();
+    this.name = null;
   }
 
+  //CALL THIS TO UPDATE THE COMPONENET AND CHILDREN ASYNC ARRAY//
+  updateAsyn() {
+    this.components.update();
+    this.children.update();
+  }
+  
   //STARTS AFFILIATED COMPONENT AND CHILDREN//
   start() {
     this.components.start();
