@@ -35,27 +35,37 @@ class OutsideScene extends Scene {
       new p5.Vector(0,0,0),
       new p5.Vector(10000000, height, 100000000)));
 
-    //
+    //SKY BACKGROUND//
+    let skyLayer = new GameObject();
+
+    skyLayer.addComponent(new Transform());
+    skyLayer.addComponent(new ImageComponent(outsideSky, 2, 1));
+    this.background.addChild(skyLayer);
+
+    skyLayer.getTransform().local.position.z = 90;
+    skyLayer.getTransform().local.setScale(0.6,0.6);
+
+    //NEAR MOUNTAINS//
     let layer0 = new GameObject();
 
     layer0.addComponent(new Transform());
     layer0.addComponent(new ImageComponent(outsideBKGMountains0, 2, 1));
     this.background.addChild(layer0);
 
+    layer0.getTransform().local.position.z = 60;
+    layer0.getTransform().local.position.y = 200;
+
+    //FAR MOUNTAINS//
     let layer1 = new GameObject();
 
     layer1.addComponent(new Transform());
     layer1.addComponent(new ImageComponent(outsideBKGMountains1, 2, 1));
-    //layer1.addComponent(new RenderDebugComponent());
 
     this.background.addChild(layer1);
 
-    this.addGameObject(this.background);
-
-    layer0.getTransform().local.position.z = 60;
-    layer0.getTransform().local.position.y = 200;
     layer1.getTransform().local.position.z = 80;
-    //layer1.getTransform().local.position.y = 100;
+
+    this.addGameObject(this.background);
 
     this.groundLoop = new GameObject();
 
