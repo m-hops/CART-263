@@ -7,7 +7,19 @@ class AsyncArray {
       this.toRemove = [];
 
     }
-
+    visit(func){
+      for (let h = 0; h < this.active.length; h++) {
+        func(this.active[h]);
+      }
+      for (let h = 0; h < this.toAdd.length; h++) {
+        func(this.toAdd[h]);
+      }
+    }
+    visitActive(func){
+      for (let h = 0; h < this.active.length; h++) {
+        func(this.active[h]);
+      }
+    }
     getFirstActiveElementOfType(type){
 
       for (let h = 0; h < this.active.length; h++) {
@@ -21,12 +33,27 @@ class AsyncArray {
       for (let h = 0; h < this.active.length; h++) {
         if(this.active[h] instanceof type) return this.active[h];
       }
-      
+
       for (let i = 0; i < this.toAdd.length; i++) {
         if(this.toAdd[i] instanceof type) return this.toAdd[i];
       }
 
       return null;
+    }
+
+    getAllElementOfType(type){
+      let elements = [];
+
+      for (let h = 0; h < this.active.length; h++) {
+        if(this.active[h] instanceof type) elements.push(this.active[h]);
+      }
+
+      for (let i = 0; i < this.toAdd.length; i++) {
+        if(this.toAdd[i] instanceof type) elements.push(this.toAdd[i]);
+      }
+
+      return elements;
+
     }
 
     add(obj) {

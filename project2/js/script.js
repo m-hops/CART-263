@@ -18,6 +18,10 @@ let roundedCornerOverlay;
 
 let textBoxBKG;
 
+let forestAmbientSFX;
+
+let speechBubbleIcon;
+
 let chloePortraitEmbarassed;
 let chloePortraitNormal;
 let chloePortraitShock;
@@ -36,6 +40,7 @@ let outsideBKGMountains1;
 let outsideGroundLoop;
 let outsidePhoneBooth;
 let outsideSky;
+let outsideTrees;
 let outsideBarbedFence = [];
 let outsideForeground = [];
 let outsideStoneWalkway = [];
@@ -44,6 +49,8 @@ let outsideStreetlight = [];
 let characterBlueCat;
 
 let ramenBKG;
+let ramenOutside;
+
 let ramenBKGSpecs = {
   x: -1300,
   y: -40,
@@ -60,6 +67,8 @@ function preload() {
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
 
+  speechBubbleIcon = loadImage(`assets/images/speechBubble.png`);
+
   characterBlueCat = loadImage(`assets/images/assortedCharacters/blueCat.png`);
 
   outsideBKGMountains0 = loadImage(`assets/images/landscape/background/mountain0.png`);
@@ -67,6 +76,7 @@ function preload() {
   outsideGroundLoop = loadImage(`assets/images/landscape/groundLoop.png`);
   outsidePhoneBooth = loadImage(`assets/images/landscape/phonebooth.png`);
   outsideSky = loadImage(`assets/images/landscape/sky.png`);
+  outsideTrees = loadImage(`assets/images/landscape/trees.png`);
   outsideBarbedFence[0] = loadImage(`assets/images/landscape/barbedFence/barbedFence0.png`);
   outsideBarbedFence[1] = loadImage(`assets/images/landscape/barbedFence/barbedFence1.png`);
   outsideBarbedFence[2] = loadImage(`assets/images/landscape/barbedFence/barbedFence2.png`);
@@ -88,6 +98,7 @@ function preload() {
   outsideStreetlight[7] = loadImage(`assets/images/streetLamps/streetlight7.png`);
 
   ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
+  ramenOutside = loadImage(`assets/images/outsideZenNoodles.png`);
 
   chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
   chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
@@ -101,6 +112,8 @@ function preload() {
   chloeLeftStationary = loadImage(`assets/images/sprites/player/leftStationary.png`);
   chloeRightAnimation = loadAnimation(`assets/images/sprites/player/rightWalkCycle/walkCycleRight0.png`, `assets/images/sprites/player/rightWalkCycle/walkCycleRight3.png`);
   chloeRightStationary = loadImage(`assets/images/sprites/player/rightStationary.png`);
+
+  forestAmbientSFX = loadSound(`assets/sounds/forestAmbience.mp3`);
 }
 
 function setup() {
@@ -112,6 +125,8 @@ function setup() {
   rootStateMachine = new StateMachine();
 
   rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
+
+  forestAmbientSFX.loop();
 
 }
 

@@ -1,9 +1,12 @@
+//RENDERING FOR ALL GAME OBJECTS AND THEIR CHILDREN//
+
 class Renderer {
 
   render(scene) {
 
     let cameraGo = scene.getFirstGameObjectWithComponentType(CameraComponent);
 
+    //ERROR CHECK TO MAKE SURE CAMERA IS SETUP WITH SCENE//
     if (cameraGo == null) {
       console.log('No Camera found. Dumbass');
 
@@ -26,57 +29,27 @@ class Renderer {
 
     push();
     cameraGo.getTransform().world.applyInverse();
-    // console.log(cameraGo.getTransform().world)
+
     //RENDER ALL COMPONENTS IN ORDER//
     for (let h = 0; h < compToRender.length; h++) {
+
       push();
-      //console.log(compToRender[h].gameObject.getTransform());
       compToRender[h].gameObject.getTransform().world.apply();
       compToRender[h].render(this);
       pop();
     }
-
-
-
-    // DEBUG DRAW
-
-    // for (let i = 0; i < scene.gameObjects.active.length; i++) {
-    //
-    //   let go = scene.gameObjects.active[i];
-    //   let trf = go.getTransform();
-    //   if(trf != null){
-    //     push();
-    //     //console.log(compToRender[h].gameObject.getTransform());
-    //     trf.world.apply();
-    //     stroke(255,0,0);
-    //     line(0,0,100,0);
-    //     stroke(0,255,0);
-    //     line(0,0,0,100);
-    //     pop();
-    //   }
-    // }
-
     pop();
-
-
-
-
-
   }
 
+  //PUSHES RENDERED CHILDREN COMPONENTS INTO ARRAY//
   addRenderComponenets(array, go) {
-
-    for (let j = 0; j < go.components.active.length; j++) {
-
-      let comp = go.components.active[j];
-
-      if (comp instanceof RenderComponent) {
-        array.push(comp);
+    go.visitEnabledGameObjects(function (x) {
+      for (let j = 0; j < x.components.active.length; j++) {
+        let comp = x.components.active[j];
+        if (comp instanceof RenderComponent) {
+          array.push(comp);
+        }
       }
-    }
-
-    for (let i = 0; i < go.children.active.length; i++) {
-      this.addRenderComponenets(array, go.children.active[i]);
-    }
+    });
   }
 }

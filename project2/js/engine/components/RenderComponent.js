@@ -1,4 +1,4 @@
-class RenderComponent extends Component{
+class RenderComponent extends Component {
 
   constructor() {
     super();
@@ -10,27 +10,20 @@ class RenderComponent extends Component{
 }
 
 
-class RenderDebugComponent extends RenderComponent{
+//RENDER DEBUG FOR TESTING PURPOSES (REMOVE BEFORE FINALIZING PROJECT)//
+class RenderDebugComponent extends RenderComponent {
 
   constructor() {
     super();
   }
 
   render(renderer) {
+    for (let j = 0; j < this.gameObject.components.active.length; j++) {
 
-
-    let trf = this.gameObject.getTransform();
-    console.log("Debug Comp local=");
-    console.log(trf.local);
-    //console.log("Debug Comp local=" + trf.local);
-    console.log("Debug Comp world=");
-    console.log(trf.world);
-    //console.log("Debug Comp world=" + trf.world);
-    if(trf != null){
-      stroke(255,0,0);
-      line(0,0,100,0);
-      stroke(0,255,0);
-      line(0,0,0,100);
+      let comp = this.gameObject.components.active[j];
+      if (comp instanceof ColliderComponent) {
+        comp.debugDraw();
+      }
     }
   }
 }

@@ -1,10 +1,25 @@
-class RectColliderComponent extends Component {
+//RECTANGLE BASED COLLISSION DETECTION FOR GAMEOBJECT//
 
-  constructor(width, height) {
+class RectColliderComponent extends ColliderComponent {
 
-    this.width = width;
-    this.height = height;
-    
+  constructor(aabb) {
+
+    super();
+
+    this.aabb = aabb;
   }
 
+  //DRAWS HITBOX; REMOVE STROKE BEFORE FINALIZING PROJECT//
+  debugDraw() {
+
+    let boxMin = this.aabb.getMin();
+    let boxSize = this.aabb.getSize();
+
+    push();
+    noFill();
+    stroke(255,0,0);
+    // noStroke();
+    rect(boxMin.x, boxMin.y, boxSize.x, boxSize.y);
+    pop();
+  }
 }

@@ -1,3 +1,5 @@
+//2D MOVEMENT PHYSICS FOR GAMEOBJECT//
+
 class Physics2D extends Component {
 
   constructor() {
@@ -6,8 +8,15 @@ class Physics2D extends Component {
     this.acceleration = 0;
     this.speed = 0;
     this.direction = new p5.Vector(0,0,0);
+    this.nextFrameLocal = null;
   }
 
+
+  start() {
+    this.nextFrameLocal = this.gameObject.getTransform().local;
+  }
+
+  //SPEED CHECK EVERY FRAME; TIED TO DELTATIME//
   update() {
     this.speed += this.acceleration * deltaTime / 1000;
 
@@ -16,11 +25,12 @@ class Physics2D extends Component {
     }
 
     let velocity = p5.Vector.mult(this.direction, this.speed * deltaTime / 1000);
-
     let t = this.gameObject.getTransform();
 
+    //APPLIES PHYSICS PARAMETERS TO EACH NECESSARY FRAME//
     if (t != null) {
-      t.local.moveByVector(velocity);
+      this.nextFrameLocal = t.local.copy();
+      this.nextFrameLocal.moveByVector(velocity);
     } else {
       console.log('Physics2D requires transform component to work');
     }

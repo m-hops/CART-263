@@ -15,6 +15,7 @@ class DialogBox extends GameObject {
     //  GO Background
     //    Comp Transform
     //    Comp ImageComponent
+    
     this.name = "Dialog Box";
 
     let transform = new Transform();
@@ -43,7 +44,7 @@ class DialogBox extends GameObject {
     this.backgroundGO.addComponent(this.background);
     this.addChild(this.backgroundGO);
 
-    
+
   }
 
   setText(characterName, msg) {

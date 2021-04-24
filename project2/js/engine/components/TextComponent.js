@@ -1,5 +1,8 @@
+//ADDS TEXT COMPONENTS TO GAME OBJECT//
+
 class TextComponent extends RenderComponent{
 
+  //TXT SHOULD LINK TO JSON FILE FOR DISPLAYING//
   constructor(txt) {
 
     super();

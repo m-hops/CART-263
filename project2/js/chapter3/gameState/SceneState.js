@@ -9,34 +9,30 @@ class SceneState extends IState {
 
   }
 
+  //LOADS AND RUNS COMPONENTS FOR SCENE THAT HAS BEEN ENTERED INTO//
   onEnter(sm) {
-    console.log(`Dialog onEnter`);
-
     if (this.sceneToRun != null) {
       this.sceneToRun.start();
     }
   }
 
+  //REMOVES COMPONENTS FOR SCENE THAT HAS BEEN LEFT//
   onLeave(sm) {
-    console.log(`Dialog onLeave`);
-
     if (this.sceneToRun != null) {
       this.sceneToRun.end();
     }
 
   }
 
+  //SCENE FUNCTIONS THAT NEED TO BE UPDATED EVERY FRAME//
   update(sm) {
-    //console.log(`Dialog update`);
-
     if (this.sceneToRun != null) {
       this.sceneToRun.update();
     }
   }
 
+  //SCENE VISUALS THAT NEED TO BE UPDATED EVERY FRAME//
   draw(sm) {
-    //console.log(`Dialog draw`);
-
     if (this.sceneToRun != null) {
       this.renderer.render(this.sceneToRun);
     }

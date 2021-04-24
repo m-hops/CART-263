@@ -6,24 +6,69 @@ class GameObject {
     this.components = new AsyncArray();
     this.children = new AsyncArray();
     this.name = null;
+    this.enabled = true;
+    this.enabledInHierarchy = true;
   }
-
+  visitEnabledGameObjects(func){
+    if(this.enabledInHierarchy){
+      func(this);
+      for(let i = 0; i < this.children.active.length; ++i){
+        this.children.active[i].visitEnabledGameObjects(func);
+      }
+    }
+  }
   //CALL THIS TO UPDATE THE COMPONENET AND CHILDREN ASYNC ARRAY//
   updateAsyn() {
     this.components.update();
     this.children.update();
   }
-  
+
   //STARTS AFFILIATED COMPONENT AND CHILDREN//
   start() {
     this.components.start();
     this.children.start();
   }
+  enable(){
+    if(!this.enabled){
+      this.enabled = true;
+      if(this.parent == null || this.parent.enabledInHierarchy) this.enableHierarchy();
+    }
+  }
+  disable(){
+    if(this.enabled){
+      if(this.enabledInHierarchy) this.disableHierarchy();
+      this.enabled = false;
+    }
+  }
+  enableHierarchy(){
+    if(this.enabled){
+      this.enabledInHierarchy = true;
+      this.components.visit(x => x.onDisable());
+      this.children.visit(x => x.enableHierarchy());
+      this.onEnable();
+    }
+  }
+  disableHierarchy(){
+    if(this.enabled){
+      this.enabledInHierarchy = false;
+      this.components.visit(x => x.onDisable());
+      this.children.visit(x => x.desableHierarchy());
+      this.onDesable();
+    }
+  }
 
+  onEnable(){
+
+  }
+  onDesable(){
+
+  }
   //UPDATES EVERY FRAME AFFILIATED COMPONENT AND CHILDREN//
   update() {
-    this.components.update();
-    this.children.update();
+    if(this.enabledInHierarchy){
+      this.components.update();
+      this.children.update();
+    }
   }
 
   //TERMINATES AFFILIATED COMPONENT AND CHILDREN//

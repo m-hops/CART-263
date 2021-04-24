@@ -4,6 +4,14 @@ class Component {
     this.gameObject = null;
   }
 
+  onEnable() {
+    //CALLED WHEN THE OWNER GAME OBJECT ENABLE//
+  }
+  
+  onDisable() {
+    //CALLED WHEN THE OWNER GAME OBJECT DISABLE//
+  }
+
   start() {
     //CALLED WHEN THE OWNER GAME OBJECT STARTS//
   }
