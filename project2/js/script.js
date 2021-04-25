@@ -10,15 +10,20 @@ author, and this description to match your project!
 
 ******************/
 
+let barkTestSFX;
+
 let dialogFont;
 
 let rootStateMachine;
 
 let roundedCornerOverlay;
 
+let eInteractImage;
+
 let textBoxBKG;
 
 let forestAmbientSFX;
+let forestMusic;
 
 let speechBubbleIcon;
 
@@ -45,6 +50,7 @@ let outsideSky;
 let outsideTrees;
 let outsideComeBackSign;
 let outsideBarbedFence = [];
+let outsideChainlinkFence = [];
 let outsideForegroundOBJ = [];
 let outsideStoneWalkway = [];
 let outsideStreetlight = [];
@@ -55,6 +61,8 @@ let ghost = [];
 
 let ramenBKG;
 let ramenOutside;
+
+let boatTopSprite;
 
 let ramenBKGSpecs = {
   x: -1300,
@@ -67,7 +75,10 @@ let globalRenderer = new Renderer();
 
 function preload() {
 
+  barkTestSFX = loadSound(`assets/sounds/bark.wav`);
+
   roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
+  eInteractImage = loadImage(`assets/images/eSelect.png`);
 
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
@@ -111,9 +122,13 @@ function preload() {
   outsideStreetlight[5] = loadAnimation(`assets/images/streetLamps/streetlightF/streetlightF0.png`, `assets/images/streetLamps/streetlightF/streetlightF1.png`);
   outsideStreetlight[6] = loadImage(`assets/images/streetLamps/streetlightG/streetlight6.png`);
   outsideStreetlight[7] = loadImage(`assets/images/streetLamps/streetlightH/streetlight7.png`);
+  outsideChainlinkFence[0] = loadImage(`assets/images/landscape/chainlinkFence/chainlinkFence0.png`);
+  outsideChainlinkFence[1] = loadImage(`assets/images/landscape/chainlinkFence/chainlinkFence1.png`);
 
   ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
   ramenOutside = loadImage(`assets/images/outsideZenNoodles.png`);
+
+  boatTopSprite = loadImage(`assets/images/boatSection/boatTop.png`);
 
   chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
   chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
@@ -129,19 +144,19 @@ function preload() {
   chloeRightStationary = loadImage(`assets/images/sprites/player/rightStationary.png`);
 
   forestAmbientSFX = loadSound(`assets/sounds/forestAmbience.mp3`);
+  forestMusic = loadSound(`assets/sounds/forestMusic.mp3`);
 }
 
 function setup() {
 
   createCanvas(1000,700);
 
-  //noStroke();
-
   rootStateMachine = new StateMachine();
 
   rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
 
   forestAmbientSFX.loop();
+  forestMusic.loop();
 
 }
 

@@ -16,6 +16,7 @@ class OutsideScene extends Scene {
     this.foregroundLoopOBJ();
     this.fogEffectOBJ();
     this.comeBackSignOBJ();
+    this.fencePostOBJ();
   }
 
   invisibleBoundaryOBJ() {
@@ -66,7 +67,7 @@ class OutsideScene extends Scene {
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
-    this.player.addComponent(new Transform(9350,460));
+    this.player.addComponent(new Transform(9250,460));
     this.player.addComponent(new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary));
     this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeLeftStationary.width / 2, chloeLeftStationary.height / 2)));
     this.player.addComponent(new RenderDebugComponent());
@@ -148,6 +149,175 @@ class OutsideScene extends Scene {
     layer2.getTransform().local.position.z = 50;
     layer2_0.getTransform().local.position.x = 1200;
     layer2_0.getTransform().local.position.y = -50;
+
+    //FENCE SECTION//
+    let chainedFence0 = new GameObject();
+    let chainedFence0_0 = new GameObject();
+    chainedFence0.addChild(chainedFence0_0);
+
+    chainedFence0.addComponent(new Transform());
+    chainedFence0_0.addComponent(new Transform());
+    chainedFence0_0.addComponent(new ImageComponent(outsideChainlinkFence[0], 1, 1));
+
+    this.background.addChild(chainedFence0);
+
+    chainedFence0.getTransform().local.position.z = 20;
+    chainedFence0_0.getTransform().local.position.x = 6600;
+    chainedFence0_0.getTransform().local.position.y = 320;
+    chainedFence0_0.getTransform().local.rotation = 15 / 180 * 3.1415;
+
+    //
+
+    let chainedFence1 = new GameObject();
+    let chainedFence1_0 = new GameObject();
+    chainedFence1.addChild(chainedFence1_0);
+
+    chainedFence1.addComponent(new Transform());
+    chainedFence1_0.addComponent(new Transform());
+    chainedFence1_0.addComponent(new ImageComponent(outsideChainlinkFence[1], 1, 1));
+
+    this.background.addChild(chainedFence1);
+
+    chainedFence1.getTransform().local.position.z = 20;
+    chainedFence1_0.getTransform().local.position.x = 6130;
+    chainedFence1_0.getTransform().local.position.y = 205;
+    chainedFence1_0.getTransform().local.rotation = 15 / 180 * 3.1415;
+
+    //
+
+    let chainedFence2 = new GameObject();
+    let chainedFence2_0 = new GameObject();
+    chainedFence2.addChild(chainedFence2_0);
+
+    chainedFence2.addComponent(new Transform());
+    chainedFence2_0.addComponent(new Transform());
+    chainedFence2_0.addComponent(new ImageComponent(outsideChainlinkFence[0], 1, 1));
+
+    this.background.addChild(chainedFence2);
+
+    chainedFence2.getTransform().local.position.z = 20;
+    chainedFence2_0.getTransform().local.position.x = 4800;
+    chainedFence2_0.getTransform().local.position.y = 320;
+    chainedFence2_0.getTransform().local.rotation = 358 / 180 * 3.1415;
+
+    //
+
+    let chainedFence3 = new GameObject();
+    let chainedFence3_0 = new GameObject();
+    chainedFence3.addChild(chainedFence3_0);
+
+    chainedFence3.addComponent(new Transform());
+    chainedFence3_0.addComponent(new Transform());
+    chainedFence3_0.addComponent(new ImageComponent(outsideChainlinkFence[0], 1, 1));
+
+    this.background.addChild(chainedFence3);
+
+    chainedFence3.getTransform().local.position.z = 20;
+    chainedFence3_0.getTransform().local.position.x = 3800;
+    chainedFence3_0.getTransform().local.position.y = 320;
+    chainedFence3_0.getTransform().local.rotation = 2 / 180 * 3.1415;
+
+    //
+
+    let chainedFence4 = new GameObject();
+    let chainedFence4_0 = new GameObject();
+    chainedFence4.addChild(chainedFence4_0);
+
+    chainedFence4.addComponent(new Transform());
+    chainedFence4_0.addComponent(new Transform());
+    chainedFence4_0.addComponent(new ImageComponent(outsideChainlinkFence[1], 1, 1));
+
+    this.background.addChild(chainedFence4);
+
+    chainedFence4.getTransform().local.position.z = 20;
+    chainedFence4_0.getTransform().local.position.x = 3300;
+    chainedFence4_0.getTransform().local.position.y = 300;
+    chainedFence4_0.getTransform().local.rotation = 2 / 180 * 3.1415;
+
+    //
+
+    let chainedFence5 = new GameObject();
+    let chainedFence5_0 = new GameObject();
+    chainedFence5.addChild(chainedFence5_0);
+
+    chainedFence5.addComponent(new Transform());
+    chainedFence5_0.addComponent(new Transform());
+    chainedFence5_0.addComponent(new ImageComponent(outsideChainlinkFence[0], 1, 1));
+
+    this.background.addChild(chainedFence5);
+
+    chainedFence5.getTransform().local.position.z = 20;
+    chainedFence5_0.getTransform().local.position.x = 2600;
+    chainedFence5_0.getTransform().local.position.y = 320;
+    chainedFence5_0.getTransform().local.rotation = 358 / 180 * 3.1415;
+
+    //
+
+    let chainedFence6 = new GameObject();
+    let chainedFence6_0 = new GameObject();
+    chainedFence6.addChild(chainedFence6_0);
+
+    chainedFence6.addComponent(new Transform());
+    chainedFence6_0.addComponent(new Transform());
+    chainedFence6_0.addComponent(new ImageComponent(outsideChainlinkFence[1], 1, 1));
+
+    this.background.addChild(chainedFence6);
+
+    chainedFence6.getTransform().local.position.z = 20;
+    chainedFence6_0.getTransform().local.position.x = 2095;
+    chainedFence6_0.getTransform().local.position.y = 335;
+    chainedFence6_0.getTransform().local.rotation = 358 / 180 * 3.1415;
+
+    //
+
+    let chainedFence7 = new GameObject();
+    let chainedFence7_0 = new GameObject();
+    chainedFence7.addChild(chainedFence7_0);
+
+    chainedFence7.addComponent(new Transform());
+    chainedFence7_0.addComponent(new Transform());
+    chainedFence7_0.addComponent(new ImageComponent(outsideChainlinkFence[1], 1, 1));
+
+    this.background.addChild(chainedFence7);
+
+    chainedFence7.getTransform().local.position.z = 20;
+    chainedFence7_0.getTransform().local.position.x = 1590;
+    chainedFence7_0.getTransform().local.position.y = 350;
+    chainedFence7_0.getTransform().local.rotation = 358 / 180 * 3.1415;
+
+    //
+
+    let chainedFence8 = new GameObject();
+    let chainedFence8_0 = new GameObject();
+    chainedFence8.addChild(chainedFence8_0);
+
+    chainedFence8.addComponent(new Transform());
+    chainedFence8_0.addComponent(new Transform());
+    chainedFence8_0.addComponent(new ImageComponent(outsideChainlinkFence[1], 1, 1));
+
+    this.background.addChild(chainedFence8);
+
+    chainedFence8.getTransform().local.position.z = 20;
+    chainedFence8_0.getTransform().local.position.x = 1085;
+    chainedFence8_0.getTransform().local.position.y = 365;
+    chainedFence8_0.getTransform().local.rotation = 358 / 180 * 3.1415;
+
+    //
+
+    let chainedFence9 = new GameObject();
+    let chainedFence9_0 = new GameObject();
+    chainedFence9.addChild(chainedFence9_0);
+
+    chainedFence9.addComponent(new Transform());
+    chainedFence9_0.addComponent(new Transform());
+    chainedFence9_0.addComponent(new ImageComponent(outsideChainlinkFence[0], 1, 1));
+
+    this.background.addChild(chainedFence9);
+
+    chainedFence9.getTransform().local.position.z = 20;
+    chainedFence9_0.getTransform().local.position.x = 100;
+    chainedFence9_0.getTransform().local.position.y = 300;
+    chainedFence9_0.getTransform().local.rotation = 10 / 180 * 3.1415;
 
     this.addGameObject(this.background);
   }
@@ -306,26 +476,25 @@ class OutsideScene extends Scene {
   blueCatOBJ() {
     //BLUE CAT SPRITE//
     this.blueCatSprite = new GameObject('blueCatSprite');
-    this.speechBubble = new GameObject('speechBubble');
+    this.speechBubbleCat = new GameObject('speechBubble');
 
-    this.blueCatSprite.addComponent(new Transform(7000,20));
+    this.blueCatSprite.addComponent(new Transform(7000,120));
     this.blueCatSprite.addComponent(new ImageComponent(characterBlueCat,1,1));
-    // this.blueCatSprite.addComponent(new TriggerComponent(new PrintAction('I smell of meatball')));
-    this.blueCatSprite.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubble)));
-    this.blueCatSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,500,500,100)));
+    this.blueCatSprite.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubbleCat)));
+    this.blueCatSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,1000,100)));
     this.blueCatSprite.addComponent(new RenderDebugComponent());
 
-    this.speechBubble.addComponent(new Transform(850,50));
-    this.speechBubble.addComponent(new ImageComponent(speechBubbleIcon,1,1));
-    this.speechBubble.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
-    this.speechBubble.addComponent(new RenderDebugComponent());
+    this.speechBubbleCat.addComponent(new Transform(850,50));
+    this.speechBubbleCat.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubbleCat.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubbleCat.addComponent(new RenderDebugComponent());
 
     this.blueCatSprite.getTransform().local.position.z = 1;
-    this.blueCatSprite.getTransform().local.setScale(0.5,0.5);
+    this.blueCatSprite.getTransform().local.setScale(0.4,0.4);
 
-    this.blueCatSprite.addChild(this.speechBubble);
+    this.blueCatSprite.addChild(this.speechBubbleCat);
 
-    this.speechBubble.disable();
+    this.speechBubbleCat.disable();
 
     this.addGameObject(this.blueCatSprite);
   }
@@ -333,12 +502,25 @@ class OutsideScene extends Scene {
   meltChickenOBJ() {
     //MELT CHICKEN SPRITE//
     this.meltChickenSprite = new GameObject();
+    this.speechBubbleChicken = new GameObject();
 
     this.meltChickenSprite.addComponent(new Transform(2000,150));
     this.meltChickenSprite.addComponent(new ImageComponent(characterMeltChicken,1,1));
+    this.meltChickenSprite.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubbleChicken)));
+    this.meltChickenSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(100,300,1200,150)));
+    this.meltChickenSprite.addComponent(new RenderDebugComponent());
+
+    this.speechBubbleChicken.addComponent(new Transform(1000,-100));
+    this.speechBubbleChicken.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubbleChicken.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubbleChicken.addComponent(new RenderDebugComponent());
 
     this.meltChickenSprite.getTransform().local.position.z = 1;
     this.meltChickenSprite.getTransform().local.setScale(0.5,0.5);
+
+    this.meltChickenSprite.addChild(this.speechBubbleChicken);
+
+    this.speechBubbleChicken.disable();
 
     this.addGameObject(this.meltChickenSprite);
 
@@ -445,26 +627,151 @@ class OutsideScene extends Scene {
 
     //ANIMATED STREETLAMPS//
     this.phoneBooth = new GameObject();
+    this.speechBubblePhone = new GameObject();
 
     this.phoneBooth.addComponent(new Transform(3900,240));
     this.phoneBooth.addComponent(new AnimationComponent(outsidePhoneBooth,1));
+    this.phoneBooth.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubblePhone)));
+    this.phoneBooth.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,200,100)));
+    this.phoneBooth.addComponent(new RenderDebugComponent());
+
+    this.speechBubblePhone.addComponent(new Transform(300,-300));
+    this.speechBubblePhone.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubblePhone.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubblePhone.addComponent(new RenderDebugComponent());
 
     this.phoneBooth.getTransform().local.setScale(0.75,0.75);
     this.phoneBooth.getTransform().local.position.z = 1;
+    this.speechBubblePhone.getTransform().local.setScale(0.6,0.6);
+
+    this.phoneBooth.addChild(this.speechBubblePhone);
+
+    this.speechBubblePhone.disable();
 
     this.addGameObject(this.phoneBooth);
   }
 
   comeBackSignOBJ() {
-    //MELT CHICKEN SPRITE//
+
+    //COME BACK SIGN OBJECT//
     this.comeBackSign = new GameObject();
+    this.speechBubbleSign = new GameObject();
 
     this.comeBackSign.addComponent(new Transform(8200,350));
     this.comeBackSign.addComponent(new ImageComponent(outsideComeBackSign,1,1));
+    this.comeBackSign.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubbleSign)));
+    this.comeBackSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,4000,1000)));
+    this.comeBackSign.addComponent(new RenderDebugComponent());
+
+    this.speechBubbleSign.addComponent(new Transform(1700,-1500));
+    this.speechBubbleSign.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubbleSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubbleSign.addComponent(new RenderDebugComponent());
 
     this.comeBackSign.getTransform().local.position.z = 1;
     this.comeBackSign.getTransform().local.setScale(0.1,0.1);
+    this.speechBubbleSign.getTransform().local.setScale(4,4);
+
+    this.comeBackSign.addChild(this.speechBubbleSign);
+
+    this.speechBubbleSign.disable();
 
     this.addGameObject(this.comeBackSign);
+  }
+
+  fencePostOBJ() {
+
+    //BROKEN FENCE POST OBJECT0//
+    this.fencePost0 = new GameObject();
+
+    this.fencePost0.addComponent(new Transform(8000,240));
+    this.fencePost0.addComponent(new ImageComponent(outsideBarbedFence[0]));
+
+    this.fencePost0.getTransform().local.setScale(0.75,0.75);
+    this.fencePost0.getTransform().local.position.z = 1;
+
+    this.addGameObject(this.fencePost0);
+
+    //BROKEN FENCE POST OBJECTS1//
+    this.fencePost1 = new GameObject();
+
+    this.fencePost1.addComponent(new Transform(6300,200));
+    this.fencePost1.addComponent(new ImageComponent(outsideBarbedFence[1]));
+
+    this.fencePost1.getTransform().local.setScale(1,1);
+    this.fencePost1.getTransform().local.position.z = 1;
+
+    this.addGameObject(this.fencePost1);
+
+    //BROKEN FENCE POST OBJECTS2//
+    this.fencePost2 = new GameObject();
+
+    this.fencePost2.addComponent(new Transform(6600,200));
+    this.fencePost2.addComponent(new ImageComponent(outsideBarbedFence[2]));
+
+    this.fencePost2.getTransform().local.setScale(1,1);
+    this.fencePost2.getTransform().local.position.z = 1;
+
+    this.addGameObject(this.fencePost2);
+
+    //BROKEN FENCE POST OBJECTS3//
+    this.fencePost3 = new GameObject();
+
+    this.fencePost3.addComponent(new Transform(5600,265));
+    this.fencePost3.addComponent(new ImageComponent(outsideBarbedFence[3]));
+
+    this.fencePost3.getTransform().local.setScale(0.7,0.7);
+    this.fencePost3.getTransform().local.position.z = 2;
+
+    this.addGameObject(this.fencePost3);
+
+    //BROKEN FENCE POST OBJECTS4//
+    this.fencePost4 = new GameObject();
+
+    this.fencePost4.addComponent(new Transform(5400,290));
+    this.fencePost4.addComponent(new ImageComponent(outsideBarbedFence[2]));
+
+    this.fencePost4.getTransform().local.setScale(0.7,0.7);
+    this.fencePost4.getTransform().local.position.z = 2;
+
+    this.addGameObject(this.fencePost4);
+
+    //BROKEN FENCE POST OBJECTS5//
+    this.fencePost5 = new GameObject();
+
+    this.fencePost5.addComponent(new Transform(3750,310));
+    this.fencePost5.addComponent(new ImageComponent(outsideBarbedFence[2]));
+
+    this.fencePost5.getTransform().local.setScale(0.6,0.6);
+    this.fencePost5.getTransform().local.position.z = 2;
+
+    this.addGameObject(this.fencePost5);
+
+    //BROKEN FENCE POST OBJECTS6//
+    this.fencePost6 = new GameObject();
+
+    this.fencePost6.addComponent(new Transform(2000,310));
+    this.fencePost6.addComponent(new ImageComponent(outsideBarbedFence[0]));
+
+    this.fencePost6.getTransform().local.setScale(0.6,0.6);
+    this.fencePost6.getTransform().local.position.z = 2;
+
+    this.addGameObject(this.fencePost6);
+
+    //BROKEN FENCE POST OBJECTS7//
+    this.fencePost7 = new GameObject();
+
+    this.fencePost7.addComponent(new Transform(1100,275));
+    this.fencePost7.addComponent(new ImageComponent(outsideBarbedFence[2]));
+
+    this.fencePost7.getTransform().local.setScale(0.9,0.9);
+    this.fencePost7.getTransform().local.position.z = 1;
+
+    this.addGameObject(this.fencePost7);
+  }
+
+  toRamenTrigger() {
+
+    
   }
 }
