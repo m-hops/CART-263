@@ -7,7 +7,7 @@ class Component {
   onEnable() {
     //CALLED WHEN THE OWNER GAME OBJECT ENABLE//
   }
-  
+
   onDisable() {
     //CALLED WHEN THE OWNER GAME OBJECT DISABLE//
   }
@@ -24,4 +24,8 @@ class Component {
     //CALLED WHEN THE OWNER GAME OBJECT ENDS//
   }
 
+
+  drawDebugInfo(renderer, region){
+
+  }
 }

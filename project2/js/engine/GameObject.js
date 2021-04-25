@@ -1,13 +1,16 @@
 class GameObject {
 
-  constructor() {
+  constructor(name = null) {
 
     this.parent = null;
     this.components = new AsyncArray();
     this.children = new AsyncArray();
-    this.name = null;
+    this.name = name;
     this.enabled = true;
     this.enabledInHierarchy = true;
+  }
+  setName(name){
+    this.name = name;
   }
   visitEnabledGameObjects(func){
     if(this.enabledInHierarchy){
@@ -87,6 +90,7 @@ class GameObject {
   //REMOVES CHILD OBJECT FROM GAME OBJECT//
   removeChild(obj) {
     this.children.remove(obj);
+    obj.parent = null;
   }
 
   //ADD COMPONENT TO GAME OBJECT//
@@ -99,6 +103,7 @@ class GameObject {
   //REMOVE COMPONENT FROM GAME OBJECT//
   removeComponent(comp) {
     this.components.remove(comp);
+    comp.gameObject = null;
   }
 
 

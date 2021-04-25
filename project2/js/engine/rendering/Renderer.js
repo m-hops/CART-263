@@ -2,6 +2,9 @@
 
 class Renderer {
 
+  constructor(){
+    this.currentTransform = AffineTransform.identity();
+  }
   render(scene) {
 
     let cameraGo = scene.getFirstGameObjectWithComponentType(CameraComponent);
@@ -32,11 +35,13 @@ class Renderer {
 
     //RENDER ALL COMPONENTS IN ORDER//
     for (let h = 0; h < compToRender.length; h++) {
-
+      let prevTrf = this.currentTransform;
       push();
+      this.currentTransform = compToRender[h].gameObject.getTransform().world;
       compToRender[h].gameObject.getTransform().world.apply();
       compToRender[h].render(this);
       pop();
+      this.currentTransform = prevTrf;
     }
     pop();
   }
@@ -51,5 +56,12 @@ class Renderer {
         }
       }
     });
+  }
+
+
+  renderTextLine(txt, region){
+    let pos = region.getMin();
+    text(txt, pos.x, pos.y);
+    region.trimTop(12);
   }
 }

@@ -10,6 +10,7 @@ class DirectionalAnimationComponenet extends RenderComponent {
     this.rightWalk = rightWalk;
     this.leftStationary = leftStationary;
     this.rightStationary = rightStationary;
+    this.wasLeft = false;
   }
 
   render(renderer) {
@@ -21,7 +22,7 @@ class DirectionalAnimationComponenet extends RenderComponent {
       if (physic.speed < 0.0001) {
 
         //SETS PLAYER SPRITE TO RIGHT STATIONARY IF RIGHT WAS THE PREVIOUS PLAYER MOVEMENT//
-        if (physic.direction.x > 0.2) {
+        if (!this.wasLeft || physic.direction.x > 0) {
           push();
           imageMode(CENTER);
           image(this.rightStationary,0,0);
@@ -36,14 +37,16 @@ class DirectionalAnimationComponenet extends RenderComponent {
         }
 
       //RUNS RIGHT MOVEMENT ANIMATION WHEN PLAYER IS MOVING TO THE RIGHT//
-      }else if (physic.direction.x > 0.2) {
+      }else if (physic.direction.x > 0) {
         this.rightWalk.frameDelay = 10;
         animation(this.rightWalk,0,0);
+        this.wasLeft = false;
 
       //RUNS lEFT MOVEMENT ANIMATION WHEN PLAYER IS MOVING TO THE lEFT//
       } else {
         this.leftWalk.frameDelay = 10;
         animation(this.leftWalk,0,0);
+        this.wasLeft = true;
       }
 
     }
