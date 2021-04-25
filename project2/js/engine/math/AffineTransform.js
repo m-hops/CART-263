@@ -6,7 +6,9 @@ class AffineTransform{
     this.scale = new p5.Vector(1,1,1);
     this.rotation = 0;
   }
-
+  static identity(){
+    return new AffineTransform();
+  }
   //DUPLICATE AN OBJECT//
   copy(){
     let result = new AffineTransform();
@@ -55,7 +57,7 @@ class AffineTransform{
 
     result.rotate(-this.rotation);
     vec.div(this.scale);
-    
+
     return result;
   }
 
@@ -74,7 +76,7 @@ class AffineTransform{
   }
 
   //SIZING CONTROLS FOR GAME OBJECT (SCALE BASED ON NEUTRAL POSITION OF 1 (LOWER NUMBER, SMALLER. BIGGER NUMBER, LARGER))//
-  setScale(x,y){
+  setScale(x,y,z=this.scale.z){
     this.scale.x = x;
     this.scale.y = y;
   }

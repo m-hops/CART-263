@@ -53,10 +53,20 @@ class AABB{
   subed(value){
     return AABB.MakeCenterExtent(p5.Vector.sub(this.center, value), this.extent);
   }
+  transformedTranslateScale(affineMatrix){
+    let c = p5.Vector.mult(this.center, affineMatrix.scale);
+    let e = p5.Vector.mult(this.extent, affineMatrix.scale);
+    c = p5.Vector.add(c, affineMatrix.position);
+    return AABB.MakeCenterExtent(c, e);
+  }
+
   getArea(){
     return this.extent.x * this.extent.y;
   }
-
+  trimTop(y){
+    this.center.y += y / 2;
+    this.extent.y -= y / 2;
+  }
   static MakeTopLeftSize(x,y,w,h){
     return new AABB(x+w/2, y+h/2,w/2,h/2);
   }

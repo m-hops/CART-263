@@ -20,7 +20,7 @@ class OutsideScene extends Scene {
 
   invisibleBoundaryOBJ() {
     //DOOR BOUNDARY//
-    this.doorBoundary = new GameObject();
+    this.doorBoundary = new GameObject("doorBoundary");
 
     this.doorBoundary.addComponent(new Transform(9400,650));
     this.doorBoundary.addComponent(new Physics2D());
@@ -30,7 +30,7 @@ class OutsideScene extends Scene {
     this.addGameObject(this.doorBoundary);
 
     //REAR BOUNDARY//
-    this.rearBoundary = new GameObject();
+    this.rearBoundary = new GameObject("rearBoundary");
 
     this.rearBoundary.addComponent(new Transform(9500,400));
     this.rearBoundary.addComponent(new Physics2D());
@@ -40,7 +40,7 @@ class OutsideScene extends Scene {
     this.addGameObject(this.rearBoundary);
 
     //TOP BOUNDARY BAR//
-    this.topBoundary = new GameObject();
+    this.topBoundary = new GameObject("topBoundary");
 
     this.topBoundary.addComponent(new Transform(100,220));
     this.topBoundary.addComponent(new Physics2D());
@@ -50,7 +50,7 @@ class OutsideScene extends Scene {
     this.addGameObject(this.topBoundary);
 
     //BOTTOM BOUNDARY BAR//
-    this.bottomBoundary = new GameObject();
+    this.bottomBoundary = new GameObject("bottomBoundary");
 
     this.bottomBoundary.addComponent(new Transform(100,700));
     this.bottomBoundary.addComponent(new Physics2D());
@@ -62,7 +62,7 @@ class OutsideScene extends Scene {
 
   playerSetupOBJ() {
     //PLAYER SETUP//
-    this.player = new GameObject();
+    this.player = new GameObject("player");
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
@@ -305,18 +305,20 @@ class OutsideScene extends Scene {
 
   blueCatOBJ() {
     //BLUE CAT SPRITE//
-    this.blueCatSprite = new GameObject();
-    this.speechBubble = new GameObject();
+    this.blueCatSprite = new GameObject('blueCatSprite');
+    this.speechBubble = new GameObject('speechBubble');
 
     this.blueCatSprite.addComponent(new Transform(7000,20));
     this.blueCatSprite.addComponent(new ImageComponent(characterBlueCat,1,1));
     // this.blueCatSprite.addComponent(new TriggerComponent(new PrintAction('I smell of meatball')));
     this.blueCatSprite.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubble)));
-    this.blueCatSprite.addComponent(new RectColliderComponent(new AABB(0,500,500,100)));
+    this.blueCatSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,500,500,100)));
     this.blueCatSprite.addComponent(new RenderDebugComponent());
 
     this.speechBubble.addComponent(new Transform(850,50));
     this.speechBubble.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubble.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubble.addComponent(new RenderDebugComponent());
 
     this.blueCatSprite.getTransform().local.position.z = 1;
     this.blueCatSprite.getTransform().local.setScale(0.5,0.5);
