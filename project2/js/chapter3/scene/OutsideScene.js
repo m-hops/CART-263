@@ -17,6 +17,7 @@ class OutsideScene extends Scene {
     this.fogEffectOBJ();
     this.comeBackSignOBJ();
     this.fencePostOBJ();
+    this.toDockSignOBJ();
   }
 
   invisibleBoundaryOBJ() {
@@ -448,13 +449,26 @@ class OutsideScene extends Scene {
   ramenOutsideOBJ() {
     //OUTSIDE RAMEN ENTRANCE//
     this.ramenOutside = new GameObject();
+    this.ramenIntoTrigger = new GameObject;
 
     this.ramenOutside.addComponent(new Transform(9300,75));
     this.ramenOutside.addComponent(new ImageComponent(ramenOutside,1,1));
+    this.ramenOutside.addComponent(new TriggerComponent(new EnableGameObjectAction(this.ramenIntoTrigger)));
+    this.ramenOutside.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(120,400,50,100)));
+    this.ramenOutside.addComponent(new RenderDebugComponent());
+
+    this.ramenIntoTrigger.addComponent(new Transform(60,290));
+    this.ramenIntoTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
+    this.ramenIntoTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
+    this.ramenIntoTrigger.addComponent(new RenderDebugComponent());
 
     this.ramenOutside.getTransform().local.setScale(0.9,0.9);
     this.ramenOutside.getTransform().local.position.z = -1;
+    this.ramenIntoTrigger.getTransform().local.setScale(0.7,0.7);
 
+    this.ramenOutside.addChild(this.ramenIntoTrigger);
+
+    this.ramenIntoTrigger.disable();
 
     this.addGameObject(this.ramenOutside);
   }
@@ -770,8 +784,18 @@ class OutsideScene extends Scene {
     this.addGameObject(this.fencePost7);
   }
 
-  toRamenTrigger() {
+  toDockSignOBJ() {
 
-    
+    //TO DOCK SIGN OBJ//
+    this.toDockSign = new GameObject();
+    this.speechBubbleSign = new GameObject();
+
+    this.toDockSign.addComponent(new Transform(500,-10));
+    this.toDockSign.addComponent(new ImageComponent(outsideToDockSign,1,1));
+
+    this.toDockSign.getTransform().local.position.z = 3;
+    this.toDockSign.getTransform().local.setScale(0.4,0.4);
+
+    this.addGameObject(this.toDockSign);
   }
 }

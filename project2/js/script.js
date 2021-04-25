@@ -19,6 +19,7 @@ let rootStateMachine;
 let roundedCornerOverlay;
 
 let eInteractImage;
+let eInteractSilhouetteImage;
 
 let textBoxBKG;
 
@@ -40,6 +41,11 @@ let chloeLeftStationary;
 let chloeRightAnimation;
 let chloeRightStationary;
 
+let chloeSilhouetteLeftAnimation;
+let chloeSilhouetteLeftStationary;
+let chloeSilhouetteRightAnimation;
+let chloeSilhouetteRightStationary;
+
 let outsideBKGMountains0;
 let outsideBKGMountains1;
 let outsideGroundLoop;
@@ -49,6 +55,7 @@ let outsidePhoneBooth;
 let outsideSky;
 let outsideTrees;
 let outsideComeBackSign;
+let outsideToDockSign;
 let outsideBarbedFence = [];
 let outsideChainlinkFence = [];
 let outsideForegroundOBJ = [];
@@ -60,8 +67,12 @@ let characterMeltChicken;
 let ghost = [];
 
 let ramenBKG;
+let ramenBathroomBKG;
+let ramenBathroomStall;
 let ramenOutside;
+let ramenBathroomNegativeBlink;
 
+let mapBackground;
 let boatTopSprite;
 
 let ramenBKGSpecs = {
@@ -77,12 +88,11 @@ function preload() {
 
   barkTestSFX = loadSound(`assets/sounds/bark.wav`);
 
-  roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
-  eInteractImage = loadImage(`assets/images/eSelect.png`);
-
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
-
+  roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
+  eInteractImage = loadImage(`assets/images/eSelect.png`);
+  eInteractSilhouetteImage = loadImage(`assets/images/bathRoomSilhouette/eSilhouetteSelect.png`);
   speechBubbleIcon = loadImage(`assets/images/speechBubble.png`);
 
   characterBlueCat = loadImage(`assets/images/assortedCharacters/blueCat.png`);
@@ -103,6 +113,7 @@ function preload() {
   outsideSky = loadImage(`assets/images/landscape/sky.png`);
   outsideTrees = loadImage(`assets/images/landscape/trees.png`);
   outsideComeBackSign = loadImage(`assets/images/landscape/comeBackSign.png`);
+  outsideToDockSign = loadImage(`assets/images/landscape/toDock.png`);
   outsideBarbedFence[0] = loadImage(`assets/images/landscape/barbedFence/barbedFence0.png`);
   outsideBarbedFence[1] = loadImage(`assets/images/landscape/barbedFence/barbedFence1.png`);
   outsideBarbedFence[2] = loadImage(`assets/images/landscape/barbedFence/barbedFence2.png`);
@@ -127,8 +138,12 @@ function preload() {
 
   ramenBKG = loadImage(`assets/images/backgrounds/ramenBKG.png`);
   ramenOutside = loadImage(`assets/images/outsideZenNoodles.png`);
+  ramenBathroomBKG = loadImage(`assets/images/backgrounds/bathroomBKG.png`);
+  ramenBathroomStall = loadImage(`assets/images/bathroomStall.png`);
+  ramenBathroomNegativeBlink = loadAnimation(`assets/images/bathRoomSilhouette/blink/whiteBathroomSilhouette_0000.png`, `assets/images/bathRoomSilhouette/blink/whiteBathroomSilhouette_0029.png`);
 
   boatTopSprite = loadImage(`assets/images/boatSection/boatTop.png`);
+  mapBackground = loadImage(`assets/images/boatSection/map.png`);
 
   chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
   chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
@@ -143,6 +158,11 @@ function preload() {
   chloeRightAnimation = loadAnimation(`assets/images/sprites/player/rightWalkCycle/walkCycleRight0.png`, `assets/images/sprites/player/rightWalkCycle/walkCycleRight3.png`);
   chloeRightStationary = loadImage(`assets/images/sprites/player/rightStationary.png`);
 
+  chloeSilhouetteLeftAnimation = loadAnimation(`assets/images/bathRoomSilhouette/silhouette/leftWalkCycle/walkCycleLeft0.png`, `assets/images/bathRoomSilhouette/silhouette/leftWalkCycle/walkCycleLeft3.png`);
+  chloeSilhouetteLeftStationary = loadImage(`assets/images/bathRoomSilhouette/silhouette/leftStationary.png`);
+  chloeSilhouetteRightAnimation = loadAnimation(`assets/images/bathRoomSilhouette/silhouette/rightWalkCycle/walkCycleRight0.png`, `assets/images/bathRoomSilhouette/silhouette/rightWalkCycle/walkCycleRight3.png`);
+  chloeSilhouetteRightStationary = loadImage(`assets/images/bathRoomSilhouette/silhouette/rightStationary.png`);
+
   forestAmbientSFX = loadSound(`assets/sounds/forestAmbience.mp3`);
   forestMusic = loadSound(`assets/sounds/forestMusic.mp3`);
 }
@@ -153,10 +173,7 @@ function setup() {
 
   rootStateMachine = new StateMachine();
 
-  rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
-
-  forestAmbientSFX.loop();
-  forestMusic.loop();
+  rootStateMachine.transit(new SceneState(globalRenderer, new BathroomNegativeScene()));
 
 }
 
