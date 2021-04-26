@@ -152,6 +152,8 @@ class RestaurantScene extends Scene {
     this.toBathroomTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
     this.toBathroomTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.toBathroomTrigger.addComponent(new RenderDebugComponent());
+    this.toBathroomTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Bathroom")));
+    this.toBathroomTrigger.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
     this.toBathroom.addChild(this.toBathroomTrigger);
 
@@ -172,6 +174,8 @@ class RestaurantScene extends Scene {
     this.toOutsideTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
     this.toOutsideTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.toOutsideTrigger.addComponent(new RenderDebugComponent());
+    this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("OutsidePath")));
+    this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
     this.toOutside.addChild(this.toOutsideTrigger);
 

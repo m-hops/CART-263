@@ -11,12 +11,15 @@ author, and this description to match your project!
 ******************/
 
 let barkTestSFX;
+let testSong;
 
 let dialogFont;
 
 let rootStateMachine;
 
 let roundedCornerOverlay;
+let controlsDirectionAnimation;
+let controlsEAnimation;
 
 let eInteractImage;
 let eInteractSilhouetteImage;
@@ -24,6 +27,8 @@ let eInteractSilhouetteImage;
 let textBoxBKG;
 
 let forestAmbientSFX;
+let glassBreakSFX;
+let pageTurnSFX;
 let forestMusic;
 
 let speechBubbleIcon;
@@ -71,6 +76,7 @@ let ramenBathroomBKG;
 let ramenBathroomStall;
 let ramenOutside;
 let ramenBathroomNegativeBlink;
+let ramenBathroomNegativeEye = [];
 
 let mapBackground;
 let boatTopSprite;
@@ -87,6 +93,7 @@ let globalRenderer = new Renderer();
 function preload() {
 
   barkTestSFX = loadSound(`assets/sounds/bark.wav`);
+  testSong = loadSound(`assets/sounds/testSong.mp3`);
 
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
@@ -94,6 +101,8 @@ function preload() {
   eInteractImage = loadImage(`assets/images/eSelect.png`);
   eInteractSilhouetteImage = loadImage(`assets/images/bathRoomSilhouette/eSilhouetteSelect.png`);
   speechBubbleIcon = loadImage(`assets/images/speechBubble.png`);
+  controlsDirectionAnimation = loadAnimation(`assets/images/control/control0.png`, `assets/images/control/control2.png`);
+  controlsEAnimation = loadAnimation(`assets/images/eToInteract/pressE_0000.png`, `assets/images/eToInteract/pressE_0002.png`)
 
   characterBlueCat = loadImage(`assets/images/assortedCharacters/blueCat.png`);
   characterMeltChicken = loadImage(`assets/images/assortedCharacters/meltChicken.png`);
@@ -141,6 +150,10 @@ function preload() {
   ramenBathroomBKG = loadImage(`assets/images/backgrounds/bathroomBKG.png`);
   ramenBathroomStall = loadImage(`assets/images/bathroomStall.png`);
   ramenBathroomNegativeBlink = loadAnimation(`assets/images/bathRoomSilhouette/blink/whiteBathroomSilhouette_0000.png`, `assets/images/bathRoomSilhouette/blink/whiteBathroomSilhouette_0029.png`);
+  ramenBathroomNegativeEye[0] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeA/eyeA_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeA/eyeA_0053.png`);
+  ramenBathroomNegativeEye[1] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeB/eyeB_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeB/eyeB_0053.png`);
+  ramenBathroomNegativeEye[2] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeC/eyeC_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeC/eyeC_0053.png`);
+  ramenBathroomNegativeEye[3] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeD/eyeD_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeD/eyeD_0007.png`);
 
   boatTopSprite = loadImage(`assets/images/boatSection/boatTop.png`);
   mapBackground = loadImage(`assets/images/boatSection/map.png`);
@@ -164,6 +177,8 @@ function preload() {
   chloeSilhouetteRightStationary = loadImage(`assets/images/bathRoomSilhouette/silhouette/rightStationary.png`);
 
   forestAmbientSFX = loadSound(`assets/sounds/forestAmbience.mp3`);
+  glassBreakSFX = loadSound(`assets/sounds/glassBreak.mp3`);
+  pageTurnSFX = loadSound(`assets/sounds/pageTurn.mp3`);
   forestMusic = loadSound(`assets/sounds/forestMusic.mp3`);
 }
 

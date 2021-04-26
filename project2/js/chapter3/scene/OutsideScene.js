@@ -18,6 +18,7 @@ class OutsideScene extends Scene {
     this.comeBackSignOBJ();
     this.fencePostOBJ();
     this.toDockSignOBJ();
+    this.stoneWalkwayOBJ();
   }
 
   invisibleBoundaryOBJ() {
@@ -60,6 +61,16 @@ class OutsideScene extends Scene {
     this.bottomBoundary.addComponent(new RenderDebugComponent());
 
     this.addGameObject(this.bottomBoundary);
+
+    //EXIT BOUNDARY BAR//
+    this.exitBoundary = new GameObject();
+
+    this.exitBoundary.addComponent(new Transform(-100,400));
+    this.exitBoundary.addComponent(new Physics2D());
+    this.exitBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,10)));
+    this.exitBoundary.addComponent(new RenderDebugComponent());
+
+    this.addGameObject(this.exitBoundary);
   }
 
   playerSetupOBJ() {
@@ -461,6 +472,8 @@ class OutsideScene extends Scene {
     this.ramenIntoTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
     this.ramenIntoTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.ramenIntoTrigger.addComponent(new RenderDebugComponent());
+    this.ramenIntoTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Restaurant")));
+    this.ramenIntoTrigger.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
     this.ramenOutside.getTransform().local.setScale(0.9,0.9);
     this.ramenOutside.getTransform().local.position.z = -1;
@@ -797,5 +810,130 @@ class OutsideScene extends Scene {
     this.toDockSign.getTransform().local.setScale(0.4,0.4);
 
     this.addGameObject(this.toDockSign);
+  }
+
+  stoneWalkwayOBJ() {
+
+    //ROCK ORDER FROM CLOSEST TO START TO END//
+    this.stone0 = new GameObject();
+
+    this.stone0.addComponent(new Transform(9000,550));
+    this.stone0.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
+
+    this.stone0.getTransform().local.position.z = 2;
+    this.stone0.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone0);
+
+    //
+    this.stone1 = new GameObject();
+
+    this.stone1.addComponent(new Transform(8500,550));
+    this.stone1.addComponent(new ImageComponent(outsideStoneWalkway[1],1,1));
+
+    this.stone1.getTransform().local.position.z = 2;
+    this.stone1.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone1);
+
+    //
+    this.stone2 = new GameObject();
+
+    this.stone2.addComponent(new Transform(8200,550));
+    this.stone2.addComponent(new ImageComponent(outsideStoneWalkway[2],1,1));
+
+    this.stone2.getTransform().local.position.z = 2;
+    this.stone2.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone2);
+
+    //
+    this.stone3 = new GameObject();
+
+    this.stone3.addComponent(new Transform(6700,550));
+    this.stone3.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
+
+    this.stone3.getTransform().local.position.z = 2;
+    this.stone3.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone3);
+
+    //
+    this.stone4 = new GameObject();
+
+    this.stone4.addComponent(new Transform(4900,540));
+    this.stone4.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
+
+    this.stone4.getTransform().local.position.z = 2;
+    this.stone4.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone4);
+
+    //
+    this.stone5 = new GameObject();
+
+    this.stone5.addComponent(new Transform(3950,540));
+    this.stone5.addComponent(new ImageComponent(outsideStoneWalkway[4],1,1));
+
+    this.stone5.getTransform().local.position.z = 2;
+    this.stone5.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone5);
+
+    //
+    this.stone6 = new GameObject();
+
+    this.stone6.addComponent(new Transform(3600,540));
+    this.stone6.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
+
+    this.stone6.getTransform().local.position.z = 2;
+    this.stone6.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone6);
+
+    //
+    this.stone7 = new GameObject();
+
+    this.stone7.addComponent(new Transform(3200,540));
+    this.stone7.addComponent(new ImageComponent(outsideStoneWalkway[2],1,1));
+
+    this.stone7.getTransform().local.position.z = 2;
+    this.stone7.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone7);
+
+    //
+    this.stone8 = new GameObject();
+
+    this.stone8.addComponent(new Transform(1500,540));
+    this.stone8.addComponent(new ImageComponent(outsideStoneWalkway[1],1,1));
+
+    this.stone8.getTransform().local.position.z = 2;
+    this.stone8.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone8);
+
+    //
+    this.stone9 = new GameObject();
+
+    this.stone9.addComponent(new Transform(300,540));
+    this.stone9.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
+
+    this.stone9.getTransform().local.position.z = 2;
+    this.stone9.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone9);
+
+    //
+    this.stone10 = new GameObject();
+
+    this.stone10.addComponent(new Transform(-100,540));
+    this.stone10.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
+
+    this.stone10.getTransform().local.position.z = 2;
+    this.stone10.getTransform().local.setScale(0.8,0.8);
+
+    this.addGameObject(this.stone10);
+
   }
 }
