@@ -32,8 +32,9 @@ class Event {
   }
 
   raise() {
-    this.begin();
-    this.end();
+    for (let i = 0; i < this.listeners.length; i++) {
+      this.listeners[i].raise(this);
+    }
   }
 
 }

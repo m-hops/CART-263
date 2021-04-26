@@ -5,7 +5,7 @@ class Scene {
   constructor() {
     this.physicsSolver = new PhysicsSolver();
     this.gameObjects = new AsyncArray();
-
+    this.keyboardFocus = [];
   }
 
   //WHEN SCENE IS STARTED//
@@ -15,6 +15,13 @@ class Scene {
 
   //ADD GAME OBJECT INTO SCENE//
   addGameObject(obj) {
+    if(!(obj instanceof GameObject)){
+      throw "Object is not a GameObject";
+    }
+    if(obj.parent != null){
+      throw "Object added to scene cannot have a parent";
+    }
+    obj.scene = this;
     this.gameObjects.add(obj);
   }
 
@@ -66,5 +73,44 @@ class Scene {
     }
 
     return null;
+  }
+  hasFocus(focusRequest, focusGave){
+    return focusRequest == focusGave || focusGave == null;
+  }
+  isFocusIn(focusRequest, focusBefore, focusAfter){
+    return !this.hasFocus(focusRequest, focusBefore) && this.hasFocus(focusRequest, focusAfter);
+  }
+  isFocusOut(focusRequest, focusBefore, focusAfter){
+    return this.hasFocus(focusRequest, focusBefore) && !this.hasFocus(focusRequest, focusAfter);
+  }
+  getKeyboardFocus(){
+    if(this.keyboardFocus.length == 0) return "";
+    return this.keyboardFocus[this.keyboardFocus.length-1];
+  }
+  pushKeyboardFocus(name){
+    let prevFocus = this.getKeyboardFocus();
+    this.keyboardFocus.push(name);
+    console.log("pushKeyboardFocus '"+prevFocus+"' -> '" + name + "'");
+    this.updateKeyboardFocus(prevFocus, name);
+  }
+  popKeyboardFocus(name){
+    if(this.keyboardFocus.length == 0) throw "Cannot pop keyboard focus as there are no current focus";
+    let prevFocus = this.keyboardFocus.pop();
+    let curFocus = this.getKeyboardFocus();
+    console.log("popKeyboardFocus '" + prevFocus + "' -> '" + curFocus + "'");
+    this.updateKeyboardFocus(prevFocus, curFocus);
+    return prevFocus;
+  }
+  updateKeyboardFocus(focusBefore, focusAfter){
+    for(let k = 0; k != this.gameObjects.active.length; k++){
+      let kbComps = this.gameObjects.active[k].components.getAllElementOfType(KeyboardEventComponent);
+      for(let i = 0; i != kbComps.length; i++){
+        if(this.isFocusIn(kbComps[i].focus, focusBefore, focusAfter)){
+          kbComps[i].onFocusIn();
+        } else if(this.isFocusOut(kbComps[i].focus, focusBefore, focusAfter)){
+          kbComps[i].onFocusOut();
+        }
+      }
+    }
   }
 }

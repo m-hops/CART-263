@@ -8,4 +8,8 @@ class EventListener {
 
   }
 
+  raise() {
+    this.begin();
+    this.end();
+  }
 }

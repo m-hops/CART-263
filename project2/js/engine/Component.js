@@ -3,7 +3,9 @@ class Component {
   constructor() {
     this.gameObject = null;
   }
-
+  getScene() {
+    return this.gameObject.getScene();
+  }
   onEnable() {
     //CALLED WHEN THE OWNER GAME OBJECT ENABLE//
   }
