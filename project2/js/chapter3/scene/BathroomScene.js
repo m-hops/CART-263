@@ -60,8 +60,8 @@ class BathroomScene extends Scene {
     this.doorTrigger.addComponent(new RectColliderComponent(new AABB(70,0,10,10)));
     this.doorTrigger.addComponent(new RenderDebugComponent());
 
-    this.doorTriggerInteract.addComponent(new Transform(200,-250));
-    this.doorTriggerInteract.addComponent(new ImageComponent(eInteractImage,1,1));
+    this.doorTriggerInteract.addComponent(new Transform(250,-250));
+    this.doorTriggerInteract.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.doorTriggerInteract.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.doorTriggerInteract.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Restaurant")));
     this.doorTriggerInteract.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));

@@ -19,6 +19,7 @@ class OutsideScene extends Scene {
     this.fencePostOBJ();
     this.toDockSignOBJ();
     this.stoneWalkwayOBJ();
+    this.toDockTrigger();
   }
 
   invisibleBoundaryOBJ() {
@@ -468,8 +469,8 @@ class OutsideScene extends Scene {
     this.ramenOutside.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(120,400,50,100)));
     this.ramenOutside.addComponent(new RenderDebugComponent());
 
-    this.ramenIntoTrigger.addComponent(new Transform(60,290));
-    this.ramenIntoTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
+    this.ramenIntoTrigger.addComponent(new Transform(120,390));
+    this.ramenIntoTrigger.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.ramenIntoTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.ramenIntoTrigger.addComponent(new RenderDebugComponent());
     this.ramenIntoTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Restaurant")));
@@ -512,7 +513,7 @@ class OutsideScene extends Scene {
     this.blueCatSprite.addComponent(new RenderDebugComponent());
 
     this.speechBubbleCat.addComponent(new Transform(850,50));
-    this.speechBubbleCat.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubbleCat.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubbleCat.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleCat.addComponent(new RenderDebugComponent());
 
@@ -537,8 +538,8 @@ class OutsideScene extends Scene {
     this.meltChickenSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(100,300,1200,150)));
     this.meltChickenSprite.addComponent(new RenderDebugComponent());
 
-    this.speechBubbleChicken.addComponent(new Transform(1000,-100));
-    this.speechBubbleChicken.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubbleChicken.addComponent(new Transform(1400,-50));
+    this.speechBubbleChicken.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubbleChicken.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleChicken.addComponent(new RenderDebugComponent());
 
@@ -663,7 +664,7 @@ class OutsideScene extends Scene {
     this.phoneBooth.addComponent(new RenderDebugComponent());
 
     this.speechBubblePhone.addComponent(new Transform(300,-300));
-    this.speechBubblePhone.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubblePhone.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubblePhone.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubblePhone.addComponent(new RenderDebugComponent());
 
@@ -687,12 +688,12 @@ class OutsideScene extends Scene {
     this.comeBackSign.addComponent(new Transform(8200,350));
     this.comeBackSign.addComponent(new ImageComponent(outsideComeBackSign,1,1));
     this.comeBackSign.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubbleSign)));
-    this.comeBackSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,4000,1000)));
+    this.comeBackSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,3000,1000)));
     this.comeBackSign.addComponent(new RenderDebugComponent());
 
-    this.speechBubbleSign.addComponent(new Transform(1700,-1500));
-    this.speechBubbleSign.addComponent(new ImageComponent(speechBubbleIcon,1,1));
-    this.speechBubbleSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,speechBubbleIcon.width,speechBubbleIcon.height)));
+    this.speechBubbleSign.addComponent(new Transform(3000,-1200));
+    this.speechBubbleSign.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
+    this.speechBubbleSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleSign.addComponent(new RenderDebugComponent());
 
     this.comeBackSign.getTransform().local.position.z = 1;
@@ -801,7 +802,6 @@ class OutsideScene extends Scene {
 
     //TO DOCK SIGN OBJ//
     this.toDockSign = new GameObject();
-    this.speechBubbleSign = new GameObject();
 
     this.toDockSign.addComponent(new Transform(500,-10));
     this.toDockSign.addComponent(new ImageComponent(outsideToDockSign,1,1));
@@ -817,7 +817,7 @@ class OutsideScene extends Scene {
     //ROCK ORDER FROM CLOSEST TO START TO END//
     this.stone0 = new GameObject();
 
-    this.stone0.addComponent(new Transform(9000,550));
+    this.stone0.addComponent(new Transform(9000,570));
     this.stone0.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
 
     this.stone0.getTransform().local.position.z = 2;
@@ -828,7 +828,7 @@ class OutsideScene extends Scene {
     //
     this.stone1 = new GameObject();
 
-    this.stone1.addComponent(new Transform(8500,550));
+    this.stone1.addComponent(new Transform(8500,570));
     this.stone1.addComponent(new ImageComponent(outsideStoneWalkway[1],1,1));
 
     this.stone1.getTransform().local.position.z = 2;
@@ -839,7 +839,7 @@ class OutsideScene extends Scene {
     //
     this.stone2 = new GameObject();
 
-    this.stone2.addComponent(new Transform(8200,550));
+    this.stone2.addComponent(new Transform(8200,570));
     this.stone2.addComponent(new ImageComponent(outsideStoneWalkway[2],1,1));
 
     this.stone2.getTransform().local.position.z = 2;
@@ -850,7 +850,7 @@ class OutsideScene extends Scene {
     //
     this.stone3 = new GameObject();
 
-    this.stone3.addComponent(new Transform(6700,550));
+    this.stone3.addComponent(new Transform(6700,570));
     this.stone3.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
 
     this.stone3.getTransform().local.position.z = 2;
@@ -861,7 +861,7 @@ class OutsideScene extends Scene {
     //
     this.stone4 = new GameObject();
 
-    this.stone4.addComponent(new Transform(4900,540));
+    this.stone4.addComponent(new Transform(4900,570));
     this.stone4.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
 
     this.stone4.getTransform().local.position.z = 2;
@@ -872,7 +872,7 @@ class OutsideScene extends Scene {
     //
     this.stone5 = new GameObject();
 
-    this.stone5.addComponent(new Transform(3950,540));
+    this.stone5.addComponent(new Transform(3950,570));
     this.stone5.addComponent(new ImageComponent(outsideStoneWalkway[4],1,1));
 
     this.stone5.getTransform().local.position.z = 2;
@@ -883,7 +883,7 @@ class OutsideScene extends Scene {
     //
     this.stone6 = new GameObject();
 
-    this.stone6.addComponent(new Transform(3600,540));
+    this.stone6.addComponent(new Transform(3600,570));
     this.stone6.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
 
     this.stone6.getTransform().local.position.z = 2;
@@ -894,7 +894,7 @@ class OutsideScene extends Scene {
     //
     this.stone7 = new GameObject();
 
-    this.stone7.addComponent(new Transform(3200,540));
+    this.stone7.addComponent(new Transform(3200,570));
     this.stone7.addComponent(new ImageComponent(outsideStoneWalkway[2],1,1));
 
     this.stone7.getTransform().local.position.z = 2;
@@ -905,7 +905,7 @@ class OutsideScene extends Scene {
     //
     this.stone8 = new GameObject();
 
-    this.stone8.addComponent(new Transform(1500,540));
+    this.stone8.addComponent(new Transform(1500,570));
     this.stone8.addComponent(new ImageComponent(outsideStoneWalkway[1],1,1));
 
     this.stone8.getTransform().local.position.z = 2;
@@ -916,7 +916,7 @@ class OutsideScene extends Scene {
     //
     this.stone9 = new GameObject();
 
-    this.stone9.addComponent(new Transform(300,540));
+    this.stone9.addComponent(new Transform(300,570));
     this.stone9.addComponent(new ImageComponent(outsideStoneWalkway[3],1,1));
 
     this.stone9.getTransform().local.position.z = 2;
@@ -927,13 +927,37 @@ class OutsideScene extends Scene {
     //
     this.stone10 = new GameObject();
 
-    this.stone10.addComponent(new Transform(-100,540));
+    this.stone10.addComponent(new Transform(-100,570));
     this.stone10.addComponent(new ImageComponent(outsideStoneWalkway[0],1,1));
 
     this.stone10.getTransform().local.position.z = 2;
     this.stone10.getTransform().local.setScale(0.8,0.8);
 
     this.addGameObject(this.stone10);
+
+  }
+
+  toDockTrigger() {
+
+    //ACTIVATES TRIGGER TO DOCK//
+    this.dockTrigger = new GameObject();
+    this.dockTriggerSpeech = new GameObject();
+
+    this.dockTrigger.addComponent(new Transform());
+    this.dockTrigger.addComponent(new TriggerComponent(new EnableGameObjectAction(this.dockTriggerSpeech)));
+    this.dockTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(50,400,10,10)));
+    this.dockTrigger.addComponent(new RenderDebugComponent());
+
+    this.dockTriggerSpeech.addComponent(new Transform(300,250));
+    this.dockTriggerSpeech.addComponent(new AnimationComponent(eInteractAnimation,3));
+    this.dockTriggerSpeech.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractAnimation.width,eInteractAnimation.height)));
+    this.dockTriggerSpeech.addComponent(new RenderDebugComponent());
+
+    this.dockTrigger.addChild(this.dockTriggerSpeech);
+
+    this.dockTriggerSpeech.disable();
+
+    this.addGameObject(this.dockTrigger);
 
   }
 }

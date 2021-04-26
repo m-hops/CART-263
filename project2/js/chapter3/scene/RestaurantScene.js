@@ -121,8 +121,8 @@ class RestaurantScene extends Scene {
     this.virgilSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,1000,100)));
     this.virgilSprite.addComponent(new RenderDebugComponent());
 
-    this.speechBubblVirgil.addComponent(new Transform(1000,-800));
-    this.speechBubblVirgil.addComponent(new ImageComponent(speechBubbleIcon,1,1));
+    this.speechBubblVirgil.addComponent(new Transform(1400,-650));
+    this.speechBubblVirgil.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubblVirgil.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubblVirgil.addComponent(new RenderDebugComponent());
 
@@ -148,8 +148,8 @@ class RestaurantScene extends Scene {
     this.toBathroom.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,10,10)));
     this.toBathroom.addComponent(new RenderDebugComponent());
 
-    this.toBathroomTrigger.addComponent(new Transform(-250,-300));
-    this.toBathroomTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
+    this.toBathroomTrigger.addComponent(new Transform(-250,-200));
+    this.toBathroomTrigger.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.toBathroomTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.toBathroomTrigger.addComponent(new RenderDebugComponent());
     this.toBathroomTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Bathroom")));
@@ -170,12 +170,14 @@ class RestaurantScene extends Scene {
     this.toOutside.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,10,10)));
     this.toOutside.addComponent(new RenderDebugComponent());
 
-    this.toOutsideTrigger.addComponent(new Transform(10,-380));
-    this.toOutsideTrigger.addComponent(new ImageComponent(eInteractImage,1,1));
+    this.toOutsideTrigger.addComponent(new Transform(125,-200));
+    this.toOutsideTrigger.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.toOutsideTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.toOutsideTrigger.addComponent(new RenderDebugComponent());
     this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("OutsidePath")));
     this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
+
+    this.toOutsideTrigger.getTransform().local.setScale(0.7,0.7);
 
     this.toOutside.addChild(this.toOutsideTrigger);
 

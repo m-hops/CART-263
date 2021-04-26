@@ -18,7 +18,7 @@ class RectColliderComponent extends ColliderComponent {
     push();
     noFill();
     stroke(255,0,0);
-    noStroke();
+    // noStroke();
     rect(boxMin.x, boxMin.y, boxSize.x, boxSize.y);
     pop();
   }

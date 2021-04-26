@@ -22,7 +22,10 @@ let controlsDirectionAnimation;
 let controlsEAnimation;
 
 let eInteractImage;
+let eInteractAnimation;
 let eInteractSilhouetteImage;
+let speechBubbleIcon;
+let speechBubbleIconAnimation;
 
 let textBoxBKG;
 
@@ -30,8 +33,6 @@ let forestAmbientSFX;
 let glassBreakSFX;
 let pageTurnSFX;
 let forestMusic;
-
-let speechBubbleIcon;
 
 let chloePortraitEmbarassed;
 let chloePortraitNormal;
@@ -99,8 +100,10 @@ function preload() {
   textBoxBKG = loadImage(`assets/images/textBox.png`);
   roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
   eInteractImage = loadImage(`assets/images/eSelect.png`);
+  eInteractAnimation = loadAnimation(`assets/images/eSelectAnimation/eSelectAnimation_0000.png`, `assets/images/eSelectAnimation/eSelectAnimation_0004.png`);
   eInteractSilhouetteImage = loadImage(`assets/images/bathRoomSilhouette/eSilhouetteSelect.png`);
   speechBubbleIcon = loadImage(`assets/images/speechBubble.png`);
+  speechBubbleIconAnimation = loadAnimation(`assets/images/speechBubbleAnimation/speechBubbleAnimation_0000.png`, `assets/images/speechBubbleAnimation/speechBubbleAnimation_0004.png`)
   controlsDirectionAnimation = loadAnimation(`assets/images/control/control0.png`, `assets/images/control/control2.png`);
   controlsEAnimation = loadAnimation(`assets/images/eToInteract/pressE_0000.png`, `assets/images/eToInteract/pressE_0002.png`)
 
@@ -188,7 +191,7 @@ function setup() {
 
   rootStateMachine = new StateMachine();
 
-  rootStateMachine.transit(new SceneState(globalRenderer, new BathroomNegativeScene()));
+  rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
 
 }
 
