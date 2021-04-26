@@ -2,7 +2,10 @@
 
 class AttachToComponent extends Component {
 
-  constructor(targetGameOBJ, attachPositionX, attachPositionY, attachPositionZ, offset, min, max) {
+  constructor(targetGameOBJ, attachPositionX=true, attachPositionY=true, attachPositionZ=true,
+    offset=createVector(0,0,0),
+    min=createVector(-99999999,-99999999,-99999999),
+    max=createVector(99999999,99999999,99999999)) {
     super();
 
     this.attachPositionX = attachPositionX;
@@ -14,6 +17,7 @@ class AttachToComponent extends Component {
     this.max = max;
   }
 
+  
   //CALLED EVERY FRAME//
   update() {
 

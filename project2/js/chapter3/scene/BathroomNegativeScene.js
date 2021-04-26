@@ -6,6 +6,8 @@ class BathroomNegativeScene extends Scene {
 
     this.playerSetupOBJ();
     this.cameraOBJ();
+    this.dialogBox = new DialogBox(this.camera);
+    this.addGameObject(this.dialogBox);
     this.backgroundOBJ();
     this.invisibleBoundaryOBJ();
     this.blinkOBJ();
@@ -102,7 +104,14 @@ class BathroomNegativeScene extends Scene {
       this.blinkInteract.addComponent(new ImageComponent(eInteractSilhouetteImage,1,1));
       this.blinkInteract.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractSilhouetteImage.width,eInteractSilhouetteImage.height)));
       this.blinkInteract.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(glassBreakSFX)));
-      this.blinkInteract.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Bathroom")));
+      //this.blinkInteract.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Bathroom")));
+      this.blinkInteract.addComponent(
+        new KeyboardEventComponent(69,
+          new PlayDialogAction(this.dialogBox,
+                               new DialogScriptJSON(dialogTest),
+                               new ChangeSceneAction("Bathroom")
+      )));
+
       this.blinkInteract.addComponent(new RenderDebugComponent());
 
       this.blinkInteract.getTransform().local.setScale(0.5,0.5);

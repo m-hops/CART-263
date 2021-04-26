@@ -81,6 +81,8 @@ let ramenBathroomNegativeEye = [];
 let mapBackground;
 let boatTopSprite;
 
+let dialogTest;
+
 let ramenBKGSpecs = {
   x: -1300,
   y: -40,
@@ -180,6 +182,8 @@ function preload() {
   glassBreakSFX = loadSound(`assets/sounds/glassBreak.mp3`);
   pageTurnSFX = loadSound(`assets/sounds/pageTurn.mp3`);
   forestMusic = loadSound(`assets/sounds/forestMusic.mp3`);
+
+   dialogTest = loadJSON(`assets/dialogs/testDialog.json`)
 }
 
 function setup() {

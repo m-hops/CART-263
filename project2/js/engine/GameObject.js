@@ -3,6 +3,7 @@ class GameObject {
   constructor(name = null) {
 
     this.parent = null;
+    this.scene = null;
     this.components = new AsyncArray();
     this.children = new AsyncArray();
     this.name = name;
@@ -55,7 +56,7 @@ class GameObject {
     if(this.enabled){
       this.enabledInHierarchy = false;
       this.components.visit(x => x.onDisable());
-      this.children.visit(x => x.desableHierarchy());
+      this.children.visit(x => x.disableHierarchy());
       this.onDesable();
     }
   }
@@ -82,6 +83,11 @@ class GameObject {
 
   //ADDS CHILD OBJECT TO GAME OBJECT//
   addChild(obj) {
+
+    if(!(obj instanceof GameObject)){
+      throw "Object is not a GameObject";
+    }
+
     this.children.add(obj);
 
     obj.parent = this;
@@ -109,5 +115,10 @@ class GameObject {
 
   getTransform() {
     return this.components.getFirstElementOfType(Transform);
+  }
+
+  getScene(){
+    if(this.parent != null) return this.parent.getScene();
+    return this.scene;
   }
 }
