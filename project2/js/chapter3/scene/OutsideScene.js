@@ -20,6 +20,7 @@ class OutsideScene extends Scene {
     this.toDockSignOBJ();
     this.stoneWalkwayOBJ();
     this.toDockTrigger();
+    this.musicOBJ();
   }
 
   invisibleBoundaryOBJ() {
@@ -952,6 +953,8 @@ class OutsideScene extends Scene {
     this.dockTriggerSpeech.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.dockTriggerSpeech.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractAnimation.width,eInteractAnimation.height)));
     this.dockTriggerSpeech.addComponent(new RenderDebugComponent());
+    this.dockTriggerSpeech.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Boat")));
+    this.dockTriggerSpeech.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
     this.dockTrigger.addChild(this.dockTriggerSpeech);
 
@@ -959,5 +962,14 @@ class OutsideScene extends Scene {
 
     this.addGameObject(this.dockTrigger);
 
+  }
+
+  musicOBJ() {
+
+    this.music = new GameObject();
+
+    this.music.addComponent(new MusicPlayerComponent(forestAmbientSFX,1));
+
+    this.addGameObject(this.music);
   }
 }

@@ -29,7 +29,11 @@ class Physics2D extends Component {
     this.speed += this.acceleration * this.deltaTime / 1000;
     this.speed *= this.dragPercent;
     if (this.speed < 0) {
-      this.speed = 0;
+      this.speed = -this.speed;
+        this.acceleration = -this.acceleration;
+      this.velocity.x = -this.velocity.x;
+      this.velocity.y = -this.velocity.y;
+      this.velocity.z = -this.velocity.z;
     }
 
     this.velocity = p5.Vector.mult(this.direction, this.speed * this.deltaTime / 1000);

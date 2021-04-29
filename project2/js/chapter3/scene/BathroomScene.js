@@ -8,6 +8,7 @@ class BathroomScene extends Scene {
     this.cameraOBJ();
     this.backgroundOBJ();
     this.invisibleBoundaryOBJ();
+    this.musicOBJ();
   }
 
   invisibleBoundaryOBJ() {
@@ -93,12 +94,26 @@ class BathroomScene extends Scene {
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
-    this.player.addComponent(new Transform(610,500));
-    this.player.addComponent(new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary));
+
+    let trf = new Transform();
+    let dac = new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary);
+
+    this.player.addComponent(trf);
+    this.player.addComponent(dac);
     this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeLeftStationary.width / 2, chloeLeftStationary.height / 2)));
     this.player.addComponent(new RenderDebugComponent());
 
     this.player.getTransform().local.position.z = 0;
+
+    if (gameState.previousScene == "Negative Space") {
+      trf.local.position = createVector(610,500,0);
+      dac.wasLeft = true;
+    }
+
+    if (gameState.previousScene == "Restaurant") {
+      trf.local.position = createVector(300,500,0);
+      dac.wasLeft = false;
+    }
 
     this.addGameObject(this.player);
 
@@ -158,5 +173,14 @@ class BathroomScene extends Scene {
     this.bathroomStall_0.getTransform().local.setScale(0.7,0.7);
 
     this.addGameObject(this.background);
+  }
+
+  musicOBJ() {
+
+    this.music = new GameObject();
+
+    this.music.addComponent(new MusicPlayerComponent(restaurantMusic));
+
+    this.addGameObject(this.music);
   }
 }

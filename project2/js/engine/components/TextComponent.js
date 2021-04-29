@@ -9,7 +9,7 @@ class TextComponent extends RenderComponent{
 
     this.text = txt;
     this.color = 0;
-    this.textSize = 40;
+    this.textSize = 30;
     this.font = dialogFont;
   }
 

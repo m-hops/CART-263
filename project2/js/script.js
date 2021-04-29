@@ -10,8 +10,15 @@ author, and this description to match your project!
 
 ******************/
 
+let gameState = {
+  previousScene: null,
+  currentScene: null,
+  currentMusic: null
+};
+
 let barkTestSFX;
 let testSong;
+let badMad;
 
 let dialogFont;
 
@@ -28,11 +35,15 @@ let speechBubbleIcon;
 let speechBubbleIconAnimation;
 
 let textBoxBKG;
+let dialogBlackShade;
 
 let forestAmbientSFX;
 let glassBreakSFX;
 let pageTurnSFX;
-let forestMusic;
+let boatMusic;
+let introMusic;
+let restaurantMusic;
+let negativeMusic;
 
 let chloePortraitEmbarassed;
 let chloePortraitNormal;
@@ -41,6 +52,8 @@ let chloePortraitShock;
 let virgilPortraitNormal;
 let virgilPortraitShock;
 let virgilPortraitUnimpresssed;
+
+let portraits = [];
 
 let chloeLeftAnimation;
 let chloeLeftStationary;
@@ -51,6 +64,8 @@ let chloeSilhouetteLeftAnimation;
 let chloeSilhouetteLeftStationary;
 let chloeSilhouetteRightAnimation;
 let chloeSilhouetteRightStationary;
+
+let chloeOpeningFallAnimation;
 
 let outsideBKGMountains0;
 let outsideBKGMountains1;
@@ -83,6 +98,8 @@ let mapBackground;
 let boatTopSprite;
 
 let dialogTest;
+let openingDialog0;
+let openingDialog263;
 
 let ramenBKGSpecs = {
   x: -1300,
@@ -97,7 +114,9 @@ function preload() {
 
   barkTestSFX = loadSound(`assets/sounds/bark.wav`);
   testSong = loadSound(`assets/sounds/testSong.mp3`);
+  portraits["badMad"] = badMad = loadImage(`assets/images/badMad.jpg`);
 
+  dialogBlackShade = loadImage(`assets/images/blackFade.png`);
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
   textBoxBKG = loadImage(`assets/images/textBox.png`);
   roundedCornerOverlay = loadImage(`assets/images/roundedCorners.png`);
@@ -108,6 +127,8 @@ function preload() {
   speechBubbleIconAnimation = loadAnimation(`assets/images/speechBubbleAnimation/speechBubbleAnimation_0000.png`, `assets/images/speechBubbleAnimation/speechBubbleAnimation_0004.png`)
   controlsDirectionAnimation = loadAnimation(`assets/images/control/control0.png`, `assets/images/control/control2.png`);
   controlsEAnimation = loadAnimation(`assets/images/eToInteract/pressE_0000.png`, `assets/images/eToInteract/pressE_0002.png`)
+
+  chloeOpeningFallAnimation = loadAnimation(`assets/images/bathRoomSilhouette/chloeNormalFall/chloeNormalFall_0000.png`, `assets/images/bathRoomSilhouette/chloeNormalFall/chloeNormalFall_0015.png`);
 
   characterBlueCat = loadImage(`assets/images/assortedCharacters/blueCat.png`);
   characterMeltChicken = loadImage(`assets/images/assortedCharacters/meltChicken.png`);
@@ -163,13 +184,13 @@ function preload() {
   boatTopSprite = loadImage(`assets/images/boatSection/boatTop.png`);
   mapBackground = loadImage(`assets/images/boatSection/map.png`);
 
-  chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
-  chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
-  chloePortraitShock = loadImage(`assets/images/sprites/player/portrait/chloeShock.png`);
+  portraits["chloeEmbarassed"] = chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
+  portraits["chloeNormal"] = chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
+  portraits["chloeShock"] = chloePortraitShock = loadImage(`assets/images/sprites/player/portrait/chloeShock.png`);
 
-  virgilPortraitNormal = loadImage(`assets/images/sprites/virgil/virgilNormal.png`);
-  virgilPortraitShock = loadImage(`assets/images/sprites/virgil/virgilShock.png`);
-  virgilPortraitUnimpresssed = loadImage(`assets/images/sprites/virgil/virgilUnimpressed.png`);
+  portraits["virgilNormal"] = virgilPortraitNormal = loadImage(`assets/images/sprites/virgil/virgilNormal.png`);
+  portraits["virgilShock"] = virgilPortraitShock = loadImage(`assets/images/sprites/virgil/virgilShock.png`);
+  portraits["virgilUnimpressed"] = virgilPortraitUnimpresssed = loadImage(`assets/images/sprites/virgil/virgilUnimpressed.png`);
 
   chloeLeftAnimation = loadAnimation(`assets/images/sprites/player/leftWalkCycle/walkCycleLeft0.png`, `assets/images/sprites/player/leftWalkCycle/walkCycleLeft3.png`);
   chloeLeftStationary = loadImage(`assets/images/sprites/player/leftStationary.png`);
@@ -184,9 +205,14 @@ function preload() {
   forestAmbientSFX = loadSound(`assets/sounds/forestAmbience.mp3`);
   glassBreakSFX = loadSound(`assets/sounds/glassBreak.mp3`);
   pageTurnSFX = loadSound(`assets/sounds/pageTurn.mp3`);
-  forestMusic = loadSound(`assets/sounds/forestMusic.mp3`);
+  boatMusic = loadSound(`assets/sounds/forestSong.mp3`);
+  introMusic = loadSound(`assets/sounds/introMusic.m4a`);
+  restaurantMusic = loadSound(`assets/sounds/restaurantMusic.mp3`);
+  negativeMusic = loadSound(`assets/sounds/negativeTheme.mp3`);
 
-   dialogTest = loadJSON(`assets/dialogs/testDialog.json`)
+  dialogTest = loadJSON(`assets/dialogs/testDialog.json`);
+  openingDialog0 = loadJSON(`assets/dialogs/openingDialog/openingDialog0.json`);
+  openingDialog263 = loadJSON(`assets/dialogs/openingDialog/openingDialog263.json`);
 }
 
 function setup() {
@@ -195,7 +221,9 @@ function setup() {
 
   rootStateMachine = new StateMachine();
 
-  rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
+  gameState.currentScene = "Opening";
+
+  rootStateMachine.transit(new SceneState(globalRenderer, new OpeningScene()));
 
 }
 

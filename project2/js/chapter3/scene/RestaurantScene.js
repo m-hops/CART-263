@@ -10,6 +10,7 @@ class RestaurantScene extends Scene {
     this.invisibleBoundaryOBJ();
     this.virgilOBJ();
     this.enterExitTriggers();
+    this.musicOBJ();
   }
 
   playerSetupOBJ() {
@@ -185,5 +186,14 @@ class RestaurantScene extends Scene {
 
     this.addGameObject(this.toOutside);
 
+  }
+
+  musicOBJ() {
+
+    this.music = new GameObject();
+
+    this.music.addComponent(new MusicPlayerComponent(restaurantMusic));
+
+    this.addGameObject(this.music);
   }
 }

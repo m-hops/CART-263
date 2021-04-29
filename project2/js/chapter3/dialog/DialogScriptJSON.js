@@ -28,4 +28,19 @@ class DialogScriptJSON extends DialogScript{
   isOver(){
       return this.currentLine >= this.json.lines.length;
   }
+  getCurrentSlot0(){
+    if(this.json.lines[this.currentLine].hasOwnProperty('slot0')){
+        return this.json.lines[this.currentLine].slot0;
+    }
+  }
+  getCurrentSlot1(){
+    if(this.json.lines[this.currentLine].hasOwnProperty('slot1')){
+        return this.json.lines[this.currentLine].slot1;
+    }
+  }
+  getCurrentSlot2(){
+    if(this.json.lines[this.currentLine].hasOwnProperty('slot2')){
+        return this.json.lines[this.currentLine].slot2;
+    }
+  }
 }

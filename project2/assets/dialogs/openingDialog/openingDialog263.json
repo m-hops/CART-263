@@ -1,0 +1,54 @@
+{
+  "lines": [{
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "Hey Pippin."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "Welcome to the tech demo of the\nRainebow Engine and Chapter 3."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "It's uhh... uhmmm..."
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "actor": "Chloe",
+      "text": "Ok look, Madeline did that thing\nagain where she bit off more than\nshe could chew."
+    },
+    {
+      "slot0": "chloeShock",
+      "actor": "Chloe",
+      "text": "THAT DOESN'T MEAN THIS IS BAD!!1!"
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "actor": "Chloe",
+      "text": "It just means that the engine is\n(mostly( finished, but the game\ncontent is going to take some more\ntime."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "It's a bummer, but Madeline\ncan only cut back on so much\nsleep to keep working before\nshe snaps..."
+    },
+    {
+      "slot0": "chloeShock",
+      "slot2": "badMad",
+      "actor": "Chloe",
+      "text": "And we all agree,\nthat rarely ends well."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "When you go through this demo\nyou'll get a pretty good sense of how\nthings are going to work."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": ""
+    }
+  ]
+}
