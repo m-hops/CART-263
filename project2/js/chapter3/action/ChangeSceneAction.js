@@ -13,6 +13,10 @@ class ChangeSceneAction extends EventListener {
 
     gameState.currentScene = this.toScene;
 
+    if (this.toScene == "Opening") {
+        rootStateMachine.transit(new SceneState(globalRenderer, new OpeningScene()));
+    }
+
     if (this.toScene == "Negative Space") {
         rootStateMachine.transit(new SceneState(globalRenderer, new BathroomNegativeScene()));
     }
@@ -23,10 +27,6 @@ class ChangeSceneAction extends EventListener {
 
     if (this.toScene == "Restaurant") {
         rootStateMachine.transit(new SceneState(globalRenderer, new RestaurantScene()));
-    }
-
-    if (this.toScene == "OutsidePath") {
-        rootStateMachine.transit(new SceneState(globalRenderer, new OutsideScene()));
     }
 
     if (this.toScene == "Outside"){

@@ -6,6 +6,11 @@ class RestaurantScene extends Scene {
 
     this.playerSetupOBJ();
     this.cameraOBJ();
+
+    this.dialogBox = new DialogBox(this.camera);
+    this.addGameObject(this.dialogBox);
+    this.dialogBox.disable();
+
     this.backgroundOBJ();
     this.invisibleBoundaryOBJ();
     this.virgilOBJ();
@@ -19,12 +24,26 @@ class RestaurantScene extends Scene {
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
-    this.player.addComponent(new Transform(3000,520));
-    this.player.addComponent(new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary));
+
+    let trf = new Transform();
+    let dac = new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary);
+
+    this.player.addComponent(trf);
+    this.player.addComponent(dac);
     this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeLeftStationary.width / 2, chloeLeftStationary.height / 2)));
     this.player.addComponent(new RenderDebugComponent());
 
     this.player.getTransform().local.position.z = 0;
+
+    if (gameState.previousScene == "Bathroom") {
+      trf.local.position = createVector(3000,520,0);
+      dac.wasLeft = true;
+    }
+
+    if (gameState.previousScene == "Outside") {
+      trf.local.position = createVector(200,520,0);
+      dac.wasLeft = false;
+    }
 
     this.addGameObject(this.player);
 
@@ -116,7 +135,7 @@ class RestaurantScene extends Scene {
     this.virgilSprite = new GameObject();
     this.speechBubblVirgil = new GameObject();
 
-    this.virgilSprite.addComponent(new Transform(1300,280));
+    this.virgilSprite.addComponent(new Transform(1300,290));
     this.virgilSprite.addComponent(new ImageComponent(virgilPortraitUnimpresssed,1,1));
     this.virgilSprite.addComponent(new TriggerComponent(new EnableGameObjectAction(this.speechBubblVirgil)));
     this.virgilSprite.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,600,1000,100)));
@@ -126,9 +145,10 @@ class RestaurantScene extends Scene {
     this.speechBubblVirgil.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubblVirgil.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubblVirgil.addComponent(new RenderDebugComponent());
+    this.speechBubblVirgil.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox, new DialogScriptJSON(restaurantDialog263))));
 
     this.virgilSprite.getTransform().local.position.z = 1;
-    this.virgilSprite.getTransform().local.setScale(0.15,0.15);
+    this.virgilSprite.getTransform().local.setScale(0.18,0.18);
     this.speechBubblVirgil.getTransform().local.setScale(3,3);
     this.virgilSprite.getTransform().local.rotation = 5 / 180 * 3.1415;
 
@@ -175,7 +195,7 @@ class RestaurantScene extends Scene {
     this.toOutsideTrigger.addComponent(new AnimationComponent(eInteractAnimation,3));
     this.toOutsideTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractImage.width,eInteractImage.height)));
     this.toOutsideTrigger.addComponent(new RenderDebugComponent());
-    this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("OutsidePath")));
+    this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Outside")));
     this.toOutsideTrigger.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
     this.toOutsideTrigger.getTransform().local.setScale(0.7,0.7);

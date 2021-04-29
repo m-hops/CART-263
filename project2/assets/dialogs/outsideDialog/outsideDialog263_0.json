@@ -1,0 +1,42 @@
+{
+	"lines": [{
+			"slot1": "outsideComeBackSign",
+			"actor": "Jerk Sign",
+			"text": "As an inatimate object, it's\nunsurprising I have a deep love of\nGame Object oriented programming."
+		},
+		{
+			"slot1": "outsideComeBackSign",
+			"actor": "Jerk Sign",
+			"text": "Every scene relevant element is\ncatagorized as a Game Object and\nwith it, various components for\nadjustment."
+		},
+		{
+			"slot1": "outsideComeBackSign",
+			"actor": "Jerk Sign",
+			"text": "There's even the ability to add\nchildren to a parent object for\neasier asset manipulation."
+		},
+		{
+			"slot0": "outsideComeBackSign",
+			"slot2": "goExample0",
+			"actor": "Jerk Sign",
+			"text": "Every Scene is assembled with\nmultiple objects that, for the\nsake of organization, are put\ninto functions."
+		},
+		{
+			"slot0": "outsideComeBackSign",
+			"slot2": "goExample1",
+			"actor": "Jerk Sign",
+			"text": "As I mentioned before, the ability\nto add components gives us\nreusable flexibility and there\nare lots of tools to chose from."
+		},
+		{
+			"slot0": "outsideComeBackSign",
+			"slot2": "goExample2",
+			"actor": "Jerk Sign",
+			"text": "Even the simplest Game Object\nrequires some element of component\nto work while others..."
+		},
+		{
+			"slot0": "outsideComeBackSign",
+			"slot2": "goExample3",
+			"actor": "Jerk Sign",
+			"text": "Require so many it breaks your will\nto live."
+		}
+	]
+}

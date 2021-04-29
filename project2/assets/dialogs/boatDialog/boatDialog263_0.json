@@ -1,0 +1,82 @@
+{
+	"lines": [{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "..."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "And that brings us to the end of\nour tech demo!\n\nYep! Nothing else to look at!"
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "virgilUnimpressed",
+			"actor": "Virgil",
+			"text": "...are you sure?"
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "virgilUnimpressed",
+			"actor": "Chloe",
+			"text": "Erm... ok fine. Look."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "Behind us right now is the boat\nsection.\n\nThink of it like an overworld map."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "In it, you can pilot your boat\naround to make it to different\nareas."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "However, its far from finished\nand to some extent, it's not\nworking properly."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "There is no boundary currently\nsetup, and reverse doesn't work."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "If you'd like to, you can still\npilot the boat around and see\nthings, but it will mostly be a\nvisual experience."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "After you're done that, you can\npilot back to the dock and use\nthat to respawn in the previous\nscene."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "But please know *THIS* section is\nstill under construction and\nMadeline acknowledges its\nbugginess."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "virgilNormal",
+			"actor": "Chloe",
+			"text": "Anyways, thank you so much for\nplaying through and we hope you\nlike what you've experienced."
+		},
+		{
+			"actor": "Madeline",
+			"text": "Once again, thank you so much\nfor everything this semester."
+		},
+		{
+			"actor": "Madeline",
+			"text": "I was striving to get more\nfinished, but COVID burnout has\nfinally got to me; hope this\nis still enough."
+		},
+		{
+			"actor": "Madeline",
+			"text": "I'll see you in class next year!"
+		},
+		{
+			"actor": "Madeline",
+			"text": "-Mads"
+		}
+	]
+}

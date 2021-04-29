@@ -1,0 +1,107 @@
+{
+	"lines": [{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "..."
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "...."
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "..."
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "What in the 9 circles of hell are\nyou supposed to be!?!"
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "???",
+			"text": "hu;fds'ohf'uogafw!!!"
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "Oh that's actually a really good\npoint."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "Chicken McNightmare over here\njust reminded me to let you know\nabout proper attribution."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "This game is built using the\nP5 library and P5.Play library."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "All images and music are created\nusing a combination of personal\nassets, public domain images, or\nbought via Shutterstock."
+		},
+		{
+			"slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "Development software includes\nAtom, Photoshop, Clip Studio,\nGarageBand, Audacity, Procreate,\nText Edit, and Pyxel."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot1": "pippinProfile",
+			"actor": "Chloe",
+			"text": "Special thanks to Pippin for\nteaching me the code to develop\nthis..."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot1": "stephProfile",
+			"actor": "Chloe",
+			"text": "And to the smartest fry eater in\nthe world, Stephanie Rancourt, who\ndesigned the Math and Physics for\nthis game."
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot1": "stephProfile",
+			"actor": "Chloe",
+			"text": "Madeline isn't the greatest with\nnumber thingys so she owes a HUGE\nfucking thanks to her..."
+		},
+		{
+			"slot1": "meltChicken",
+			"actor": "???",
+			"text": "nmqe9;;786kasoh>a2!!!"
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "Chloe",
+			"text": "WTF CAREFUL WHERE YOU POINT THAT\n... THING!!!"
+		},
+		{
+			"slot0": "chloeShock",
+			"slot1": "meltChicken",
+			"actor": "???",
+			"text": "324;li7cfp897t2???"
+		},
+		{
+			"slot0": "virgilUnimpressedFlip",
+			"slot1": "meltChicken",
+			"actor": "Virgil",
+			"text": "YES! YOUR FACE!\n\nSHE'S TALKING ABOUT YOUR FACE!"
+		},
+		{
+			"slot0": "virgilUnimpressedFlip",
+			"slot1": "meltChicken",
+			"actor": "???",
+			"text": "235d:?>sdf1JLSD...\n\n*Sad Melted Chicken Noises*"
+		}
+	]
+}

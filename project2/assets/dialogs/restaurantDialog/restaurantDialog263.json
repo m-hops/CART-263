@@ -1,0 +1,108 @@
+{
+	"lines": [
+    {
+      "slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "Hello again, Pippin."
+		},
+		{
+      "slot1": "virgilUnimpressed",
+			"actor": "Virgil",
+			"text": "Oh you didn't think the meta\nof speaking directly to you in game\nended at the intro, did you?"
+		},
+		{
+      "slot1": "virgilShock",
+			"actor": "Virgil",
+			"text": "Nope, it's 4th wall breaking\nall the way BAY-BEE!"
+		},
+		{
+      "slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "Outside are some interactables\nthat will tell you a bit more of the\nproject details."
+		},
+		{
+      "slot1": "chloeNormal",
+			"actor": "Chloe",
+			"text": "Why don't you start by telling\nPippin a bit more about the\ndialog system?"
+		},
+		{
+      "slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "Hey yeah!\n\nThanks, whatever your name is!."
+		},
+		{
+      "slot1": "chloeShock",
+			"actor": "Chloe",
+			"text": "Wh-\n\nI'M THE MAIN CHARACTER OF THE GAME!"
+		},
+		{
+      "slot0": "chloeShock",
+			"slot2": "virgilUnimpressed",
+			"actor": "Virgil",
+			"text": "Yeah well this is a tech demo\nso it's my show now, assshole."
+		},
+		{
+      "slot0": "chloeEmbarassed",
+			"slot2": "virgilNormal",
+			"actor": "Virgil",
+			"text": "The dialog system features 2\nconsistent images, 3 image slots,\nand 2 text fields."
+		},
+		{
+			"slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "The consistent images are the\noverlay behind me, and the text box\nused below."
+		},
+		{
+			"slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "As for the slot system, the area\nbehind the textbox is zoned into\n3 sections from slot0 to slot2."
+		},
+		{
+			"slot0": "virgilShock",
+			"slot1": "virgilNormal",
+			"slot2": "virgilUnimpressed",
+			"actor": "Virgils",
+			"text": "This allows us to call up player\nportraits or other image resources\nwhen needed!"
+		},
+		{
+			"slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "With the text field, there is\na section for a name and then the\ntext that follows."
+		},
+		{
+			"slot0": "virgilNormalFlip",
+			"slot2": "jsonExample",
+			"actor": "Virgil",
+			"text": "All of this is managed through\nstring input from JSON files."
+		},
+		{
+			"slot0": "virgilNormalFlip",
+			"slot2": "jsonExample",
+			"actor": "Virgil",
+			"text": "Here you can see 2 slots are called\nup, the actors name is defined\nas Virgil, and the text field\nis for the main text box."
+		},
+		{
+			"slot0": "virgilUnimpressedFlip",
+			"slot2": "jsonError",
+			"actor": "Virgil",
+			"text": "Just don't forget to do the\nformatting correctly or you'll\nhave to deal with this stupid\nerror."
+		},
+		{
+			"slot1": "virgilNormal",
+			"actor": "Virgil",
+			"text": "Mads is still working on creating\nanimation and better image\ncontrols, but for now this system\nworks pretty well."
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "virgilUnimpressed",
+			"actor": "Virgil",
+			"text": "At the very least, it allows me\nto berate everyone when I need to.\n\nCHLOE!"
+		},
+		{
+			"slot0": "chloeShock",
+			"slot2": "virgilUnimpressed",
+			"actor": "Virgil",
+			"text": "AH! Ok! Fine yes we're going.\n\nJesus, man..."
+		}
+	]
+}

@@ -3,13 +3,18 @@ class OutsideScene extends Scene {
   constructor() {
     super();
 
+    this.playerSetupOBJ();
+    this.cameraOBJ();
+
+    this.dialogBox = new DialogBox(this.camera);
+    this.addGameObject(this.dialogBox);
+    this.dialogBox.disable();
+
     this.blueCatOBJ();
     this.meltChickenOBJ();
     this.phoneBoothOBJ();
     this.streetLampsOBJ();
     this.invisibleBoundaryOBJ();
-    this.playerSetupOBJ();
-    this.cameraOBJ();
     this.backgroundOBJ();
     this.ramenOutsideOBJ();
     this.dirtGroundLoopOBJ();
@@ -81,12 +86,26 @@ class OutsideScene extends Scene {
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
-    this.player.addComponent(new Transform(9250,460));
-    this.player.addComponent(new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary));
+
+    let trf = new Transform();
+    let dac = new DirectionalAnimationComponenet(chloeLeftAnimation, chloeRightAnimation, chloeLeftStationary, chloeRightStationary);
+
+    this.player.addComponent(trf);
+    this.player.addComponent(dac);
     this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeLeftStationary.width / 2, chloeLeftStationary.height / 2)));
     this.player.addComponent(new RenderDebugComponent());
 
     this.player.getTransform().local.position.z = 0;
+
+    if (gameState.previousScene == "Restaurant") {
+      trf.local.position = createVector(9250,460,0);
+      dac.wasLeft = true;
+    }
+
+    if (gameState.previousScene == "Boat") {
+      trf.local.position = createVector(280,500,0);
+      dac.wasLeft = false;
+    }
 
     this.addGameObject(this.player);
 
@@ -517,6 +536,7 @@ class OutsideScene extends Scene {
     this.speechBubbleCat.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubbleCat.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleCat.addComponent(new RenderDebugComponent());
+    this.speechBubbleCat.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox, new DialogScriptJSON(outsideDialog263_1))));
 
     this.blueCatSprite.getTransform().local.position.z = 1;
     this.blueCatSprite.getTransform().local.setScale(0.4,0.4);
@@ -543,6 +563,7 @@ class OutsideScene extends Scene {
     this.speechBubbleChicken.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubbleChicken.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleChicken.addComponent(new RenderDebugComponent());
+    this.speechBubbleChicken.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox, new DialogScriptJSON(outsideDialog263_3))));
 
     this.meltChickenSprite.getTransform().local.position.z = 1;
     this.meltChickenSprite.getTransform().local.setScale(0.5,0.5);
@@ -664,10 +685,11 @@ class OutsideScene extends Scene {
     this.phoneBooth.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,200,100)));
     this.phoneBooth.addComponent(new RenderDebugComponent());
 
-    this.speechBubblePhone.addComponent(new Transform(300,-300));
+    this.speechBubblePhone.addComponent(new Transform(400,-200));
     this.speechBubblePhone.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubblePhone.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,100,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubblePhone.addComponent(new RenderDebugComponent());
+    this.speechBubblePhone.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox, new DialogScriptJSON(outsideDialog263_2))));
 
     this.phoneBooth.getTransform().local.setScale(0.75,0.75);
     this.phoneBooth.getTransform().local.position.z = 1;
@@ -696,6 +718,7 @@ class OutsideScene extends Scene {
     this.speechBubbleSign.addComponent(new AnimationComponent(speechBubbleIconAnimation,3));
     this.speechBubbleSign.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,speechBubbleIcon.width,speechBubbleIcon.height)));
     this.speechBubbleSign.addComponent(new RenderDebugComponent());
+    this.speechBubbleSign.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox, new DialogScriptJSON(outsideDialog263_0))));
 
     this.comeBackSign.getTransform().local.position.z = 1;
     this.comeBackSign.getTransform().local.setScale(0.1,0.1);

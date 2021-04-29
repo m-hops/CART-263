@@ -27,7 +27,7 @@ class DialogBox extends GameObject {
     this.name = "Dialog Box";
 
     let transform = new Transform();
-    transform.local.position.z = -10;
+    transform.local.position.z = -200;
     this.addComponent(transform);
     this.addComponent(new KeyboardEventComponent(69,new CallbackAction(this.onKeyPressed.bind(this), null), this.keyboardFocus));
 
@@ -35,7 +35,7 @@ class DialogBox extends GameObject {
     let backgroundShadeTransform = new Transform();
     this.backgroundShadeGO.addComponent(backgroundShadeTransform);
     this.backgroundShade = new ImageComponent(dialogBlackShade);
-    backgroundShadeTransform.local.setPosition(0,-450);
+    backgroundShadeTransform.local.setPosition(0,-500);
     this.backgroundShadeGO.addComponent(this.backgroundShade);
     this.addChild(this.backgroundShadeGO);
 
@@ -53,7 +53,7 @@ class DialogBox extends GameObject {
     this.portraitSlot1GO.addComponent(portraitSlot1Transform);
     this.portraitSlot1 = new ImageComponent(slot1);
     portraitSlot1Transform.local.setPosition(300,-450);
-    portraitSlot1Transform.local.setScale(0.4,0.4);
+    portraitSlot1Transform.local.setScale(0.5,0.5);
     this.portraitSlot1GO.addComponent(this.portraitSlot1);
     this.addChild(this.portraitSlot1GO);
 
@@ -62,7 +62,7 @@ class DialogBox extends GameObject {
     this.portraitSlot2GO.addComponent(portraitSlot2Transform);
     this.portraitSlot2 = new ImageComponent(slot2);
     portraitSlot2Transform.local.setPosition(600,-450);
-    portraitSlot2Transform.local.setScale(0.4,0.4);
+    portraitSlot2Transform.local.setScale(0.5,0.5);
     this.portraitSlot2GO.addComponent(this.portraitSlot2);
     this.addChild(this.portraitSlot2GO);
 

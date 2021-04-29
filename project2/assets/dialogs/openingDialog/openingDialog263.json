@@ -32,23 +32,86 @@
     {
       "slot0": "chloeNormal",
       "actor": "Chloe",
-      "text": "It's a bummer, but Madeline\ncan only cut back on so much\nsleep to keep working before\nshe snaps..."
+      "text": "Between the artwork, the music,\nand building the enging to be\nreusable, time got chipped away\ntoo quickly"
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "It's a bummer, but she can\nonly cut back on so much sleep\nto keep working before she\nsnaps..."
     },
     {
       "slot0": "chloeShock",
       "slot2": "badMad",
       "actor": "Chloe",
-      "text": "And we all agree,\nthat rarely ends well."
+      "text": "And we all agree, that rarely\nends well."
     },
     {
       "slot0": "chloeNormal",
       "actor": "Chloe",
-      "text": "When you go through this demo\nyou'll get a pretty good sense of how\nthings are going to work."
+      "text": "When you go through this demo\nyou'll get a pretty good sense of\nhow things are going to work."
+    },
+    {
+      "slot0": "virgilNormalFlip",
+      "actor": "Virgil",
+      "text": "And then afterwards you can go\nahead and check out the code."
+    },
+    {
+      "slot0": "chloeShock",
+      "slot2": "virgilShock",
+      "actor": "Both",
+      "text": "AHHH WTF!?"
+    },
+    {
+      "slot0": "chloeShock",
+      "slot2": "virgilUnimpressed",
+      "actor": "Virgil",
+      "text": "Oh I'm sorry, is it inappropriate\nfor the \"Cut Content\" to\nbutt on in?"
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "slot2": "virgilUnimpressed",
+      "actor": "Chloe",
+      "text": "Erm..."
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "slot2": "virgilUnimpressed",
+      "actor": "Virgil",
+      "text": "So yeah let's skip this lame\npreamble and get to the f***ing\ndemo."
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "slot2": "virgilNormal",
+      "actor": "Virgil",
+      "text": "Have fun!"
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "actor": "Chloe",
+      "text": "..."
+    },
+    {
+      "slot0": "chloeEmbarassed",
+      "actor": "Chloe",
+      "text": "So..."
     },
     {
       "slot0": "chloeNormal",
       "actor": "Chloe",
-      "text": ""
+      "text": "I guess enjoy the tech demo for\nChapter 3."
+    },
+    {
+      "slot0": "chloeNormal",
+      "actor": "Chloe",
+      "text": "And Mads will send you a link once\nthe whole game is done."
+    },
+    {
+      "actor": "",
+      "text": "..."
+    },
+    {
+      "actor": "Madeline",
+      "text": "Thanks again for helping\nme learn to do all this"
     }
   ]
 }

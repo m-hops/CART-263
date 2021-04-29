@@ -5,8 +5,10 @@
 CHAPTER 3
 MADELINE ZAYTSOFF
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+THIS TECH-DEMO AND ENGINE IS DESIGNED TO SHOW OFF THE TECHNOLOGIES OF THE RAINEBOW
+ENGINE. THE ENGINE IS BEING BUILT WITH P5, P5 PLAY, AND JSON TO ALLOW FOR A SIDE-SCROLLING,
+INTERACTIVE NARRATIVE. STILL CURRENTLY BEING BUILT, THE ENGINE IS BUILT TO BE REUSABLE AS WELL AS
+SIMILAR TO THE GAME OBJECT SYSTEM USED BY UNITY AND OTHER GAME ENGINES.
 
 ******************/
 
@@ -19,6 +21,26 @@ let gameState = {
 let barkTestSFX;
 let testSong;
 let badMad;
+let dialogTest;
+let openingDialog263;
+let restaurantDialog263;
+let jsonExampleImage;
+let jsonErrorImage;
+let outsideDialog263_0;
+let outsideDialog263_1;
+let outsideDialog263_2;
+let outsideDialog263_3;
+let boatDialog263_0;
+let goExample0Image;
+let goExample1Image;
+let goExample2Image;
+let goExample3Image;
+let paralaxExampleImage;
+let watershedImage;
+let panoExampleImage;
+let animationExampleImage;
+let pippinProfileImage;
+let stephProfileImage;
 
 let dialogFont;
 
@@ -45,15 +67,26 @@ let introMusic;
 let restaurantMusic;
 let negativeMusic;
 
+let portraits = [];
+
 let chloePortraitEmbarassed;
 let chloePortraitNormal;
 let chloePortraitShock;
+let chloePortraitEmbarassedFlip;
+let chloePortraitNormalFlip;
+let chloePortraitShockFlip;
 
 let virgilPortraitNormal;
 let virgilPortraitShock;
 let virgilPortraitUnimpresssed;
+let virgilPortraitNormalFlip;
+let virgilPortraitShockFlip;
+let virgilPortraitUnimpresssedFlip;
 
-let portraits = [];
+let outsideComeBackSignPortrait;
+let blueCatPortrait;
+let oujiaPhonePortrait;
+let meltChickenPortrait;
 
 let chloeLeftAnimation;
 let chloeLeftStationary;
@@ -97,9 +130,7 @@ let ramenBathroomNegativeEye = [];
 let mapBackground;
 let boatTopSprite;
 
-let dialogTest;
 let openingDialog0;
-let openingDialog263;
 
 let ramenBKGSpecs = {
   x: -1300,
@@ -114,7 +145,28 @@ function preload() {
 
   barkTestSFX = loadSound(`assets/sounds/bark.wav`);
   testSong = loadSound(`assets/sounds/testSong.mp3`);
-  portraits["badMad"] = badMad = loadImage(`assets/images/badMad.jpg`);
+  portraits["badMad"] = badMad = loadImage(`assets/images/263files/badMad.jpg`);
+  openingDialog263 = loadJSON(`assets/dialogs/openingDialog/openingDialog263.json`);
+  restaurantDialog263 = loadJSON(`assets/dialogs/restaurantDialog/restaurantDialog263.json`);
+  outsideDialog263_0 = loadJSON(`assets/dialogs/outsideDialog/outsideDialog263_0.json`);
+  outsideDialog263_1 = loadJSON(`assets/dialogs/outsideDialog/outsideDialog263_1.json`);
+  outsideDialog263_2 = loadJSON(`assets/dialogs/outsideDialog/outsideDialog263_2.json`);
+  outsideDialog263_3 = loadJSON(`assets/dialogs/outsideDialog/outsideDialog263_3.json`);
+  boatDialog263_0 = loadJSON(`assets/dialogs/boatDialog/boatDialog263_0.json`);
+  dialogTest = loadJSON(`assets/dialogs/testDialog.json`);
+  portraits["jsonExample"] = jsonExampleImage = loadImage(`assets/images/263files/jsonCodeExample.PNG`);
+  portraits["jsonError"] = jsonErrorImage = loadImage(`assets/images/263files/jsonErrorExample.PNG`);
+  portraits["goExample0"] = goExample0Image = loadImage(`assets/images/263files/goExample0.PNG`);
+  portraits["goExample1"] = goExample1Image = loadImage(`assets/images/263files/goExample1.PNG`);
+  portraits["goExample2"] = goExample2Image = loadImage(`assets/images/263files/goExample2.PNG`);
+  portraits["goExample3"] = goExample3Image = loadImage(`assets/images/263files/goExample3.PNG`);
+  portraits["paralaxExample"] = paralaxExampleImage = loadImage(`assets/images/263files/palaxExample.PNG`);
+  portraits["watershed"] = watershedImage = loadImage(`assets/images/263files/watershed.png`);
+  portraits["panoExample"] = panoExampleImage = loadImage(`assets/images/263files/anywherePanoExample.png`);
+  portraits["animationExample"] = animationExampleImage = loadImage(`assets/images/263files/animationExample.PNG`);
+  portraits["pippinProfile"] = pippinProfileImage = loadImage(`assets/images/263files/pippinProfile.PNG`);
+  portraits["stephProfile"] = stephProfileImage = loadImage(`assets/images/263files/stephPortrait.png`);
+
 
   dialogBlackShade = loadImage(`assets/images/blackFade.png`);
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
@@ -187,10 +239,21 @@ function preload() {
   portraits["chloeEmbarassed"] = chloePortraitEmbarassed = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassed.png`);
   portraits["chloeNormal"] = chloePortraitNormal = loadImage(`assets/images/sprites/player/portrait/chloeNormal.png`);
   portraits["chloeShock"] = chloePortraitShock = loadImage(`assets/images/sprites/player/portrait/chloeShock.png`);
+  portraits["chloeEmbarassedFlip"] = chloePortraitEmbarassedFlip = loadImage(`assets/images/sprites/player/portrait/chloeEmbarassedFlip.png`);
+  portraits["chloeNormalFlip"] = chloePortraitNormalFlip = loadImage(`assets/images/sprites/player/portrait/chloeNormalFlip.png`);
+  portraits["chloeShockFlip"] = chloePortraitShockFlip = loadImage(`assets/images/sprites/player/portrait/chloeShockFlip.png`);
 
   portraits["virgilNormal"] = virgilPortraitNormal = loadImage(`assets/images/sprites/virgil/virgilNormal.png`);
   portraits["virgilShock"] = virgilPortraitShock = loadImage(`assets/images/sprites/virgil/virgilShock.png`);
   portraits["virgilUnimpressed"] = virgilPortraitUnimpresssed = loadImage(`assets/images/sprites/virgil/virgilUnimpressed.png`);
+  portraits["virgilNormalFlip"] = virgilPortraitNormalFlip = loadImage(`assets/images/sprites/virgil/virgilNormalFlip.png`);
+  portraits["virgilShockFlip"] = virgilPortraitShockFlip = loadImage(`assets/images/sprites/virgil/virgilShockFlip.png`);
+  portraits["virgilUnimpressedFlip"] = virgilPortraitUnimpresssedFlip = loadImage(`assets/images/sprites/virgil/virgilUnimpressedFlip.png`);
+
+  portraits["outsideComeBackSign"] = outsideComeBackSignPortrait = loadImage(`assets/images/sprites/assortedPortraits/comeBackSign.png`);
+  portraits["blueCatPortrait"] = blueCatPortrait = loadImage(`assets/images/assortedCharacters/blueCat.png`);
+  portraits["oujiaPhone"] = oujiaPhonePortrait = loadImage(`assets/images/sprites/assortedPortraits/oujiaPhone.png`);
+  portraits["meltChicken"] = meltChickenPortrait = loadImage(`assets/images/sprites/assortedPortraits/meltChicken.png`);
 
   chloeLeftAnimation = loadAnimation(`assets/images/sprites/player/leftWalkCycle/walkCycleLeft0.png`, `assets/images/sprites/player/leftWalkCycle/walkCycleLeft3.png`);
   chloeLeftStationary = loadImage(`assets/images/sprites/player/leftStationary.png`);
@@ -210,9 +273,7 @@ function preload() {
   restaurantMusic = loadSound(`assets/sounds/restaurantMusic.mp3`);
   negativeMusic = loadSound(`assets/sounds/negativeTheme.mp3`);
 
-  dialogTest = loadJSON(`assets/dialogs/testDialog.json`);
   openingDialog0 = loadJSON(`assets/dialogs/openingDialog/openingDialog0.json`);
-  openingDialog263 = loadJSON(`assets/dialogs/openingDialog/openingDialog263.json`);
 }
 
 function setup() {

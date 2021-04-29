@@ -111,7 +111,7 @@ class BathroomScene extends Scene {
     }
 
     if (gameState.previousScene == "Restaurant") {
-      trf.local.position = createVector(300,500,0);
+      trf.local.position = createVector(280,530,0);
       dac.wasLeft = false;
     }
 

@@ -20,6 +20,37 @@ class BathroomNegativeScene extends Scene {
     this.musicOBJ();
   }
 
+  blinkOBJ() {
+
+      //BLINK SPRITE//
+      this.blink = new GameObject();
+      this.blinkInteract = new GameObject();
+
+      this.blink.addComponent(new Transform(500,470));
+      this.blink.addComponent(new AnimationComponent(ramenBathroomNegativeBlink,5));
+      this.blink.addComponent(new TriggerComponent(new EnableGameObjectAction(this.blinkInteract)));
+      this.blink.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,10,10)));
+      this.blink.addComponent(new RenderDebugComponent());
+
+      this.blinkInteract.addComponent(new Transform(0,-350));
+      this.blinkInteract.addComponent(new ImageComponent(eInteractSilhouetteImage,1,1));
+      this.blinkInteract.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractSilhouetteImage.width,eInteractSilhouetteImage.height)));
+      this.blinkInteract.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(glassBreakSFX)));
+      this.blinkInteract.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Bathroom")));
+
+      this.blinkInteract.addComponent(new RenderDebugComponent());
+
+      this.blinkInteract.getTransform().local.setScale(0.5,0.5);
+      this.blinkInteract.getTransform().local.position.z = 10;
+
+      this.blink.addChild(this.blinkInteract);
+
+      this.blinkInteract.disable();
+
+      this.addGameObject(this.blink);
+
+  }
+
   invisibleBoundaryOBJ() {
     //BACKWALL BOUNDARY OBJ//
     this.backwallBoundary = new GameObject();
@@ -68,12 +99,19 @@ class BathroomNegativeScene extends Scene {
 
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new PlayerInputComponent());
-    this.player.addComponent(new Transform(3850,500));
-    this.player.addComponent(new DirectionalAnimationComponenet(chloeSilhouetteLeftAnimation, chloeSilhouetteRightAnimation, chloeSilhouetteLeftStationary, chloeSilhouetteRightStationary));
-    this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeSilhouetteLeftStationary.width / 2, chloeSilhouetteLeftStationary.height / 2)));
+
+    let trf = new Transform();
+    let dac = new DirectionalAnimationComponenet(chloeSilhouetteLeftAnimation, chloeSilhouetteRightAnimation, chloeSilhouetteLeftStationary, chloeSilhouetteRightStationary);
+
+    this.player.addComponent(trf);
+    this.player.addComponent(dac);
+    this.player.addComponent(new RectColliderComponent(new AABB(0,0,chloeLeftStationary.width / 2, chloeLeftStationary.height / 2)));
     this.player.addComponent(new RenderDebugComponent());
 
-    this.player.getTransform().local.position.z = -1;
+    if (gameState.previousScene == "Opening") {
+      trf.local.position = createVector(3800,510,-10);
+      dac.wasLeft = true;
+    }
 
     this.addGameObject(this.player);
 
@@ -91,38 +129,6 @@ class BathroomNegativeScene extends Scene {
       new p5.Vector(width * 9, height, 100000000)));
 
     this.addGameObject(this.camera);
-  }
-
-  blinkOBJ() {
-
-      //BLINK SPRITE//
-      this.blink = new GameObject();
-      this.blinkInteract = new GameObject();
-
-      this.blink.addComponent(new Transform(500,470));
-      this.blink.addComponent(new AnimationComponent(ramenBathroomNegativeBlink,5));
-      this.blink.addComponent(new TriggerComponent(new EnableGameObjectAction(this.blinkInteract)));
-      this.blink.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,10,10)));
-      this.blink.addComponent(new RenderDebugComponent());
-
-      this.blinkInteract.addComponent(new Transform(0,-350));
-      this.blinkInteract.addComponent(new ImageComponent(eInteractSilhouetteImage,1,1));
-      this.blinkInteract.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractSilhouetteImage.width,eInteractSilhouetteImage.height)));
-      this.blinkInteract.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(glassBreakSFX)));
-      this.blinkInteract.addComponent(new KeyboardEventComponent(69, new PlayDialogAction(this.dialogBox,
-        new DialogScriptJSON(dialogTest),
-          new ChangeSceneAction("Bathroom"))));
-
-      this.blinkInteract.addComponent(new RenderDebugComponent());
-
-      this.blinkInteract.getTransform().local.setScale(0.5,0.5);
-
-      this.blink.addChild(this.blinkInteract);
-
-      this.blinkInteract.disable();
-
-      this.addGameObject(this.blink);
-
   }
 
   backgroundOBJ() {

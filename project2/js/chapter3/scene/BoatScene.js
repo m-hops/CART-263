@@ -4,26 +4,17 @@ class BoatScene extends Scene {
 
     super();
 
-    this.boundaryOBJ();
     this.playerSetupOBJ();
     this.cameraOBJ();
+
+    this.dialogBox = new DialogBox(this.camera);
+    this.addGameObject(this.dialogBox);
+    this.dialogBox.disable();
+
     this.backgroundOBJ();
-    this.dockTrigger();
+    this.zone0Trigger();
     this.musicOBJ();
 
-  }
-
-  boundaryOBJ() {
-
-    //DOOR BOUNDARY//
-    this.island0 = new GameObject();
-
-    this.island0.addComponent(new Transform(940,650));
-    this.island0.addComponent(new Physics2D());
-    this.island0.addComponent(new RectColliderComponent(new AABB(0,0,10,10)));
-    this.island0.addComponent(new RenderDebugComponent());
-
-    this.addGameObject(this.island0);
   }
 
   playerSetupOBJ() {
@@ -32,15 +23,21 @@ class BoatScene extends Scene {
     this.playerVisual = new GameObject();
     this.player.addChild(this.playerVisual);
 
+    let trf = new Transform();
+
     this.playerVisual.addComponent(new Transform(-boatTopSprite.width/2, -boatTopSprite.height/2));
     this.playerVisual.addComponent(new ImageComponent(boatTopSprite));
     this.player.addComponent(new Physics2D());
     this.player.addComponent(new BoatInputComponent());
-    this.player.addComponent(new Transform(500,500));
+    this.player.addComponent(trf);
     this.player.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,boatTopSprite.width / 2, boatTopSprite.height/2)));
     this.player.addComponent(new RenderDebugComponent());
 
     this.player.getTransform().local.position.z = 0;
+
+    if (gameState.previousScene == "Outside") {
+      trf.local.position = createVector(900,1500,0);
+    }
 
     this.addGameObject(this.player);
 
@@ -82,29 +79,31 @@ class BoatScene extends Scene {
     this.addGameObject(this.background);
   }
 
-  dockTrigger() {
+  zone0Trigger() {
 
     //ACTIVATES TRIGGER TO DOCK//
-    this.dockTrigger = new GameObject();
-    this.dockTriggerSpeech = new GameObject();
+    this.zone0Trigger = new GameObject();
+    this.zone0TriggerInteract = new GameObject();
 
-    this.dockTrigger.addComponent(new Transform());
-    this.dockTrigger.addComponent(new TriggerComponent(new EnableGameObjectAction(this.dockTriggerSpeech)));
-    this.dockTrigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(600,1750,400,100)));
-    this.dockTrigger.addComponent(new RenderDebugComponent());
+    this.zone0Trigger.addComponent(new Transform());
+    this.zone0Trigger.addComponent(new TriggerComponent(new EnableGameObjectAction(this.zone0TriggerInteract)));
+    this.zone0Trigger.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(600,1550,600,250)));
+    this.zone0Trigger.addComponent(new RenderDebugComponent());
 
-    this.dockTriggerSpeech.addComponent(new Transform());
-    this.dockTriggerSpeech.addComponent(new AnimationComponent(eInteractAnimation,3));
-    this.dockTriggerSpeech.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractAnimation.width,eInteractAnimation.height)));
-    this.dockTriggerSpeech.addComponent(new RenderDebugComponent());
-    this.dockTriggerSpeech.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Outside")));
-    this.dockTriggerSpeech.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
+    this.zone0TriggerInteract.addComponent(new Transform(900,1750));
+    this.zone0TriggerInteract.addComponent(new AnimationComponent(eInteractAnimation,3));
+    this.zone0TriggerInteract.addComponent(new RectColliderComponent(AABB.MakeTopLeftSize(0,0,eInteractAnimation.width,eInteractAnimation.height)));
+    this.zone0TriggerInteract.addComponent(new RenderDebugComponent());
+    this.zone0TriggerInteract.addComponent(new KeyboardEventComponent(69, new ChangeSceneAction("Outside")));
+    this.zone0TriggerInteract.addComponent(new KeyboardEventComponent(69, new PlaySFXAction(pageTurnSFX)));
 
-    this.dockTrigger.addChild(this.dockTriggerSpeech);
+    this.zone0TriggerInteract.getTransform().local.setScale(0.7,0.7);
 
-    this.dockTriggerSpeech.disable();
+    this.zone0Trigger.addChild(this.zone0TriggerInteract);
 
-    this.addGameObject(this.dockTrigger);
+    this.zone0TriggerInteract.disable();
+
+    this.addGameObject(this.zone0Trigger);
   }
 
   musicOBJ() {
@@ -114,6 +113,12 @@ class BoatScene extends Scene {
     this.music.addComponent(new MusicPlayerComponent(boatMusic,0.8));
 
     this.addGameObject(this.music);
+  }
+
+  start() {
+    super.start();
+    this.dialogBox.playScript(new DialogScriptJSON(boatDialog263_0));
+
   }
 
 }

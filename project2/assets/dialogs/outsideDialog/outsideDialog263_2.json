@@ -1,0 +1,99 @@
+{
+	"lines": [{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Good Evening."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Or morning or afternoon or\nwhatever."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "In the finished game, I will\nbe used as a means to communicate\nwith characters you've met along\nthe way."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Right now, I only exist as a\nflashy animation built using\nP5.Play."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "But I was made to be interactable\nso might as well put up some\nflavour text so I don't have to\nactually explain anything."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "HA HA HA!"
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "No wait... I'm a phone... so uhh..."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "*Laughs in phone*"
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "..."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Ugh fine, I'll tell you about the\nvisuals."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Ugh fine, I'll tell you about the\nvisuals."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "All the art for the game has\ntaken just almost 100 hours of\nlabour."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Everything is hodge-podge of\ndigital paints such as Photoshop,\nClip Studio, Procreate,\nphotographs, and datamoshing"
+		},
+		{
+			"slot0": "panoExample",
+			"actor": "5D Phone",
+			"text": "Some larger scenes like this one\nare queued for animation, but\ndue to time won't be in this demo."
+		},
+		{
+			"slot0": "panoExample",
+			"actor": "5D Phone",
+			"text": "To make sure she had lots of space\nto animate without distortion,\nall assets are created in large\nformat."
+		},
+		{
+			"slot0": "panoExample",
+			"actor": "5D Phone",
+			"text": "This one alone was 3917x1216."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "As for the animations, those are\nall done by hand, one frame at a\ntime, in Clip Studio."
+		},
+		{
+			"slot1": "oujiaPhone",
+			"actor": "5D Phone",
+			"text": "Though most animations are only a\nfew frames long, some such as\nthe eye animations at the\nbeginning of the demo..."
+		},
+		{
+			"slot0": "oujiaPhone",
+			"slot2": "animationExample",
+			"actor": "5D Phone",
+			"text": "...can be up to 53 frames long."
+		}
+	]
+}

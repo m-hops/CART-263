@@ -1,0 +1,84 @@
+{
+	"lines": [{
+			"slot0": "chloeNormal",
+			"slot2": "blueCatPortrait",
+			"actor": "Chloe",
+			"text": "Oh look, it's the blue tamagotchi\ncat of wisdom."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "blueCatPortrait",
+			"actor": "Chloe",
+			"text": "Or... whatever..."
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "blueCatPortrait",
+			"actor": "Chloe",
+			"text": "Look there isn't enough space to\nfit that in the name box and I feel\nawkward just calling you blue cat\nso pick a name."
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "blueCatPortrait",
+			"actor": "Blue Cat",
+			"text": "...can I be Susan?"
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "blueCatPortrait",
+			"actor": "Both",
+			"text": "..."
+		},
+		{
+			"slot0": "chloeEmbarassed",
+			"slot2": "blueCatPortrait",
+			"actor": "Both",
+			"text": "....."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "blueCatPortrait",
+			"actor": "Chloe",
+			"text": "Sure why the hell not?\n\nTake it away... Susan."
+		},
+		{
+			"slot1": "blueCatPortrait",
+			"actor": "Susan",
+			"text": "As you've probably noticed walking\naround outside there's quite a\nstrong paralax effect going on."
+		},
+		{
+			"slot0": "blueCatPortrait",
+			"slot1": "paralaxExample",
+			"actor": "Susan",
+			"text": "Currently, there is 8 layers\nimplemented and those layers\nchange speed depending on\nz-axis affiliation."
+		},
+		{
+			"slot1": "blueCatPortrait",
+			"actor": "Susan",
+			"text": "On an artistic note, Madeline\nwould like to let you know the\nimagery is based on a watershed\nshe used to hike in BC."
+		},
+		{
+			"slot0": "blueCatPortrait",
+			"slot1": "watershed",
+			"actor": "Susan",
+			"text": "It featured lots of abandoned\ninfrustructure, maze like paths,\nand the smell of ocean air."
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "blueCatPortrait",
+			"actor": "Chloe",
+			"text": "Why would you even bring that up?"
+		},
+		{
+			"slot0": "chloeNormal",
+			"slot2": "blueCatPortrait",
+			"actor": "Susan",
+			"text": "Because if I don't she said she'd\ndelete m-"
+		},
+		{
+			"slot0": "chloeShock",
+			"actor": "Bye, Susan",
+			"text": "..."
+		}
+	]
+}
