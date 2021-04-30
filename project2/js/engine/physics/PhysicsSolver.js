@@ -1,3 +1,5 @@
+//DEVELOPED BY STEPHANIE RANCOURT//
+
 class PhysicsSolver {
   constructor(){
     this.collisions = [];
@@ -27,14 +29,6 @@ class PhysicsSolver {
 
     for (let j = 0; j < colliders.length; j++) {
       this.solveCollider(colliders, j);
-
-      // for (let h = 0; h < compToSolve[j].gameObject.components.active.length; h++) {
-      //   let comp = compToSolve[j].gameObject.components.active[h];
-      //
-      //   if (comp instanceof ColliderComponent) {
-      //     this.solveCollider(compToSolve, comp);
-      //   }
-      // }
     }
 
     // find collision that are no more colliding and notify their triggers
@@ -98,26 +92,7 @@ class PhysicsSolver {
     }
   }
 
-  // solveCollider(allComp, collider) {
-  //   let trfA = collider.gameObject.getTransform();
-  //   let physicsA = collider.gameObject.components.getFirstElementOfType(Physics2D);
-  //   for (let i = 0; i < allComp.length; i++) {
-  //
-  //     for (let h = 0; h < allComp[i].gameObject.components.active.length; h++) {
-  //
-  //       let comp = allComp[i].gameObject.components.active[h];
-  //       if(comp != collider){
-  //         let trfB = allComp[i].gameObject.getTransform();
-  //         let physicsB = allComp[i].gameObject.components.getFirstElementOfType(Physics2D);
-  //         if (comp instanceof ColliderComponent) {
-  //           this.solveColliderCollider(
-  //             trfA, physicsA, collider,
-  //             trfB, physicsB, comp);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+
   getGONextFrameLocalTransform(go){
     let physics = go.components.getFirstElementOfType(Physics2D);
     if(physics != null) return physics.nextFrameLocal;
@@ -136,20 +111,10 @@ class PhysicsSolver {
     return trfLocal;
   }
   solveColliderCollider(transformA, physicsA, colliderA, transformB, physicsB, colliderB) {
-    //console.log("Solve Collider");
-    let trfWorldA = this.getGONextFrameWorldTransform(colliderA.gameObject);//transformA.local;
-    let trfWorldB = this.getGONextFrameWorldTransform(colliderB.gameObject);//transformB.local;
-    //if(physicsA != null) trfWorldA = physicsA.nextFrameLocal;
-    //if(physicsB != null) trfWorldB = physicsB.nextFrameLocal;
-    //
-    // if(colliderA.gameObject.parent != null){
-    //   let parentTrf = this.getGONextFrameTransform(colliderA.gameObject.parent);
-    //   trfWorldA = trfWorldA.transformed(colliderA.gameObject.parent.getTransform().world);
-    // }
-    // if(colliderB.gameObject.parent != null){
-    //   let parentTrf = this.getGONextFrameTransform(colliderB.gameObject.parent);
-    //   trfWorldB = trfWorldB.transformed(colliderB.gameObject.parent.getTransform().world);
-    // }
+
+    let trfWorldA = this.getGONextFrameWorldTransform(colliderA.gameObject);
+    let trfWorldB = this.getGONextFrameWorldTransform(colliderB.gameObject);
+
     let boxA = colliderA.aabb.transformedTranslateScale(trfWorldA);
     let boxB = colliderB.aabb.transformedTranslateScale(trfWorldB);
 
@@ -166,8 +131,7 @@ class PhysicsSolver {
         for (let j = 0; j < triggers.length; j++) {
           triggers[j].onCollision.begin();
         }
-        //if(physicsA != null) physicsA.nextFrameLocal = transformA.local;
-        //if(physicsB != null) physicsB.nextFrameLocal = transformB.local;
+
       }
       if(physicsA != null && physicsB == null){
         this.solveCollision1(transformA, physicsA, colliderA, transformB, colliderB);
@@ -179,24 +143,14 @@ class PhysicsSolver {
       this.nextCollisions.push(collision);
     }
   }
-  // solve using 1 gameobject with a physics component
+
   solveCollision1(transformA, physicsA, colliderA, transformB, colliderB){
-    // let nameA = "unknown";
-    // let nameB = "unknown";
-    // if(colliderA.gameObject.name != null) nameA = colliderA.gameObject.name;
-    // if(colliderB.gameObject.name != null) nameB = colliderB.gameObject.name;
-    // console.log("["+frameCount+"] solveCollision1 {"+nameA+"} -- {"+nameB+"}");
-    //physicsA.speed = 0;
-    //physicsA.direction = createVector(0,0,0);
-    //physicsA.nextFrameLocal = transformA.local;
+
   }
+
   // solve using 2 gameobject with a physics component
   solveCollision2(transformA, physicsA, colliderA, transformB, physicsB, colliderB){
-    // let nameA = "unknown";
-    // let nameB = "unknown";
-    // if(colliderA.gameObject.name != null) nameA = colliderA.gameObject.name;
-    // if(colliderB.gameObject.name != null) nameB = colliderB.gameObject.name;
-    // console.log("["+frameCount+"] solveCollision2 {"+nameA+"} -- {"+nameB+"}");
+
     physicsA.speed = 0;
     physicsA.direction = createVector(0,0,0);
     physicsA.nextFrameLocal = transformA.local;

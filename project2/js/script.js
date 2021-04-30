@@ -18,6 +18,7 @@ let gameState = {
   currentMusic: null
 };
 
+//TESTING AND TEMPORARY ASSETS//
 let barkTestSFX;
 let testSong;
 let badMad;
@@ -42,23 +43,29 @@ let animationExampleImage;
 let pippinProfileImage;
 let stephProfileImage;
 
+//DIALOG VARIABLES//
 let dialogFont;
 
+//USED TO ALLOW STATE MACHINE TO OPERATE GLOBALLY//
 let rootStateMachine;
 
+//STILL IMAGES FOR GLOBAL VARIABLE//
 let roundedCornerOverlay;
 let controlsDirectionAnimation;
 let controlsEAnimation;
 
+//INTERACTIVE ANIMATIONS//
 let eInteractImage;
 let eInteractAnimation;
 let eInteractSilhouetteImage;
 let speechBubbleIcon;
 let speechBubbleIconAnimation;
 
+//USED FOR TEXTBOX ASSEMBLY//
 let textBoxBKG;
 let dialogBlackShade;
 
+//SOUND AND MUSIC//
 let forestAmbientSFX;
 let glassBreakSFX;
 let pageTurnSFX;
@@ -67,8 +74,10 @@ let introMusic;
 let restaurantMusic;
 let negativeMusic;
 
+//ARRAY TO STORE PORTRAIT STRINGS//
 let portraits = [];
 
+//PORTRAITS FOR DIALOG//
 let chloePortraitEmbarassed;
 let chloePortraitNormal;
 let chloePortraitShock;
@@ -88,6 +97,7 @@ let blueCatPortrait;
 let oujiaPhonePortrait;
 let meltChickenPortrait;
 
+//CHARACTER ANIMATION FOR WALK CYCLE//
 let chloeLeftAnimation;
 let chloeLeftStationary;
 let chloeRightAnimation;
@@ -98,8 +108,10 @@ let chloeSilhouetteLeftStationary;
 let chloeSilhouetteRightAnimation;
 let chloeSilhouetteRightStationary;
 
+//OPENING ANIMATION//
 let chloeOpeningFallAnimation;
 
+//OUTSIDE IMAGERY//
 let outsideBKGMountains0;
 let outsideBKGMountains1;
 let outsideGroundLoop;
@@ -116,10 +128,12 @@ let outsideForegroundOBJ = [];
 let outsideStoneWalkway = [];
 let outsideStreetlight = [];
 
+//ASSORTED CHARACTERS//
 let characterBlueCat;
 let characterMeltChicken;
 let ghost = [];
 
+//INSIDE RESTAURANT ASSETS//
 let ramenBKG;
 let ramenBathroomBKG;
 let ramenBathroomStall;
@@ -127,9 +141,11 @@ let ramenOutside;
 let ramenBathroomNegativeBlink;
 let ramenBathroomNegativeEye = [];
 
+//FOR BOAT SCENE//
 let mapBackground;
 let boatTopSprite;
 
+//JSON FILES//
 let openingDialog0;
 
 let ramenBKGSpecs = {
@@ -143,6 +159,7 @@ let globalRenderer = new Renderer();
 
 function preload() {
 
+  //TEMPORARY ASSETS//
   barkTestSFX = loadSound(`assets/sounds/bark.wav`);
   testSong = loadSound(`assets/sounds/testSong.mp3`);
   portraits["badMad"] = badMad = loadImage(`assets/images/263files/badMad.jpg`);
@@ -166,7 +183,7 @@ function preload() {
   portraits["animationExample"] = animationExampleImage = loadImage(`assets/images/263files/animationExample.PNG`);
   portraits["pippinProfile"] = pippinProfileImage = loadImage(`assets/images/263files/pippinProfile.PNG`);
   portraits["stephProfile"] = stephProfileImage = loadImage(`assets/images/263files/stephPortrait.png`);
-
+  //
 
   dialogBlackShade = loadImage(`assets/images/blackFade.png`);
   dialogFont = loadFont(`assets/font/Early GameBoy.ttf`);
@@ -280,6 +297,7 @@ function setup() {
 
   createCanvas(1000,700);
 
+  //SET SCENE TO PROPER DESIGNATION WITH TRANSIT BELOW//
   rootStateMachine = new StateMachine();
 
   gameState.currentScene = "Opening";

@@ -1,3 +1,5 @@
+//PLAYS MUSIC//
+
 class MusicPlayerComponent extends Component {
 
   constructor(music = null, volume = 0.3) {
@@ -8,17 +10,18 @@ class MusicPlayerComponent extends Component {
     this.volume = volume;
   }
 
+  //STARTS MUSIC UPON ADDITION TO SCENE//
   start() {
     super.start();
 
     this.startMusic();
   }
 
+  //ENDS MUSIC IN SCENE//
   end() {
     super.end();
-
-    // this.stopMusic();
   }
+
 
   startMusic() {
 

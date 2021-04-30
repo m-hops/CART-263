@@ -1,3 +1,4 @@
+//MANAGEMENT CLASS FOR ADDING AND REMOVING OBJECTS FROM SCENE//
 class End extends IState {
 
   onEnter(sm) {

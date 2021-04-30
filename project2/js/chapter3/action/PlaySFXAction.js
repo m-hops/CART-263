@@ -1,3 +1,5 @@
+//PLAYS SOUND ON ACTION//
+
 class PlaySFXAction extends EventListener {
 
   constructor(sfx) {

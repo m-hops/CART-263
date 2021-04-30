@@ -1,4 +1,5 @@
 //MATH FORMULAS FOR COLLISION DETECTION AND RAYCASTING//
+//DEVELOPED BY STEPHANIE RANCOURT//
 
 function raycastToAABox2DAxis(b, sinTheta, rExtend, rayFromRectCenterX, rayFromRectCenterY, rayDirX, rayDirY) {
 
@@ -167,6 +168,6 @@ function lineRectRaycast(line, box, angle) {
     origin: line.p0,
     dir: rayVec
   };
-  
+
   return raycastToRotatedAABox2D(box, angle, ray, lsq);
 }

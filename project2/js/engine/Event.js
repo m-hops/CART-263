@@ -1,3 +1,5 @@
+//USED TO CREATE ONE OFF EVENTS//
+
 class Event {
 
   constructor() {
@@ -5,6 +7,7 @@ class Event {
     this.listeners = [];
   }
 
+  //IF LISTENER FOUND, START//
   begin() {
 
     for (let i = 0; i < this.listeners.length; i++) {
@@ -12,6 +15,7 @@ class Event {
     }
   }
 
+  //IF LISTENER FOUND, END//
   end() {
 
     for (let i = 0; i < this.listeners.length; i++) {
@@ -19,10 +23,12 @@ class Event {
     }
   }
 
+  //ADD LISTENER TO GAME OBJECT//
   addListener(listener) {
     this.listeners.push(listener);
   }
 
+  //REMOVE LISTENER TO GAME OBJECT//
   removeListener(listener) {
     let index = this.listners.findIndex(x => x === listener);
     if (index >= 0) {

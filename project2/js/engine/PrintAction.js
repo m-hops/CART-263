@@ -1,3 +1,5 @@
+//TROUBLESHOOTING ACTION; NOT NECESSARY FOR GAME//
+
 class PrintAction extends EventListener {
 
   constructor(msg) {

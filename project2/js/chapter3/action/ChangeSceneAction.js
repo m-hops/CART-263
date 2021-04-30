@@ -1,3 +1,4 @@
+//HANDLES SCENE CHANGE THROUGH INTERACTION//
 class ChangeSceneAction extends EventListener {
 
   constructor(toScene) {
@@ -7,6 +8,7 @@ class ChangeSceneAction extends EventListener {
     this.toScene = toScene;
   }
 
+  //LINK SCENE OBJECT WITH A STRING NAME TO CALL FOR SCENE CHANGE//
   end() {
 
     gameState.previousScene = gameState.currentScene;

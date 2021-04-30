@@ -26,11 +26,13 @@ class DialogBox extends GameObject {
 
     this.name = "Dialog Box";
 
+    //MASTER GAME OBJECT//
     let transform = new Transform();
     transform.local.position.z = -200;
     this.addComponent(transform);
     this.addComponent(new KeyboardEventComponent(69,new CallbackAction(this.onKeyPressed.bind(this), null), this.keyboardFocus));
 
+    //BACKGROUND OVERLAY//
     this.backgroundShadeGO = new GameObject();
     let backgroundShadeTransform = new Transform();
     this.backgroundShadeGO.addComponent(backgroundShadeTransform);
@@ -39,6 +41,7 @@ class DialogBox extends GameObject {
     this.backgroundShadeGO.addComponent(this.backgroundShade);
     this.addChild(this.backgroundShadeGO);
 
+    //PORTRAIT SLOT 1//
     this.portraitSlot0GO = new GameObject();
     let portraitSlot0Transform = new Transform();
     this.portraitSlot0GO.addComponent(portraitSlot0Transform);
@@ -48,6 +51,7 @@ class DialogBox extends GameObject {
     this.portraitSlot0GO.addComponent(this.portraitSlot0);
     this.addChild(this.portraitSlot0GO);
 
+    //PORTRAIT SLOT 2//
     this.portraitSlot1GO = new GameObject();
     let portraitSlot1Transform = new Transform();
     this.portraitSlot1GO.addComponent(portraitSlot1Transform);
@@ -57,6 +61,7 @@ class DialogBox extends GameObject {
     this.portraitSlot1GO.addComponent(this.portraitSlot1);
     this.addChild(this.portraitSlot1GO);
 
+    //PORTRAIT SLOT 3//
     this.portraitSlot2GO = new GameObject();
     let portraitSlot2Transform = new Transform();
     this.portraitSlot2GO.addComponent(portraitSlot2Transform);
@@ -66,6 +71,7 @@ class DialogBox extends GameObject {
     this.portraitSlot2GO.addComponent(this.portraitSlot2);
     this.addChild(this.portraitSlot2GO);
 
+    //DISPLAYS TEXT BODY//
     this.textGO = new GameObject();
     let textTransform = new Transform();
     textTransform.local.setPosition(25,75,-1);
@@ -74,6 +80,7 @@ class DialogBox extends GameObject {
     this.textGO.addComponent(this.text);
     this.addChild(this.textGO);
 
+    //DISPLAYS NAME//
     this.nameGO = new GameObject();
     let nameTransform = new Transform();
     nameTransform.local.setPosition(740,27,-1);
@@ -83,6 +90,7 @@ class DialogBox extends GameObject {
     this.nameGO.addComponent(this.name);
     this.addChild(this.nameGO);
 
+    //DISPLAYS TEXT BOX//
     this.backgroundGO = new GameObject();
     let backgroundTransform = new Transform();
     this.backgroundGO.addComponent(backgroundTransform);

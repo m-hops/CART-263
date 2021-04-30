@@ -1,3 +1,4 @@
+//MANAGES DIALOG START ON E KEY ACTION//
 class Menu extends IState {
 
   onEnter(sm) {

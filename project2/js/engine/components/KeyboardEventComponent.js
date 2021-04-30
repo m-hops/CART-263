@@ -1,3 +1,5 @@
+//ALLOWS FOR THE ASSIGNMENT OF A KEY VALUE TO EVENT//
+
 class KeyboardEventComponent extends Component {
 
   constructor(key, listener = null, focus = "") {

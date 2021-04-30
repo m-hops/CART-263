@@ -20,6 +20,8 @@ class AsyncArray {
         func(this.active[h]);
       }
     }
+
+    //CHECKS FOR THE FIRST ACTIVE ELEMENT IN AN ARRAY//
     getFirstActiveElementOfType(type){
 
       for (let h = 0; h < this.active.length; h++) {
@@ -28,6 +30,8 @@ class AsyncArray {
 
       return null;
     }
+
+    //CHECKS FOR FIRST ELEMENT IN ARRAY BY TYPE//
     getFirstElementOfType(type){
 
       for (let h = 0; h < this.active.length; h++) {
@@ -41,6 +45,7 @@ class AsyncArray {
       return null;
     }
 
+    //RETURNS ALL ELEMENTS OF A TYPE IN ARRAY//
     getAllElementOfType(type){
       let elements = [];
 
