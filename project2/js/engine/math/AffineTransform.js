@@ -41,6 +41,10 @@ class AffineTransform{
     return result;
   }
 
+  inverseTransformed(transform){
+    return this.transformed(trf0Before.inversed());
+  }
+
   //
   transformVector(vec){
     let result = p5.Vector.mult(vec, this.scale);
@@ -95,7 +99,15 @@ class AffineTransform{
   moveByVector(v){
     this.position.add(v);
   }
-
+  inversed(){
+    let result = new AffineTransform();
+    result.scale = p5.Vector.div(createVector(1,1,1), this.scale);
+    result.rotation = -this.rotation;
+    let pos2 = createVector(this.position.x, this.position.y);
+    pos2.rotate(result.rotation);
+    result.position = p5.Vector.mult(createVector(-pos2.x, -pos2.y, -this.position.z), result.scale);
+    return result;
+  }
   //APPLIES DIRECTED TRANSFORMATIONS//
   apply(){
     angleMode(RADIANS);

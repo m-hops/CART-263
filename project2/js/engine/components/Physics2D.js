@@ -2,7 +2,7 @@
 
 class Physics2D extends Component {
 
-  constructor() {
+  constructor(isFixed = false) {
     super();
 
     this.acceleration = 0;
@@ -12,6 +12,8 @@ class Physics2D extends Component {
     this.deltaTime = 0;
     this.nextFrameLocal = null;
     this.dragPercent = 0.95;
+    this.mass = 1;
+    this.isFixed = isFixed;
   }
 
 
@@ -37,6 +39,12 @@ class Physics2D extends Component {
     }
 
     this.velocity = p5.Vector.mult(this.direction, this.speed * this.deltaTime / 1000);
+    this.computeNextFrameLocal();
+
+    this.deltaTime = 0;
+  }
+  computeNextFrameLocal(){
+
     let t = this.gameObject.getTransform();
 
     //APPLIES PHYSICS PARAMETERS TO EACH NECESSARY FRAME//
@@ -47,6 +55,14 @@ class Physics2D extends Component {
       console.log('Physics2D requires transform component to work');
     }
 
-    this.deltaTime = 0;
+  }
+  setVelocity(vel){
+    this.velocity = vel;
+    this.speed = this.velocity.mag();
+    if(this.speed == 0){
+      this.direction = createVector(0,0,0);
+    } else {
+      this.direction = p5.Vector.div(this.velocity, this.speed);
+    }
   }
 }

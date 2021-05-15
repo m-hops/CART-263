@@ -28,7 +28,14 @@ class Renderer {
 
     //ORDER RENDER COMPONENETS BY THE Z VALUE OF THEIR POSITION; IDEA IS TO RENDER FURTHEST OBJECTS FIRST//
     //HIGHER NUMBER IS FURTHER AWAY FROM CAMERA//
-    compToRender.sort(function(a, b){return b.gameObject.getTransform().world.position.z - a.gameObject.getTransform().world.position.z});
+    compToRender.sort(function(a, b){
+      let trfA = a.gameObject.getTransform();
+      let trfB = b.gameObject.getTransform();
+      if(trfA == null && trfB == null) return 0;
+      if(trfA == null ) return 100;
+      if(trfB == null ) return -100;
+      return trfB.world.position.z - trfA.world.position.z
+    });
 
     push();
     cameraGo.getTransform().world.applyInverse();
@@ -37,8 +44,14 @@ class Renderer {
     for (let h = 0; h < compToRender.length; h++) {
       let prevTrf = this.currentTransform;
       push();
-      this.currentTransform = compToRender[h].gameObject.getTransform().world;
-      compToRender[h].gameObject.getTransform().world.apply();
+      let trf = compToRender[h].gameObject.getTransform();
+      if(trf != null){
+        this.currentTransform = trf.world;
+        trf.world.apply();
+      } else {
+        this.currentTransform = AffineTransform.identity();
+        resetMatrix();
+      }
       compToRender[h].render(this);
       pop();
       this.currentTransform = prevTrf;
