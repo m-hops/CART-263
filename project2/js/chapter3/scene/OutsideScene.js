@@ -3,6 +3,8 @@ class OutsideScene extends Scene {
   constructor() {
     super();
 
+    this.ghosts = [];
+
     this.playerSetupOBJ();
     this.cameraOBJ();
 
@@ -168,6 +170,29 @@ class OutsideScene extends Scene {
 
     layer1.getTransform().local.position.z = 80;
 
+    //GHOSTS//
+    let limit = AABB.MakeTopLeftSize(-200,0,10000,300);
+
+    this.ghostPop = new GameObject();
+
+    this.ghostPop.addComponent(new Transform());
+
+    this.ghostPop.getTransform().local.position.z = 60;
+
+    for (let i = 0; i < 20; i++) {
+
+      this.ghosts[i] = new GameObject();
+
+      this.ghosts[i].addComponent(new Transform());
+      this.ghosts[i].addComponent(new ImageComponent(ghost[Math.floor(random(0,ghost.length))], 1, 1));
+      this.ghosts[i].addComponent(new GhostLoopComponent(limit));
+
+      this.ghostPop.addChild(this.ghosts[i]);
+
+    }
+
+    this.background.addChild(this.ghostPop);
+
     //TREES//
     let layer2 = new GameObject();
     let layer2_0 = new GameObject();
@@ -182,6 +207,18 @@ class OutsideScene extends Scene {
     layer2.getTransform().local.position.z = 50;
     layer2_0.getTransform().local.position.x = 1200;
     layer2_0.getTransform().local.position.y = -50;
+
+    //RAIN 0//
+    let rainLimit = AABB.MakeTopLeftSize(-200,0,10000,700);
+
+    this.rain0 = new GameObject();
+
+    this.rain0.addComponent(new Transform());
+    this.rain0.addComponent(new RainGeneratorComponent(rainLimit,100));
+
+    this.rain0.getTransform().local.position.z = 40
+
+    this.background.addChild(this.rain0);
 
     //FENCE SECTION//
     let chainedFence0 = new GameObject();
