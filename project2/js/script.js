@@ -12,11 +12,7 @@ SIMILAR TO THE GAME OBJECT SYSTEM USED BY UNITY AND OTHER GAME ENGINES.
 
 ******************/
 
-let gameState = {
-  previousScene: null,
-  currentScene: null,
-  currentMusic: null
-};
+let gameState = new GameState();
 
 //TESTING AND TEMPORARY ASSETS//
 let barkTestSFX;
@@ -132,6 +128,7 @@ let outsideStreetlight = [];
 let characterBlueCat;
 let characterMeltChicken;
 let ghost = [];
+let ghostBKG = [];
 
 //INSIDE RESTAURANT ASSETS//
 let ramenBKG;
@@ -207,6 +204,12 @@ function preload() {
   ghost[3] = loadImage(`assets/images/assortedCharacters/ghost/ghost3.png`);
   ghost[4] = loadImage(`assets/images/assortedCharacters/ghost/ghost4.png`);
   ghost[5] = loadImage(`assets/images/assortedCharacters/ghost/ghost5.png`);
+  ghostBKG[0] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost0bkg.png`);
+  ghostBKG[1] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost1bkg.png`);
+  ghostBKG[2] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost2bkg.png`);
+  ghostBKG[3] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost3bkg.png`);
+  ghostBKG[4] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost4bkg.png`);
+  ghostBKG[5] = loadImage(`assets/images/assortedCharacters/ghost/bkgGhost/ghost5bkg.png`);
 
   outsideBKGMountains0 = loadImage(`assets/images/landscape/background/mountain0.png`);
   outsideBKGMountains1 = loadImage(`assets/images/landscape/background/mountain1.png`);
@@ -300,9 +303,10 @@ function setup() {
   //SET SCENE TO PROPER DESIGNATION WITH TRANSIT BELOW//
   rootStateMachine = new StateMachine();
 
-  gameState.currentScene = "Opening";
+  gameState.currentScene = "null";
 
-  rootStateMachine.transit(new SceneState(globalRenderer, new OpeningScene()));
+  rootStateMachine.transit(new SceneState(globalRenderer, new TestScene()));
+
 
 }
 
