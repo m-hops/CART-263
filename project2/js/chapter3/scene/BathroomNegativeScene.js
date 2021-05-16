@@ -56,7 +56,7 @@ class BathroomNegativeScene extends Scene {
     this.backwallBoundary = new GameObject();
 
     this.backwallBoundary.addComponent(new Transform(4000,400));
-    this.backwallBoundary.addComponent(new Physics2D());
+    this.backwallBoundary.addComponent(new Physics2D(true));
     this.backwallBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,100)));
     this.backwallBoundary.addComponent(new RenderDebugComponent());
 
@@ -66,7 +66,7 @@ class BathroomNegativeScene extends Scene {
     this.upperBoundary = new GameObject();
 
     this.upperBoundary.addComponent(new Transform(0,310));
-    this.upperBoundary.addComponent(new Physics2D());
+    this.upperBoundary.addComponent(new Physics2D(true));
     this.upperBoundary.addComponent(new RectColliderComponent(new AABB(0,0,4000,10)));
     this.upperBoundary.addComponent(new RenderDebugComponent());
 
@@ -76,7 +76,7 @@ class BathroomNegativeScene extends Scene {
     this.lowerBoundary = new GameObject();
 
     this.lowerBoundary.addComponent(new Transform(0,715));
-    this.lowerBoundary.addComponent(new Physics2D());
+    this.lowerBoundary.addComponent(new Physics2D(true));
     this.lowerBoundary.addComponent(new RectColliderComponent(new AABB(0,0,4000,10)));
     this.lowerBoundary.addComponent(new RenderDebugComponent());
 
@@ -86,7 +86,7 @@ class BathroomNegativeScene extends Scene {
     this.doorBoundary = new GameObject();
 
     this.doorBoundary.addComponent(new Transform(0,500));
-    this.doorBoundary.addComponent(new Physics2D());
+    this.doorBoundary.addComponent(new Physics2D(true));
     this.doorBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,10)));
     this.doorBoundary.addComponent(new RenderDebugComponent());
 
