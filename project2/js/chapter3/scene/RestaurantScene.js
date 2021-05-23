@@ -54,7 +54,7 @@ class RestaurantScene extends Scene {
     this.backwallBoundary = new GameObject();
 
     this.backwallBoundary.addComponent(new Transform(3300,500));
-    this.backwallBoundary.addComponent(new Physics2D());
+    this.backwallBoundary.addComponent(new Physics2D(true));
     this.backwallBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,100)));
     this.backwallBoundary.addComponent(new RenderDebugComponent());
 
@@ -64,7 +64,7 @@ class RestaurantScene extends Scene {
     this.frontwallBoundary = new GameObject();
 
     this.frontwallBoundary.addComponent(new Transform(-50,500));
-    this.frontwallBoundary.addComponent(new Physics2D());
+    this.frontwallBoundary.addComponent(new Physics2D(true));
     this.frontwallBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,100)));
     this.frontwallBoundary.addComponent(new RenderDebugComponent());
 
@@ -74,7 +74,7 @@ class RestaurantScene extends Scene {
     this.topBoundary = new GameObject();
 
     this.topBoundary.addComponent(new Transform(0,310));
-    this.topBoundary.addComponent(new Physics2D());
+    this.topBoundary.addComponent(new Physics2D(true));
     this.topBoundary.addComponent(new RectColliderComponent(new AABB(0,0,3500,10)));
     this.topBoundary.addComponent(new RenderDebugComponent());
 
@@ -84,7 +84,7 @@ class RestaurantScene extends Scene {
     this.topBoundary = new GameObject();
 
     this.topBoundary.addComponent(new Transform(0,720));
-    this.topBoundary.addComponent(new Physics2D());
+    this.topBoundary.addComponent(new Physics2D(true));
     this.topBoundary.addComponent(new RectColliderComponent(new AABB(0,0,3500,10)));
     this.topBoundary.addComponent(new RenderDebugComponent());
 

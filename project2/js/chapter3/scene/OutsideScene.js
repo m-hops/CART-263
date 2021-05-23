@@ -35,7 +35,7 @@ class OutsideScene extends Scene {
     this.doorBoundary = new GameObject("doorBoundary");
 
     this.doorBoundary.addComponent(new Transform(9400,650));
-    this.doorBoundary.addComponent(new Physics2D());
+    this.doorBoundary.addComponent(new Physics2D(true));
     this.doorBoundary.addComponent(new RectColliderComponent(new AABB(0,0,100,10)));
     this.doorBoundary.addComponent(new RenderDebugComponent());
 
@@ -45,7 +45,7 @@ class OutsideScene extends Scene {
     this.rearBoundary = new GameObject("rearBoundary");
 
     this.rearBoundary.addComponent(new Transform(9500,400));
-    this.rearBoundary.addComponent(new Physics2D());
+    this.rearBoundary.addComponent(new Physics2D(true));
     this.rearBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,100)));
     this.rearBoundary.addComponent(new RenderDebugComponent());
 
@@ -55,7 +55,7 @@ class OutsideScene extends Scene {
     this.topBoundary = new GameObject("topBoundary");
 
     this.topBoundary.addComponent(new Transform(100,220));
-    this.topBoundary.addComponent(new Physics2D());
+    this.topBoundary.addComponent(new Physics2D(true));
     this.topBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10000,10)));
     this.topBoundary.addComponent(new RenderDebugComponent());
 
@@ -65,7 +65,7 @@ class OutsideScene extends Scene {
     this.bottomBoundary = new GameObject("bottomBoundary");
 
     this.bottomBoundary.addComponent(new Transform(100,700));
-    this.bottomBoundary.addComponent(new Physics2D());
+    this.bottomBoundary.addComponent(new Physics2D(true));
     this.bottomBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10000,10)));
     this.bottomBoundary.addComponent(new RenderDebugComponent());
 
@@ -75,7 +75,7 @@ class OutsideScene extends Scene {
     this.exitBoundary = new GameObject();
 
     this.exitBoundary.addComponent(new Transform(-100,400));
-    this.exitBoundary.addComponent(new Physics2D());
+    this.exitBoundary.addComponent(new Physics2D(true));
     this.exitBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,10)));
     this.exitBoundary.addComponent(new RenderDebugComponent());
 

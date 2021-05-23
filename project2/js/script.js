@@ -303,9 +303,9 @@ function setup() {
   //SET SCENE TO PROPER DESIGNATION WITH TRANSIT BELOW//
   rootStateMachine = new StateMachine();
 
-  gameState.currentScene = "null";
+  gameState.currentScene = "Opening";
 
-  rootStateMachine.transit(new SceneState(globalRenderer, new TestScene()));
+  rootStateMachine.transit(new SceneState(globalRenderer, new OpeningScene()));
 
 
 }

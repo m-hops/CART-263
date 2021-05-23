@@ -16,7 +16,7 @@ class BathroomScene extends Scene {
     this.backwallBoundary = new GameObject();
 
     this.backwallBoundary.addComponent(new Transform(1250,600));
-    this.backwallBoundary.addComponent(new Physics2D());
+    this.backwallBoundary.addComponent(new Physics2D(true));
     this.backwallBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,100)));
     this.backwallBoundary.addComponent(new RenderDebugComponent());
 
@@ -81,7 +81,7 @@ class BathroomScene extends Scene {
     this.doorFrameBoundary = new GameObject();
 
     this.doorFrameBoundary.addComponent(new Transform(89,340));
-    this.doorFrameBoundary.addComponent(new Physics2D());
+    this.doorFrameBoundary.addComponent(new Physics2D(true));
     this.doorFrameBoundary.addComponent(new RectColliderComponent(new AABB(0,0,10,10)));
     this.doorFrameBoundary.addComponent(new RenderDebugComponent());
 
