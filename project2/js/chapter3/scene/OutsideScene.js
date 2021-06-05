@@ -184,7 +184,7 @@ class OutsideScene extends Scene {
       this.ghosts[i] = new GameObject();
 
       this.ghosts[i].addComponent(new Transform());
-      this.ghosts[i].addComponent(new ImageComponent(ghost[Math.floor(random(0,ghost.length))], 1, 1));
+      this.ghosts[i].addComponent(new ImageComponent(ghostBKG[Math.floor(random(0,ghost.length))], 1, 1));
       this.ghosts[i].addComponent(new GhostLoopComponent(limit));
 
       this.ghostPop.addChild(this.ghosts[i]);

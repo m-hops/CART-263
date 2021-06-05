@@ -47,9 +47,9 @@ class OpeningScene extends Scene {
   start() {
     super.start();
 
-    let afterDialogAction = new SetGameVariableAction("Red Key", true, new ChangeSceneAction("Negative Space"))
-    
-    this.dialogBox.playScript(new DialogScriptJSON(openingDialog263), afterDialogAction);
+    let afterDialogAction = new ChangeSceneAction("Negative Space");
+
+    this.dialogBox.playScript(new DialogScriptJSON(openingDialog0), afterDialogAction); 
 
   }
 }
