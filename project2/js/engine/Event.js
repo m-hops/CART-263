@@ -2,9 +2,12 @@
 
 class Event {
 
-  constructor() {
+  constructor(listener=null) {
 
     this.listeners = [];
+    if(listener != null){
+      this.listeners.push(listener);
+    }
   }
 
   //IF LISTENER FOUND, START//
@@ -14,7 +17,6 @@ class Event {
       this.listeners[i].begin(this);
     }
   }
-
   //IF LISTENER FOUND, END//
   end() {
 
