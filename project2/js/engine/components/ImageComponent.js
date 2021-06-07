@@ -13,15 +13,21 @@ class ImageComponent extends RenderComponent{
     this.image = img;
     this.repeatX = repeatX;
     this.repeatY = repeatY;
-
+    this.centered = false;
   }
 
   //ALLOWS ASSETS TO BE LOOPED IF NEEDED//
   render(renderer) {
+    let offsetX = 0;
+    let offsetY = 0;
+    if(this.centered){
+      offsetX = -this.image.width * this.repeatX * 0.5;
+      offsetY = -this.image.height * this.repeatY * 0.5;
+    }
     if(this.image != null){
       for (let y = 0; y < this.repeatY; y++) {
         for (let x = 0; x < this.repeatX; x++) {
-          image(this.image, this.image.width * x, this.image.height * y);
+          image(this.image, this.image.width * x + offsetX, this.image.height * y + offsetY);
         }
       }
     }

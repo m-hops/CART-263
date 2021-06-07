@@ -23,6 +23,7 @@ class Scene {
     }
     obj.scene = this;
     this.gameObjects.add(obj);
+    return obj;
   }
 
   //QUEUES GAME OBJECT FOR REMOVAL FROM SCENE BUT WILL NOT REMOVE UNLESS TOLD TO OR SCENE IS ENDED//

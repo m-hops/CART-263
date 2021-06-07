@@ -44,9 +44,11 @@ class AABB{
     return AABB.MakeCenterExtent(p5.Vector.mult(this.center, value),
       p5.Vector.mult(this.extent, value));
   }
-  multed(x,y){
-    return AABB.MakeCenterExtent(p5.Vector.mult(this.center, createVector(x,y)),
-      p5.Vector.mult(this.extent, value));
+  multedXY(x,y){
+    return this.multed(createVector(x,y));
+  }
+  multedUniform(value){
+    return this.multed(createVector(value,value));
   }
   added(value){
     return AABB.MakeCenterExtent(p5.Vector.add(this.center, value), this.extent);
