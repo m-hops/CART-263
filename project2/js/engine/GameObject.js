@@ -104,6 +104,7 @@ class GameObject {
     this.components.add(comp);
 
     comp.gameObject = this;
+    return comp;
   }
 
   //REMOVE COMPONENT FROM GAME OBJECT//

@@ -8,7 +8,7 @@ class TestScene extends Scene {
     this.cameraOBJ();
     this.ghostTest();
     this.rainTest();
-
+    this.timelineTest();
   }
 
   cameraOBJ() {
@@ -59,4 +59,34 @@ class TestScene extends Scene {
 
   }
 
+
+  timelineTest(){
+
+      this.timelineObject0 = this.addGameObject(new GameObject());
+
+      this.timelineObject0.addComponent(new Transform());
+      let imgComp = this.timelineObject0.addComponent(new ImageComponent(ghostBKG[0], 1, 1));
+      imgComp.centered = true;
+
+      let posTL = this.timelineObject0.addComponent(new PositionTimeline());
+      posTL.addKey(0   , 0,0,0);
+      posTL.addKey(5000, 500,200,0);
+
+      let rotTL = this.timelineObject0.addComponent(new RotationTimeline());
+      rotTL.addKey(0, 0)
+      rotTL.addKey(5000, 90);
+
+      let scaleTL = this.timelineObject0.addComponent(new ScaleTimeline());
+      scaleTL.addKey(0, 1,1,1)
+      scaleTL.addKey(5000, 0.1, 0.1, 0.1);
+
+      this.timelineObject1 = this.addGameObject(new GameObject());
+      let mainActionTL = this.timelineObject1.addComponent(new EventTimeline());
+      mainActionTL.addAction(0, new LogAction("Wait for it!"));
+      mainActionTL.addAction(1000, new StartGOTimelinesAction(this.timelineObject0));
+      mainActionTL.addAction(1001, new LogAction("WEEEEEeeeee...."));
+      mainActionTL.addAction(6000, new LogAction("oh noooo.."));
+      mainActionTL.startTimeline();
+
+  }
 }
