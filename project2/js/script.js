@@ -137,6 +137,7 @@ let ramenBathroomStall;
 let ramenOutside;
 let ramenBathroomNegativeBlink;
 let ramenBathroomNegativeEye = [];
+let ramenBathroomNegativeBodyBag;
 
 //FOR BOAT SCENE//
 let mapBackground;
@@ -252,6 +253,7 @@ function preload() {
   ramenBathroomNegativeEye[1] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeB/eyeB_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeB/eyeB_0053.png`);
   ramenBathroomNegativeEye[2] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeC/eyeC_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeC/eyeC_0053.png`);
   ramenBathroomNegativeEye[3] = loadAnimation(`assets/images/bathRoomSilhouette/ambientEyes/eyeD/eyeD_0000.png`, `assets/images/bathRoomSilhouette/ambientEyes/eyeD/eyeD_0007.png`);
+  ramenBathroomNegativeBodyBag = loadAnimation(`assets/images/bathRoomSilhouette/bodyBag/bodyBag_0000.png`, `assets/images/bathRoomSilhouette/bodyBag/bodyBag_0011.png`);
 
   boatTopSprite = loadImage(`assets/images/boatSection/boatTop.png`);
   mapBackground = loadImage(`assets/images/boatSection/map.png`);
